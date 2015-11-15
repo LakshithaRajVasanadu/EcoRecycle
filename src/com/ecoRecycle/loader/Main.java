@@ -7,8 +7,13 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.ecoRecycle.helper.RcmStatus;
+import com.ecoRecycle.model.Administrator;
 import com.ecoRecycle.model.Location;
 import com.ecoRecycle.model.Rcm;
+import com.ecoRecycle.repository.AdministratorRepository;
+import com.ecoRecycle.repository.ItemRepository;
+import com.ecoRecycle.repository.LocationRepository;
+import com.ecoRecycle.repository.RmosRepository;
 
 public class Main
 {
@@ -17,34 +22,49 @@ public class Main
     	Main main = new Main();
 
         /* Add few employee records in database */
-       // Integer locId = main.addLocation("Santa Clara");
-        //System.out.println("Location created --- " + locId);
     	
-    	Integer rcmId = main.addRcm();
+    	LocationRepository locRepo = new LocationRepository();
+    	Integer locId = locRepo.addLocation("Santa Clara");
+        System.out.println("Location created --- " + locId);
+        
+        Integer locId1 = locRepo.addLocation("Sunnyvale");
+        System.out.println("Location created --- " + locId1);
+        
+        locRepo.getLocation(1);
+        locRepo.getAllLocations();
+    	
+    	/*Integer rcmId = main.addRcm();
     	System.out.println("RCM created --- " + rcmId);
-       
     	
-    }
+    	ItemRepository itemRepo = new ItemRepository();
+    	Integer typeId = itemRepo.addItem("Aluminium");
+    	System.out.println("Item added --- " + typeId);
+    	
+    	
+    	Integer typeId1 = itemRepo.addItem("Glass");
+    	System.out.println("Item added --- " + typeId1);
+       
+    	itemRepo.getItem(1);
+    	itemRepo.getItem(2);
+    	itemRepo.getItem(10);
+    	
+    	itemRepo.getAllItems();
+    	
+    	AdministratorRepository adminRepo = new AdministratorRepository();
+    	Integer adminId = adminRepo.addUser("Lakshitha" , "Lakshitha123");
+    	System.out.println("Admin Created --- " + adminId);
+    	adminRepo.getUser("lakshitha", "lakshitha123");
+    	adminRepo.getUser("lakshitha", "lakshitha");
+        
+        RmosRepository rmosRepo = new RmosRepository();
+        Integer rmosId = rmosRepo.addRmos("LeadRmos");
+        System.out.println("Rmos Created --- " + rmosId);*/
+        
+    }	
     
-    public Integer addLocation(String city){
-        Session session = HibernateLoader.getSessionFactory().openSession();
-        Transaction tx = null;
-        Integer locId = null;
-        try{
-           tx = session.beginTransaction();
-           Location loc = new Location();
-           loc.setCity(city);
-           
-           locId = (Integer) session.save(loc); 
-           tx.commit();
-        }catch (HibernateException e) {
-           if (tx!=null) tx.rollback();
-           e.printStackTrace(); 
-        }finally {
-           session.close(); 
-        }
-        return locId;
-     }
+    
+    
+    
     
     public Integer addRcm(){
         Session session = HibernateLoader.getSessionFactory().openSession();
