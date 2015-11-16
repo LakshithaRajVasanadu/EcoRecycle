@@ -13,6 +13,7 @@ import com.ecoRecycle.model.Rcm;
 import com.ecoRecycle.repository.AdministratorRepository;
 import com.ecoRecycle.repository.ItemRepository;
 import com.ecoRecycle.repository.LocationRepository;
+import com.ecoRecycle.repository.RcmRepository;
 import com.ecoRecycle.repository.RmosRepository;
 
 public class Main
@@ -23,7 +24,7 @@ public class Main
 
         /* Add few employee records in database */
     	
-    	LocationRepository locRepo = new LocationRepository();
+    	/*LocationRepository locRepo = new LocationRepository();
     	Integer locId = locRepo.addLocation("Santa Clara");
         System.out.println("Location created --- " + locId);
         
@@ -32,11 +33,18 @@ public class Main
         
         locRepo.getLocation(1);
         locRepo.getAllLocations();
-    	
-    	/*Integer rcmId = main.addRcm();
+        Location l1 = locRepo.getLocationByName("Santa Clara");
+        System.out.println("Location retrived --- " + l1.getCity() + l1.getId() );*/
+        
+        
+    	RcmRepository rcmRepo = new RcmRepository();
+    	Integer rcmId = rcmRepo.addRcm("FirstRcm", "Santa Clara", 10, 100);
     	System.out.println("RCM created --- " + rcmId);
     	
-    	ItemRepository itemRepo = new ItemRepository();
+    	rcmRepo.getAllRcm();
+    	
+    	
+    	/*ItemRepository itemRepo = new ItemRepository();
     	Integer typeId = itemRepo.addItem("Aluminium");
     	System.out.println("Item added --- " + typeId);
     	
@@ -66,7 +74,7 @@ public class Main
     
     
     
-    public Integer addRcm(){
+    /*public Integer addRcm(){
         Session session = HibernateLoader.getSessionFactory().openSession();
         Transaction tx = null;
         Integer rcmId = null;
@@ -96,5 +104,5 @@ public class Main
            session.close(); 
         }
         return rcmId;
-     }
+     }*/
 }

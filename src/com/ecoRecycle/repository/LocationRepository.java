@@ -50,6 +50,45 @@ public class LocationRepository {
          return retriveLocation;
     }
 	
+	//Get location by name
+	public Location getLocationByName(String city)
+	{
+    	Session session = HibernateLoader.getSessionFactory().openSession();
+    	Location retriveLocationName = null;
+        Transaction tx = null;
+       
+    	try
+    	{
+    		tx = session.beginTransaction();
+    		Query query = session.createQuery("from Location where city = :city");
+    		query.setParameter("city",city);
+    		
+    		java.util.List allUsers = query.list();
+    		if(allUsers.isEmpty())
+    		{
+    			System.out.println("There are no locations in the table");
+    		}
+    		
+    		for (int i = 0; i < allUsers.size(); i++) 
+    		{
+    			retriveLocationName = (Location)allUsers.get(i);
+    			System.out.println("City:" + retriveLocationName.getCity()); 
+    		}
+    		
+            tx.commit();
+    		
+    	}
+    	catch(Exception e){
+    		if (tx!=null) tx.rollback();
+            e.printStackTrace(); 
+    	}
+    	finally {
+    		if (session!=null) 
+            session.close(); 
+         }
+         return retriveLocationName;
+    }
+	
 	// Get all locations
 	
 	public Location getAllLocations()
