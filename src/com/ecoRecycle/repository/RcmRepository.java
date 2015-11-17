@@ -54,6 +54,45 @@ public class RcmRepository {
          return retivedRcms;
     }
 	
+	//Get all RCM by status
+	/*public Rcm getRcmByStatus(String status)
+	{
+    	Session session = HibernateLoader.getSessionFactory().openSession();
+    	Rcm retriveRcmStatus = null;
+        Transaction tx = null;
+       
+    	try
+    	{
+    		tx = session.beginTransaction();
+    		Query query = session.createQuery("from Rcm where status = :status");
+    		query.setParameter("status",status);
+    		
+    		java.util.List allUsers = query.list();
+    		if(allUsers.isEmpty())
+    		{
+    			System.out.println("No RCM's are present");
+    		}
+    		
+    		for (int i = 0; i < allUsers.size(); i++) 
+    		{
+    			retriveRcmStatus = (Rcm)allUsers.get(i);
+    			System.out.println("Status:" + retriveRcmStatus.getStatus()); 
+    		}
+    		
+            tx.commit();
+    		
+    	}
+    	catch(Exception e){
+    		if (tx!=null) tx.rollback();
+            e.printStackTrace(); 
+    	}
+    	finally {
+    		if (session!=null) 
+            session.close(); 
+         }
+         return retriveLocationName;
+    }*/
+	
 	
 	// Add new Rcm (with rcm items)
 	public Integer addRcm(String rcmName, String locName, int totCapacity, int totCashValue)
@@ -70,8 +109,9 @@ public class RcmRepository {
            Location location = lc.getLocationByName(locName);
            System.out.println(location);
            rcm.setLocation(location);
-           rcm.setTotalCapacity(totCapacity);;
-           rcm.setTotalCashValue(totCashValue);;
+           rcm.setTotalCapacity(totCapacity);
+           rcm.setTotalCashValue(totCashValue);
+         
            
            rcmId = (Integer) session.save(rcm); 
            tx.commit();

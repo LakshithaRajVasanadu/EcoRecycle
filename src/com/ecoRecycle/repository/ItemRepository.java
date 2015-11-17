@@ -7,6 +7,7 @@ import org.hibernate.Transaction;
 import com.ecoRecycle.loader.HibernateLoader;
 import com.ecoRecycle.model.Administrator;
 import com.ecoRecycle.model.Item;
+import com.ecoRecycle.model.Rcm;
 
 public class ItemRepository {
 	
@@ -101,7 +102,7 @@ public class ItemRepository {
 	 * 
 	 */
 	
-	public Integer addItem(String type)
+	public Integer addItem(String type, String isbio , String isValid, int pricePerLb)
     {
     	Session session = HibernateLoader.getSessionFactory().openSession();
         Transaction tx = null;
@@ -111,6 +112,9 @@ public class ItemRepository {
     		tx = session.beginTransaction();
             Item item = new Item();
             item.setType(type);
+            item.setBiodegradable(isbio);
+            item.setIsValid(isValid);
+            item.setPricePerLb(pricePerLb);
             
             typeId = (Integer) session.save(item); 
             System.out.println(typeId);
@@ -128,5 +132,50 @@ public class ItemRepository {
     }
 	
 	// Update item
+	
+	public boolean removeItem(String type)
+	{
+    	Session session = HibernateLoader.getSessionFactory().openSession();
+    	Item itemRetrived = null;
+        Transaction tx = null;
+        boolean isDeleted = false;
+       
+    	try
+    	{
+    		tx = session.beginTransaction();
+    		Query query = session.createQuery("delete Item where type = :type");
+    		query.setParameter("type",type);
+    		
+    		/*java.util.List allUsers = query.list();
+    		if(allUsers.isEmpty())
+    		{
+    			System.out.println("No Items to be deleted from the table");
+    		}*/
+    		int result = query.executeUpdate();
+    		if(result == 1)
+    		{
+    			System.out.println("Deleted");
+    			isDeleted = true;
+    		}
+    		
+    		/*for (int i = 0; i < allUsers.size(); i++) 
+    		{
+    			rcmRetrived = (Rcm) allUsers.get(i);
+    			System.out.println("Name:" + rcmRetrived.getName()); 
+    		}*/
+    		
+            tx.commit();
+    		
+    	}
+    	catch(Exception e){
+    		if (tx!=null) tx.rollback();
+            e.printStackTrace(); 
+    	}
+    	finally {
+    		if (session!=null) 
+            session.close(); 
+         }
+         return isDeleted;
+	}	
 
 }

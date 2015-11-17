@@ -16,8 +16,30 @@ public class Item {
 	private String type;
 	
 	@Column(name = "isBiodegradable")
-	private boolean isBiodegradable;
+	private String isBiodegradable;
 	
+	@Column(name = "isValid")
+	private String isValid;
+	
+	@Column(name = "pricePerLb")
+	private int pricePerLb;
+	
+	public String getIsValid() {
+		return isValid;
+	}
+
+	public void setIsValid(String isValid) {
+		this.isValid = isValid;
+	}
+
+	public int getPricePerLb() {
+		return pricePerLb;
+	}
+
+	public void setPricePerLb(int pricePerLb2) {
+		this.pricePerLb = pricePerLb2;
+	}
+
 	@Column(name = "createDateTime")
 	private Date createDateTime;
 	
@@ -40,11 +62,11 @@ public class Item {
 		this.type = type;
 	}
 
-	public boolean isBiodegradable() {
+	public String isBiodegradable() {
 		return isBiodegradable;
 	}
 
-	public void setBiodegradable(boolean isBiodegradable) {
+	public void setBiodegradable(String isBiodegradable) {
 		this.isBiodegradable = isBiodegradable;
 	}
 
@@ -67,7 +89,10 @@ public class Item {
 	@Override
 	public String toString() {
 		return "Item [id=" + id + ", type=" + type + ", isBiodegradable="
-				+ isBiodegradable + "]";
+				+ isBiodegradable + ", isValid=" + isValid + ", pricePerLb="
+				+ pricePerLb + ", createDateTime=" + createDateTime
+				+ ", updateDateTime=" + updateDateTime + "]";
 	}
+
 
 }
