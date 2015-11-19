@@ -9,6 +9,86 @@ import com.ecoRecycle.model.Administrator;
 
 public class AdministratorService {
 
+	
+	
+	public boolean userDoesNotExist(String userName)
+	{
+		Session session = HibernateLoader.getSessionFactory().openSession();
+    	Administrator admin = null;
+        Transaction tx = null;
+        boolean userExist = false;
+        
+        try
+    	{
+    		tx = session.beginTransaction();
+    		//Query query = session.createQuery("from Administrator where userName = :username and password = :password");
+    		Query query = session.createQuery("from Administrator where userName = :username");
+    		query.setParameter("username",userName);
+    		//query.setParameter("password",password);
+    		
+    		java.util.List allUsers = query.list();
+    		if(allUsers.isEmpty())
+    		{
+    			
+    			//System.out.println("ACCESS DENIED:USER DOESNT NOT EXIST");
+    			userExist = true;
+    		}
+    		tx.commit();
+    	}
+        catch(Exception e)
+        {
+    		if (tx!=null) tx.rollback();
+            e.printStackTrace(); 
+    	}
+    	finally 
+    	{
+    		if (session!=null) 
+            session.close(); 
+         }
+    	
+         return userExist;
+	}
+	
+	public boolean incorrectPassword(String userName, String Password)
+	{
+		Session session = HibernateLoader.getSessionFactory().openSession();
+    	Administrator admin = null;
+        Transaction tx = null;
+        boolean worngPassword = false;
+       
+       
+    	try
+    	{
+    		tx = session.beginTransaction();
+    		Query query = session.createQuery("from Administrator where userName = :username and password = :password");
+    		//Query query = session.createQuery("from Administrator where userName = :username");
+    		query.setParameter("username",userName);
+    		query.setParameter("password",Password);
+    		
+    		java.util.List allUsers = query.list();
+    		if(allUsers.isEmpty())
+    		{
+    			worngPassword = true;
+    			//System.out.println("ACCESS DENIED:USER DOESNT NOT EXIST");
+    		}
+    		tx.commit();
+    	}
+        catch(Exception e)
+        {
+    		if (tx!=null) tx.rollback();
+            e.printStackTrace(); 
+    	}
+    	finally 
+    	{
+    		if (session!=null) 
+            session.close(); 
+         }
+    	
+         return worngPassword;
+    		
+    		
+	}
+	
 	// Check if username and password is matching given username and password
 	
 	/*
@@ -16,11 +96,14 @@ public class AdministratorService {
 	 * both username and password matches 
 	 * else it prints "Access Denied" and return NULL
 	 */
+	
+	
 	public Administrator userAuthentication(String userName , String password)
     {
     	Session session = HibernateLoader.getSessionFactory().openSession();
     	Administrator admin = null;
         Transaction tx = null;
+       
        
     	try
     	{
@@ -33,6 +116,7 @@ public class AdministratorService {
     		java.util.List allUsers = query.list();
     		if(allUsers.isEmpty())
     		{
+    			
     			System.out.println("ACCESS DENIED:USER DOESNT NOT EXIST");
     		}
     		
@@ -49,6 +133,7 @@ public class AdministratorService {
     				//System.out.println("Password in db : " + admin.getPassword() + " Password from UI : " + password);
     				if(!admin.getPassword().equals(password))
     				{
+    					
     					System.out.println("USERNAME AND PASSWORD DOES NOT MATCH");
     				}
     			}
@@ -65,6 +150,7 @@ public class AdministratorService {
     		if (session!=null) 
             session.close(); 
          }
+    	
          return admin;
     }
 	

@@ -25,7 +25,7 @@ public class RcmService {
 	public boolean removeRcm(String name)
 	{
     	RcmRepository rcmRepo = new RcmRepository();
-    	boolean isDeleted = rcmRepo.removeRcm(name);
+    	boolean isDeleted = rcmRepo.updateRcm(name);
     	return isDeleted;
 	}
 	
@@ -39,10 +39,11 @@ public class RcmService {
     	try
     	{
     		tx = session.beginTransaction();
-    		Query query = session.createQuery("from Rcm");
+    		Query query = session.createQuery("from Rcm where isValid = :isValid");
+    		query.setParameter("isValid", "valid");
     		
     		java.util.List allUsers = query.list();
-    		System.out.println("Number of RCMs : " + allUsers.size());
+    		//System.out.println("Number of RCMs : " + allUsers.size());
     		if(allUsers.isEmpty())
     		{
     			System.out.println("No RCM's are present");
@@ -51,7 +52,7 @@ public class RcmService {
     		for (int i = 0; i < allUsers.size(); i++) 
     		{
     			retivedRcm = (Rcm) allUsers.get(i);
-    			System.out.println("Name:" + retivedRcm.getName()); 
+    			//System.out.println("Name:" + retivedRcm.getName()); 
     			rcmNames.add(retivedRcm.getName());
     		}
     		

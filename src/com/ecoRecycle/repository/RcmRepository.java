@@ -127,18 +127,19 @@ public class RcmRepository {
 	// Update Rcm 
 	
 	// Remove Rcm = update rcm
-	public boolean removeRcm(String name)
+	public boolean updateRcm(String name)
 	{
     	Session session = HibernateLoader.getSessionFactory().openSession();
     	Rcm rcmRetrived = null;
         Transaction tx = null;
-        boolean isDeleted = false;
+        boolean isUpdated = false;
        
     	try
     	{
     		tx = session.beginTransaction();
-    		Query query = session.createQuery("delete Rcm where name = :name");
-    		query.setParameter("name",name);
+    		Query query = session.createQuery("update Rcm set isValid = :isValid where name = :name");
+    		query.setParameter("isValid","invalid");
+    		query.setParameter("name", name);
     		
     		/*java.util.List allUsers = query.list();
     		if(allUsers.isEmpty())
@@ -148,8 +149,8 @@ public class RcmRepository {
     		int result = query.executeUpdate();
     		if(result == 1)
     		{
-    			System.out.println("Deleted");
-    			isDeleted = true;
+    			System.out.println("Updated");
+    			isUpdated = true;
     		}
     		
     		/*for (int i = 0; i < allUsers.size(); i++) 
@@ -169,6 +170,6 @@ public class RcmRepository {
     		if (session!=null) 
             session.close(); 
          }
-         return isDeleted;
+         return isUpdated;
 	}	
 }
