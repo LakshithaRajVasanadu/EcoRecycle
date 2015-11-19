@@ -5,6 +5,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.ecoRecycle.helper.RcmStatus;
 import com.ecoRecycle.loader.HibernateLoader;
 import com.ecoRecycle.model.Item;
 import com.ecoRecycle.model.Location;
@@ -111,6 +112,7 @@ public class RcmRepository {
            rcm.setLocation(location);
            rcm.setTotalCapacity(totCapacity);
            rcm.setTotalCashValue(totCashValue);
+           rcm.setStatus(RcmStatus.ACTIVE);
          
            
            rcmId = (Integer) session.save(rcm); 
@@ -137,8 +139,8 @@ public class RcmRepository {
     	try
     	{
     		tx = session.beginTransaction();
-    		Query query = session.createQuery("update Rcm set isValid = :isValid where name = :name");
-    		query.setParameter("isValid","invalid");
+    		Query query = session.createQuery("update Rcm set status = :status where name = :name");
+    		query.setParameter("status", RcmStatus.INACTIVE);
     		query.setParameter("name", name);
     		
     		/*java.util.List allUsers = query.list();

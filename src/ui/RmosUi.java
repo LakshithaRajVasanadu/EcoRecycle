@@ -357,16 +357,7 @@ public class RmosUi
                 JComboBox comboBox = new JComboBox(returnedItems.toArray());
                 pane.add(comboBox);*/
                                          
-                isbio = new JLabel("IS THE ITEM BIODEGRADABLE?");
-                pane.add(isbio);
-                isbioText = new JTextField();
-                isbioText.setPreferredSize(new Dimension(5, 10));
-                pane.add(isbioText);
-                
-                isValid = new JLabel("ENTER ITEM IS VALID OR INVALID");
-                pane.add(isValid);
-                isValidText = new JTextField();
-                pane.add(isValidText);
+               
                 
                 pricePerLb = new JLabel("ENTER Price Per lb");
                 pane.add(pricePerLb);
@@ -393,17 +384,15 @@ public class RmosUi
                 		
                 		//String value2 =comboBox.getSelectedItem().toString();
                 		
-                		String value2 = isbioText.getText();
                 		//int val3 = Integer.parseInt(value3);
                 		
-                		String value3 = isValidText.getText();
                 		//int val4 = Integer.parseInt(value4);
                 		
                 		String value4 = pricePerLbText.getText();
-                		int val4 = Integer.parseInt(value4);
+                		double val4 = Double.parseDouble(value4);
                 		
                 		ItemService is = new ItemService();
-                		is.addItem(value1,value2 , value3, val4);
+                		is.addItem(value1, val4);
                 	}
                 }
                 

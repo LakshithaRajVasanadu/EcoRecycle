@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.ecoRecycle.helper.RcmStatus;
 import com.ecoRecycle.loader.HibernateLoader;
 import com.ecoRecycle.model.Location;
 import com.ecoRecycle.model.Rcm;
@@ -39,8 +40,8 @@ public class RcmService {
     	try
     	{
     		tx = session.beginTransaction();
-    		Query query = session.createQuery("from Rcm where isValid = :isValid");
-    		query.setParameter("isValid", "valid");
+    		Query query = session.createQuery("from Rcm where status = :status");
+    		query.setParameter("status", RcmStatus.ACTIVE);
     		
     		java.util.List allUsers = query.list();
     		//System.out.println("Number of RCMs : " + allUsers.size());

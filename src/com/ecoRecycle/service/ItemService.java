@@ -14,11 +14,15 @@ import com.ecoRecycle.repository.RcmRepository;
 public class ItemService 
 {
 	
-	public Integer addItem(String itemName, String isbio, String isValid, int pricePerLb)
+	public Integer addItem(String itemName, double pricePerLb)
 	{
 		
 		ItemRepository itemRepo = new ItemRepository();
-    	Integer itemId = itemRepo.addItem(itemName, isbio, isValid, pricePerLb);
+		Item item = new Item();
+		item.setType(itemName);
+		item.setIsValid(true);
+		item.setPricePerLb(pricePerLb);
+    	Integer itemId = itemRepo.addItem(item);
     	System.out.println("Item created --- " + itemId);
 		return itemId;
 	}
@@ -45,7 +49,7 @@ public class ItemService
 			{
 				tx = session.beginTransaction();
 				Query query = session.createQuery("from Item where isValid = :isValid");
-				query.setParameter("isValid", "valid");
+				query.setParameter("isValid", true);
 
     		
 				java.util.List allUsers = query.list();

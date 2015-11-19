@@ -101,7 +101,36 @@ public class ItemRepository {
 	 * 
 	 */
 	
-	public Integer addItem(String type, String isbio , String isValid, int pricePerLb)
+//	public Integer addItem(String type , String isValid, int pricePerLb)
+//    {
+//    	Session session = HibernateLoader.getSessionFactory().openSession();
+//        Transaction tx = null;
+//        Integer typeId = null;
+//    	try
+//    	{
+//    		tx = session.beginTransaction();
+//            Item item = new Item();
+//            item.setType(type);
+//            item.setIsValid(isValid);
+//            item.setPricePerLb(pricePerLb);
+//            
+//            typeId = (Integer) session.save(item); 
+//            System.out.println(typeId);
+//            tx.commit();
+//    		
+//    	}
+//    	catch(Exception e){
+//    		if (tx!=null) tx.rollback();
+//            e.printStackTrace(); 
+//    	}
+//    	finally {
+//            session.close(); 
+//         }
+//         return typeId;
+//    }
+	
+	
+	public Integer addItem(Item item)
     {
     	Session session = HibernateLoader.getSessionFactory().openSession();
         Transaction tx = null;
@@ -109,11 +138,6 @@ public class ItemRepository {
     	try
     	{
     		tx = session.beginTransaction();
-            Item item = new Item();
-            item.setType(type);
-            item.setBiodegradable(isbio);
-            item.setIsValid(isValid);
-            item.setPricePerLb(pricePerLb);
             
             typeId = (Integer) session.save(item); 
             System.out.println(typeId);
@@ -129,7 +153,6 @@ public class ItemRepository {
          }
          return typeId;
     }
-	
 	// Remove item
 	/*public boolean removeItem(String type)
 	{
@@ -188,7 +211,7 @@ public class ItemRepository {
     	{
     		tx = session.beginTransaction();
     		Query query = session.createQuery("update Item set isValid = :isValid where type = :type");
-    		query.setParameter("isValid", "invalid");
+    		query.setParameter("isValid", false);
     		query.setParameter("type", type);
     		
 			//query.setParameter("isValid",invalid);

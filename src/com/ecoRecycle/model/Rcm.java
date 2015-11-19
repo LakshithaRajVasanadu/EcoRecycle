@@ -28,9 +28,6 @@ public class Rcm {
 	@Column(name = "totalCashValue")
 	private double totalCashValue;
 	
-	@Column(name = "totalCouponValue")
-	private double totalCouponValue; // Might not need this
-	
 	@Column(name = "currentCapacity")
 	private double currentCapacity;
 	
@@ -53,21 +50,6 @@ public class Rcm {
 	@Column(name = "updateDateTime")
 	private Date updateDateTime;
 	
-	@OneToMany(mappedBy = "rcm", cascade = CascadeType.ALL)
-	private Set<RcmItem> rcmItems = new HashSet<RcmItem>();
-	
-    public Set<RcmItem> getRcmItems() {
-        return rcmItems;
-    }
- 
-    public void setRcmItems(Set<RcmItem> rcmItems) {
-        this.rcmItems = rcmItems;
-    }
-     
-    public void addRcmItem(RcmItem rcmItem) {
-        this.rcmItems.add(rcmItem);
-    }  
-
 	public int getId() {
 		return id;
 	}
@@ -106,14 +88,6 @@ public class Rcm {
 
 	public void setTotalCashValue(double totalCashValue) {
 		this.totalCashValue = totalCashValue;
-	}
-
-	public double getTotalCouponValue() {
-		return totalCouponValue;
-	}
-
-	public void setTotalCouponValue(double totalCouponValue) {
-		this.totalCouponValue = totalCouponValue;
 	}
 
 	public double getCurrentCapacity() {
@@ -171,6 +145,13 @@ public class Rcm {
 	public void setUpdateDateTime(Date updateDateTime) {
 		this.updateDateTime = updateDateTime;
 	}
+	
+	// Rcm has rmos
+//	@OneToOne(cascade = CascadeType.ALL)
+//	@JoinTable(name = "RmosRcm")
+//	public Rmos getRmos() {
+//		
+//	}
 	
 	@Override
 	public String toString() {
