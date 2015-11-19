@@ -62,7 +62,7 @@ public class ItemRepository {
 	public Item getAllItems()
 	{
     	Session session = HibernateLoader.getSessionFactory().openSession();
-    	Item itemsRetrived = null;
+    	Item retivedItems = null;
         Transaction tx = null;
        
     	try
@@ -73,13 +73,13 @@ public class ItemRepository {
     		java.util.List allUsers = query.list();
     		if(allUsers.isEmpty())
     		{
-    			System.out.println("No Items to retrive from the table");
+    			System.out.println("No Items present");
     		}
     		
     		for (int i = 0; i < allUsers.size(); i++) 
     		{
-    			itemsRetrived = (Item) allUsers.get(i);
-    			System.out.println("Type:" + itemsRetrived.getType()); 
+    			retivedItems = (Item) allUsers.get(i);
+    			System.out.println("type:" + retivedItems.getType()); 
     		}
     		
             tx.commit();
@@ -93,9 +93,8 @@ public class ItemRepository {
     		if (session!=null) 
             session.close(); 
          }
-         return itemsRetrived;
+         return retivedItems;
     }
-	
 	
 	/*
 	 * Given the type of the item, adds the item to the database's item table
@@ -131,9 +130,8 @@ public class ItemRepository {
          return typeId;
     }
 	
-	// Update item
-	
-	public boolean removeItem(String type)
+	// Remove item
+	/*public boolean removeItem(String type)
 	{
     	Session session = HibernateLoader.getSessionFactory().openSession();
     	Item itemRetrived = null;
@@ -146,6 +144,55 @@ public class ItemRepository {
     		Query query = session.createQuery("delete Item where type = :type");
     		query.setParameter("type",type);
     		
+    		java.util.List allUsers = query.list();
+    		if(allUsers.isEmpty())
+    		{
+    			System.out.println("No Items to be deleted from the table");
+    		}
+    		int result = query.executeUpdate();
+    		if(result == 1)
+    		{
+    			System.out.println("Deleted");
+    			isDeleted = true;
+    		}
+    		
+    	for (int i = 0; i < allUsers.size(); i++) 
+    		{
+    			rcmRetrived = (Rcm) allUsers.get(i);
+    			System.out.println("Name:" + rcmRetrived.getName()); 
+    		}
+    		
+            tx.commit();
+    		
+    	}
+    	catch(Exception e){
+    		if (tx!=null) tx.rollback();
+            e.printStackTrace(); 
+    	}
+    	finally {
+    		if (session!=null) 
+            session.close(); 
+         }
+         return isDeleted;
+	}	*/
+	
+	//Update item
+	public boolean updateItem(String type)
+	{
+    	Session session = HibernateLoader.getSessionFactory().openSession();
+    	Item itemRetrived = null;
+        Transaction tx = null;
+        boolean isUpdated = false;
+       
+    	try
+    	{
+    		tx = session.beginTransaction();
+    		Query query = session.createQuery("update Item set isValid = :isValid where type = :type");
+    		query.setParameter("isValid", "invalid");
+    		query.setParameter("type", type);
+    		
+			//query.setParameter("isValid",invalid);
+    		
     		/*java.util.List allUsers = query.list();
     		if(allUsers.isEmpty())
     		{
@@ -154,8 +201,8 @@ public class ItemRepository {
     		int result = query.executeUpdate();
     		if(result == 1)
     		{
-    			System.out.println("Deleted");
-    			isDeleted = true;
+    			System.out.println("Updated");
+    			isUpdated = true;
     		}
     		
     		/*for (int i = 0; i < allUsers.size(); i++) 
@@ -175,7 +222,57 @@ public class ItemRepository {
     		if (session!=null) 
             session.close(); 
          }
-         return isDeleted;
+         return isUpdated;
 	}	
+	
+	//change price of an item
+		public boolean changeItemPrice(String type, int price)
+		{
+	    	Session session = HibernateLoader.getSessionFactory().openSession();
+	    	Item priceChanged = null;
+	        Transaction tx = null;
+	        boolean isUpdated = false;
+	       
+	    	try
+	    	{
+	    		tx = session.beginTransaction();
+	    		Query query = session.createQuery("update Item set PricePerLb = :PricePerLb where type = :type");
+	    		query.setParameter("PricePerLb", price);
+	    		query.setParameter("type", type);
+	    		
+				//query.setParameter("isValid",invalid);
+	    		
+	    		/*java.util.List allUsers = query.list();
+	    		if(allUsers.isEmpty())
+	    		{
+	    			System.out.println("No Items to be deleted from the table");
+	    		}*/
+	    		int result = query.executeUpdate();
+	    		if(result == 1)
+	    		{
+	    			System.out.println("Updated");
+	    			isUpdated = true;
+	    		}
+	    		
+	    		/*for (int i = 0; i < allUsers.size(); i++) 
+	    		{
+	    			rcmRetrived = (Rcm) allUsers.get(i);
+	    			System.out.println("Name:" + rcmRetrived.getName()); 
+	    		}*/
+	    		
+	            tx.commit();
+	    		
+	    	}
+	    	catch(Exception e){
+	    		if (tx!=null) tx.rollback();
+	            e.printStackTrace(); 
+	    	}
+	    	finally {
+	    		if (session!=null) 
+	            session.close(); 
+	         }
+	         return isUpdated;
+		}	
+
 
 }
