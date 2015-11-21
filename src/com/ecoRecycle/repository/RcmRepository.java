@@ -1,5 +1,8 @@
 package com.ecoRecycle.repository;
 
+import javax.persistence.criteria.Expression;
+
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -174,4 +177,17 @@ public class RcmRepository {
          }
          return isUpdated;
 	}	
+	
+	
+	// To be coded
+public Rcm getRcmByName(String name) {
+	Session session = HibernateLoader.getSessionFactory().openSession();
+	Criteria criteria = session.createCriteria(Rcm.class);
+
+	Rcm rcm = new Rcm();
+	rcm.setName("RCM256");
+	rcm.setStatus(RcmStatus.ACTIVE);
+	
+	return rcm;
+}
 }

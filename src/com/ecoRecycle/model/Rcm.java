@@ -1,7 +1,10 @@
 package com.ecoRecycle.model;
 
 import javax.persistence.*;
+
 import java.util.Date;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Set;
 import java.util.HashSet;
 
@@ -9,7 +12,7 @@ import com.ecoRecycle.helper.RcmStatus;
 
 @Entity
 @Table(name = "RCM")
-public class Rcm {
+public class Rcm extends Observable{
 	@Id 
 	@GeneratedValue
 	@Column(name = "id")
@@ -161,5 +164,7 @@ public class Rcm {
 				+ ", currentCashValue=" + currentCashValue + ", status="
 				+ status + ", lastEmptied=" + lastEmptied + "]";
 	}
+
+	
 
 }

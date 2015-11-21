@@ -2,6 +2,7 @@ package com.ecoRecycle.service;
 
 import java.util.ArrayList;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -70,5 +71,13 @@ public class RcmService {
          }
          return rcmNames;
     }
+	
+	// TBD
+	public Rcm getRcmByName(String name) {
+		RcmRepository r = new RcmRepository();
+		
+		return r.getRcmByName(name);
+		
+	}
 	
 }

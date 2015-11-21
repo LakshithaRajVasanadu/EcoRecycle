@@ -1,14 +1,15 @@
 package ui;
 
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
-public class RcmUi 
+
+public class RcmUIManager extends JFrame
 {
-	JFrame frame = new JFrame();
 	public static void main(String[] args) 
 	{
 		EventQueue.invokeLater(new Runnable() 
@@ -17,8 +18,7 @@ public class RcmUi
 			{
 				try 
 				{
-					RcmUi window = new RcmUi();
-					window.frame.setVisible(true);
+					RcmUIManager window = new RcmUIManager();
 				} 
 				catch (Exception e) 
 				{
@@ -31,9 +31,17 @@ public class RcmUi
 	/**
 	* Create the application.
 	*/
-	public RcmUi() 
+	public RcmUIManager() 
 	{
+		super("RCM");
+
 		initialize();
+		
+		Container contenPane = this.getContentPane();
+		
+		contenPane.add(new RcmUI("Rcm256"));
+		setVisible(true);
+
 	}
 
 	/**
@@ -41,11 +49,11 @@ public class RcmUi
 	*/
 	private void initialize() 
 	{
-			//frame = new JFrame();
-			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-			frame.setSize(screenSize.width/2, screenSize.height);
 			
-			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+			setSize(screenSize.width/2, screenSize.height);
+			setLocation(screenSize.width/2, 0);
+			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			
 			
 	}
