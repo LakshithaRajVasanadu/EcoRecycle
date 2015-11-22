@@ -38,6 +38,28 @@ public class RmosRepository {
 		return rmos;
 	}
 	
+	public Rmos getRmosByName(String name) {
+		Session session = HibernateLoader.getSessionFactory().openSession();
+		Transaction tx = null;
+		Rmos rmos = null;
+		try {
+			tx = session.beginTransaction();
+
+			Criteria criteria = session.createCriteria(Rmos.class);
+			criteria.add(Restrictions.eq("name", name));
+			rmos= (Rmos) criteria.uniqueResult();
+
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return rmos;
+	}
+	
 	public boolean updateRmos(Rmos rmos){
 		Session session = HibernateLoader.getSessionFactory().openSession();
 		Transaction tx = null;

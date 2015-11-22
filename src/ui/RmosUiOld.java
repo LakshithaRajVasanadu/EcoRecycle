@@ -35,7 +35,7 @@ import com.ecoRecycle.service.RcmService;
 
 import ui.AdminLogin.ButtonListener;
 
-public class RmosUi 
+public class RmosUiOld 
 {
 	/*creating a frame for the rmos window*/
 	private JFrame frame;
@@ -52,7 +52,7 @@ public class RmosUi
 			{
 				try 
 				{
-					RmosUi window = new RmosUi();
+					RmosUiOld window = new RmosUiOld();
 					window.frame.setVisible(true);
 				} 
 				catch (Exception e) 
@@ -66,7 +66,7 @@ public class RmosUi
 	/**
 	* Create the application.
 	*/
-	public RmosUi() 
+	public RmosUiOld() 
 	{
 		initialize();
 	}
