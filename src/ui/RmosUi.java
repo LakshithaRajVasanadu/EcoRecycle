@@ -29,7 +29,7 @@ import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 
 import com.ecoRecycle.repository.RcmRepository;
-import com.ecoRecycle.service.ItemService;
+import com.ecoRecycle.service.ItemManager;
 import com.ecoRecycle.service.LocationService;
 import com.ecoRecycle.service.RcmService;
 
@@ -391,7 +391,7 @@ public class RmosUi
                 		String value4 = pricePerLbText.getText();
                 		double val4 = Double.parseDouble(value4);
                 		
-                		ItemService is = new ItemService();
+                		ItemManager is = new ItemManager();
                 		is.addItem(value1, val4);
                 	}
                 }
@@ -420,7 +420,7 @@ public class RmosUi
                 JLabel comboItemHeader = new JLabel("SELECT ITEM TO BE REMOVED");
                 pane.add(comboItemHeader);
                 
-                ItemService is = new ItemService();
+                ItemManager is = new ItemManager();
                 
                 ArrayList<String> returnedItems = is.getAllItems();
                 System.out.println(returnedItems.size());
@@ -446,7 +446,7 @@ public class RmosUi
                 		
                 		
                 		
-                		ItemService is = new ItemService();
+                		ItemManager is = new ItemManager();
                 		
                 		if(is.updateItem(value1))
                 		{
@@ -480,7 +480,7 @@ public class RmosUi
                 JLabel comboItemPriceChangeHeader = new JLabel("SELECT ITEM TO CHANGE THE PRICE");
                 pane.add(comboItemPriceChangeHeader);
                 
-                ItemService is = new ItemService();
+                ItemManager is = new ItemManager();
                 
                 ArrayList<String> returnedItems = is.getAllItems();
                 System.out.println(returnedItems.size());
@@ -519,7 +519,7 @@ public class RmosUi
                 			int val5 = Integer.parseInt(value5);
          
                 		
-                			ItemService is = new ItemService();
+                			ItemManager is = new ItemManager();
                 		
                 			if(is.changePrice(value1, val5))
                 			{

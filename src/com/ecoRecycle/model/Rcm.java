@@ -21,7 +21,7 @@ public class Rcm extends Observable{
 	@Column(name = "name", unique = true)
 	private String name;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "locationId")
 	private Location location;
 	
@@ -53,6 +53,26 @@ public class Rcm extends Observable{
 	@Column(name = "updateDateTime")
 	private Date updateDateTime;
 	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinTable(name="RmosRcmMapping",
+    joinColumns={@JoinColumn(name="rcmId")},
+    inverseJoinColumns={@JoinColumn(name="rmosId")})
+	private Rmos rmos;
+	
+	@OneToMany(mappedBy = "rcm", cascade = CascadeType.ALL)
+	private Set<Transaction> transactions = new HashSet<Transaction>();
+	
+	public Set<Transaction> getTransactions() {
+        return transactions;
+    }
+ 
+    public void setTransactions(Set<Transaction> transactions) {
+        this.transactions = transactions;
+    }
+     
+    public void addTransaction(Transaction transaction) {
+        this.transactions.add(transaction);
+    }
 	public int getId() {
 		return id;
 	}
@@ -149,12 +169,17 @@ public class Rcm extends Observable{
 		this.updateDateTime = updateDateTime;
 	}
 	
-	// Rcm has rmos
-//	@OneToOne(cascade = CascadeType.ALL)
-//	@JoinTable(name = "RmosRcm")
-//	public Rmos getRmos() {
-//		
-//	}
+	public Rmos getRmos() {
+		return rmos;
+	}
+	
+	public boolean isFull() {
+		return (this.currentCapacity == this.totalCapacity);
+	}
+	
+	public boolean isEmpty() {
+		return (this.currentCapacity == 0);
+	}
 	
 	@Override
 	public String toString() {

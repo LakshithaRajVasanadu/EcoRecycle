@@ -1,45 +1,36 @@
 package com.ecoRecycle.repository;
 
-import org.hibernate.Query;
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import com.ecoRecycle.loader.HibernateLoader;
 import com.ecoRecycle.model.Administrator;
 
 public class AdministratorRepository {
 
-	/*
-	 * Given Username and Password, adds the user to the database's administrator table.
-	 * 
-	 */
-	public Integer addUser(String userName , String password)
-    {
-    	Session session = HibernateLoader.getSessionFactory().openSession();
-        Transaction tx = null;
-        Integer adminId = null;
-    	try
-    	{
-    		tx = session.beginTransaction();
-            Administrator admin = new Administrator();
-            admin.setUsername(userName);
-            admin.setPassword(password);
-            
-            adminId = (Integer) session.save(admin); 
-            System.out.println(adminId);
-            tx.commit();
-    		
-    	}
-    	catch(Exception e){
-    		if (tx!=null) tx.rollback();
-            e.printStackTrace(); 
-    	}
-    	finally {
-            session.close(); 
-         }
-         return adminId;
-    }
-	
-	
+	public Administrator getAdmin(String username) {
+		Session session = HibernateLoader.getSessionFactory().openSession();
+		Transaction tx = null;
+		Administrator admin = null;
+		try {
+			tx = session.beginTransaction();
+
+			Criteria criteria = session.createCriteria(Administrator.class);
+			criteria.add(Restrictions.eq("username", username));
+			admin = (Administrator) criteria.uniqueResult();
+
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return admin;
+	}
 	
 }
