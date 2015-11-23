@@ -3,6 +3,7 @@ package com.ecoRecycle.service;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Observable;
 import java.util.Set;
 
 import com.ecoRecycle.helper.Message;
@@ -12,7 +13,7 @@ import com.ecoRecycle.model.Rmos;
 import com.ecoRecycle.model.RmosRcmMapping;
 import com.ecoRecycle.repository.RmosRepository;
 
-public class StatusManager {
+public class StatusManager extends Observable{
 	private Rmos rmos;
 	RmosRepository repository;
 	
@@ -20,19 +21,6 @@ public class StatusManager {
 	public StatusManager(Rmos rmos) {
 		this.rmos = rmos;
 		this.repository = new RmosRepository();
-	}
-	
-	public List<Rcm> getAllRcms() {
-		Set<RmosRcmMapping> mappings = this.rmos.getRmosRcmMappings();
-		List<Rcm> rcms = new ArrayList<Rcm>();
-
-		Iterator<RmosRcmMapping> iter = mappings.iterator();
-		while (iter.hasNext()) {
-			RmosRcmMapping mapping = iter.next();
-			rcms.add(mapping.getRcm());
-		}
-		
-		return rcms;
 	}
 	
 	public Message activateRcm(int id) {
@@ -53,8 +41,12 @@ public class StatusManager {
 		msg.setSuccessful(rcmService.updateRcm(rcm));
 		if(!msg.isSuccessful()) {
 			msg.setMessage("Could not activate Rcm");
-		} else
+		} else {
 			this.rmos = repository.getRmosById(this.rmos.getId());
+			
+		}
+		setChanged();
+		notifyObservers();
 		
 		return msg;
 	}
@@ -77,8 +69,12 @@ public class StatusManager {
 		msg.setSuccessful(rcmService.updateRcm(rcm));
 		if(!msg.isSuccessful()) {
 			msg.setMessage("Could not deactivate Rcm");
-		} else
+		} else {
 			this.rmos = repository.getRmosById(this.rmos.getId());
+			
+		}
+		setChanged();
+		notifyObservers();
 		
 		return msg;
 	}

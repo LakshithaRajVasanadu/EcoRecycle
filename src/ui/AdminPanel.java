@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -22,6 +23,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import com.ecoRecycle.model.Administrator;
+import com.ecoRecycle.model.Rmos;
 import com.ecoRecycle.service.AdministratorService;
 
 import ui.AdminLogin.ButtonListener;
@@ -33,7 +36,13 @@ public class AdminPanel extends JPanel{
 	JTextField usernameTextField;
 	JPasswordField passwordField;
 	
-	public AdminPanel() {
+	private JPanel parentPanel ;
+	private Rmos rmos;
+	
+	public AdminPanel(JPanel parent, Rmos rmos) {
+		
+		parentPanel = parent;
+		this.rmos = rmos;
 		
 		TitledBorder border = new TitledBorder("Admin Login");
 		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 18));
@@ -79,13 +88,28 @@ public class AdminPanel extends JPanel{
 				String username = usernameTextField.getText();
 				String password = String.valueOf(passwordField.getPassword());
 				
-				if(!service.isUserValid(username, password))
+				if(service.isUserValid(username, password)) {
+					Administrator admin = service.getAdmin(username);
+					
+					if(admin.getId() == rmos.getAdmin().getId()) {
+						System.out.println("Login success");
+						
+						CardLayout cl = (CardLayout) (parentPanel.getLayout());
+						cl.show(parentPanel, RmosUI.MAIN_PANEL);
+					}
+					else {
+						System.out.println("Login failed - admin doesn not belong to this Rmos");
+						JOptionPane.showMessageDialog(null,
+								"User Login Failed", "Error",
+								JOptionPane.ERROR_MESSAGE);
+					}
+					
+				}
+				else {
+					System.out.println("Login failed - username password do not match");
 					JOptionPane.showMessageDialog(null,
 							"User Login Failed", "Error",
 							JOptionPane.ERROR_MESSAGE);
-				else
-				{
-					// NEed to load next ui
 				}
 				
 			}

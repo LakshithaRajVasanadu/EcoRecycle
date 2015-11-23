@@ -1,5 +1,11 @@
 package com.ecoRecycle.service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Observable;
+import java.util.Set;
+
 import com.ecoRecycle.helper.Message;
 import com.ecoRecycle.helper.RcmStatus;
 import com.ecoRecycle.model.Rcm;
@@ -7,7 +13,7 @@ import com.ecoRecycle.model.Rmos;
 import com.ecoRecycle.model.RmosRcmMapping;
 import com.ecoRecycle.repository.RmosRepository;
 
-public class RmosManager {
+public class RmosManager extends Observable{
 	
 	private Rmos rmos;
 	RmosRepository repository;
@@ -50,8 +56,12 @@ public class RmosManager {
 		msg.setSuccessful(repository.updateRmos(this.rmos));
 		if(!msg.isSuccessful()) 
 			msg.setMessage("Internal Error");
-		else
+		else {
 			this.rmos = repository.getRmosById(this.rmos.getId());
+			
+		}
+		setChanged();
+		notifyObservers();
 		
 		return msg;
 	}
@@ -79,13 +89,17 @@ public class RmosManager {
 		}
 
 		mapping.setValid(false);
-		mapping.getRcm().setStatus(RcmStatus.INACTIVE);
+		mapping.getRcm().setStatus(RcmStatus.REMOVED);
 		
 		msg.setSuccessful(repository.updateRmos(this.rmos));
 		if(!msg.isSuccessful()) 
 			msg.setMessage("Internal Error");
-		else
+		else {
 			this.rmos = repository.getRmosById(this.rmos.getId());
+			
+		}
+		setChanged();
+		notifyObservers();
 		
 		return msg;
 	}
@@ -94,6 +108,20 @@ public class RmosManager {
 		RcmService rcmService = new RcmService();
 		Rcm rcm = rcmService.getRcmById(id);
 		return rcm;
+	}
+	
+	public List<Rcm> getAllRcms() {
+		Set<RmosRcmMapping> mappings = this.rmos.getRmosRcmMappings();
+		List<Rcm> rcms = new ArrayList<Rcm>();
+
+		Iterator<RmosRcmMapping> iter = mappings.iterator();
+		while (iter.hasNext()) {
+			RmosRcmMapping mapping = iter.next();
+			if(mapping.isValid())
+				rcms.add(mapping.getRcm());
+		}
+		
+		return rcms;
 	}
 		
 }
