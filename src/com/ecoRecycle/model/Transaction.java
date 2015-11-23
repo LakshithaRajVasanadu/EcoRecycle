@@ -3,6 +3,7 @@ package com.ecoRecycle.model;
 import javax.persistence.*;
 
 import com.ecoRecycle.helper.PaymentType;
+import com.ecoRecycle.helper.TransactionStatus;
 import com.ecoRecycle.helper.TransactionType;
 
 import java.util.Date;
@@ -11,6 +12,11 @@ import java.util.HashSet;
 
 @Entity
 @Table(name = "TRANSACTION")
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(
+    name="type",
+    discriminatorType=DiscriminatorType.STRING
+)
 public class Transaction {
 	
 	@Id 
@@ -18,7 +24,7 @@ public class Transaction {
 	@Column(name = "id")
 	private int id;
 	
-	@Column(name="type", columnDefinition="enum('Query','Recycle', 'Reload', 'Unload')")
+	@Column(name="type", columnDefinition="enum('QUERY','RECYCLE', 'RELOAD', 'UNLOAD')")
 	@Enumerated(EnumType.STRING)
 	public TransactionType type;
 	
@@ -30,6 +36,18 @@ public class Transaction {
 	@Enumerated(EnumType.STRING)
 	public PaymentType paymentType;
 	
+	@Column(name="status", columnDefinition="enum('ACTIVE','DONE')")
+	@Enumerated(EnumType.STRING)
+	public TransactionStatus status;
+	
+	public TransactionStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(TransactionStatus status) {
+		this.status = status;
+	}
+
 	@Column(name = "totalWeight")
 	private double totalWeight;
 	

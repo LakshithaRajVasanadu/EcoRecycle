@@ -24,6 +24,19 @@ public class Administrator {
 	
 	@Column(name = "updateDateTime")
 	private Date updateDateTime;
+	
+	public Rmos getRmos() {
+		return rmos;
+	}
+
+	public void setRmos(Rmos rmos) {
+		this.rmos = rmos;
+	}
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinTable(name = "RMOS",
+	inverseJoinColumns={@JoinColumn(name="administratorId")})
+	private Rmos rmos;
 
 	public int getId() {
 		return id;

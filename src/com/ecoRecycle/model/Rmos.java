@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -40,7 +41,7 @@ public class Rmos {
 	@Column(name = "updateDateTime")
 	private Date updateDateTime;
 	
-	@OneToMany(mappedBy = "rmos", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "rmos", cascade = CascadeType.ALL)
 	private Set<RmosRcmMapping> rmosRcmMappings = new HashSet<RmosRcmMapping>();
 	
     public Set<RmosRcmMapping> getRmosRcmMappings() {

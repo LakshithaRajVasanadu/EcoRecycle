@@ -23,7 +23,6 @@ public class HibernateLoader {
             				.addAnnotatedClass(Item.class)
             				.addAnnotatedClass(Administrator.class)
             				.addAnnotatedClass(Rcm.class)
-            				.addAnnotatedClass(RcmItem.class)
             				.addAnnotatedClass(Transaction.class)
             				.addAnnotatedClass(Rmos.class)
             				.addAnnotatedClass(RmosRcmMapping.class)
