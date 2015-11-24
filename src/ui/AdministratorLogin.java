@@ -107,7 +107,7 @@ public class AdministratorLogin
 					String str = String.valueOf(value2);
 					AdministratorService as = new AdministratorService();
 					System.out.println(str);
-					as.userAuthentication(value1, str);
+					//as.userAuthentication(value1, str);
 					
 				}
 			}

@@ -74,6 +74,7 @@ public class Transaction {
     public void addTransactionItem(TransactionItem transactionItem) {
         this.transactionItems.add(transactionItem);
     }
+    
 
 	public int getId() {
 		return id;

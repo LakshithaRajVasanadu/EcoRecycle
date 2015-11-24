@@ -73,6 +73,23 @@ public class Rcm extends Observable{
     public void addTransaction(Transaction transaction) {
         this.transactions.add(transaction);
     }
+//	
+//	@OneToMany(mappedBy = "rcm", cascade = CascadeType.ALL)
+//	private Set<RecycleTransaction> recycleTransactions = new HashSet<RecycleTransaction>();
+//	
+//	public Set<RecycleTransaction> getRecycleTransactions() {
+//		return recycleTransactions;
+//    }
+//
+//    public void setTransactions(Set<RecycleTransaction> recycleTransactions) {
+//        this.recycleTransactions = recycleTransactions;
+//   }
+//    
+//    public void addTransaction(RecycleTransaction recycleTransaction) {
+//        this.recycleTransactions.add(recycleTransaction);
+//    }
+//	
+	
 	public int getId() {
 		return id;
 	}
