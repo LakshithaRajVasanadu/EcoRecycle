@@ -8,5 +8,6 @@ import javax.persistence.Table;
 @Table(name="Transaction")
 @DiscriminatorValue("RECYCLE")
 public class RecycleTransaction extends Transaction{
+	
 
 }

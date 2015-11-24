@@ -178,19 +178,19 @@ public class AdminLogin
 				AdministratorService as = new AdministratorService();
 				System.out.println(str);
 				
-				if(as.userDoesNotExist(value1))
-				{
-					JOptionPane.showMessageDialog(frame, "User doesnt exist");
-				}
-				else if(as.incorrectPassword(value1, str))
-				{
-					JOptionPane.showMessageDialog(frame, "Password is incorrect");
-				}
-				else
-				{
-					//to do: change from login screen to rmos ui screen
-				}
-				//as.userAuthentication(value1, str);
+//				if(as.userDoesNotExist(value1))
+//				{
+//					JOptionPane.showMessageDialog(frame, "User doesnt exist");
+//				}
+//				else if(as.incorrectPassword(value1, str))
+//				{
+//					JOptionPane.showMessageDialog(frame, "Password is incorrect");
+//				}
+//				else
+//				{
+//					//to do: change from login screen to rmos ui screen
+//				}
+//				//as.userAuthentication(value1, str);
 				
 			}
 		}

@@ -5,6 +5,9 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -14,11 +17,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+import com.ecoRecycle.model.Item;
 import com.ecoRecycle.model.Rcm;
+import com.ecoRecycle.service.ItemManager;
 import com.ecoRecycle.service.RcmService;
 
 public class RcmUI extends JPanel{
 	private Rcm rcm;
+	private ItemManager itemManager = new ItemManager();
 	
 	public RcmUI(String name) {
 		
@@ -64,12 +70,29 @@ public class RcmUI extends JPanel{
 		itemButtonPanel.setLayout(new GridLayout(2, 4, 10, 10));
 		itemButtonPanel.setBorder(new TitledBorder("ItemButtonPanel"));
 		
-		int i = 0;
-		for(i=0; i<9; i++) {
-			JButton button = new JButton("Aluminium" + i+"");
-			button.setPreferredSize(new Dimension(150,20));
+		List<Item> items = itemManager.getAllItems();
+		for(Item item: items) {
+			JButton button = new JButton(item.getType());
+			button.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					System.out.println(button.getText());
+					
+					//RcmService service = new RcmService();
+					// service.addItemToTransaction(itemType, rcm);
+				}
+			});
+			
 			itemButtonPanel.add(button);
 		}
+		
+//		int i = 0;
+//		for(i=0; i<9; i++) {
+//			JButton button = new JButton("Aluminium" + i+"");
+//			button.setPreferredSize(new Dimension(150,20));
+//			itemButtonPanel.add(button);
+//		}
 		
 		itemButtonPanel.setPreferredSize(new Dimension(600,100));
 		return itemButtonPanel;

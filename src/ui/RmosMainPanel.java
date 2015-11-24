@@ -23,10 +23,12 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import com.ecoRecycle.helper.Message;
+import com.ecoRecycle.model.Item;
 import com.ecoRecycle.model.Location;
 import com.ecoRecycle.model.Rcm;
 import com.ecoRecycle.model.Rmos;
 import com.ecoRecycle.repository.RmosRepository;
+import com.ecoRecycle.service.ItemManager;
 import com.ecoRecycle.service.LocationService;
 import com.ecoRecycle.service.RcmService;
 import com.ecoRecycle.service.RmosManager;
@@ -38,6 +40,7 @@ public class RmosMainPanel extends JPanel implements Observer{
 	private RmosManager rmosManager;
 	private RcmService rcmService;
 	private StatusManager statusManager;
+	private ItemManager itemManager;
 	private Rmos rmos;
 	
 	JComboBox<String> rcmComboxBox;
@@ -54,6 +57,7 @@ public class RmosMainPanel extends JPanel implements Observer{
 		locationService = new LocationService();
 		rmosManager = new RmosManager(rmos);
 		statusManager = new StatusManager(rmos);
+		itemManager = new ItemManager();
 		
 		rmosManager.addObserver(this);
 		statusManager.addObserver(this);
@@ -292,10 +296,49 @@ public class RmosMainPanel extends JPanel implements Observer{
 			}
 		});
 		
+		JButton checkMoneyButton = new JButton("Check Amount");
+		JLabel moneyLabel = new JLabel();
+		
+		checkMoneyButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String rcmName = nameField.getText();
+				Rcm rcm = rcmService.getRcmByName(rcmName);
+				
+				moneyLabel.setText("$" + rcm.getCurrentCashValue());
+				
+			}
+		});
+		
+		JButton capacityButton = new JButton("Check Capacity");
+		JLabel capacityLabel = new JLabel();
+		
+		capacityButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String rcmName = nameField.getText();
+				Rcm rcm = rcmService.getRcmByName(rcmName);
+				
+				String status="";
+				if(rcm.isFull())
+					status = "FULL";
+				
+				capacityLabel.setText("Current:" + rcm.getCurrentCapacity() + "Total:" + rcm.getTotalCapacity() + status);
+				
+			}
+		});
+		
+		
 		checkStatusPanel.add(nameLabel);
 		checkStatusPanel.add(nameField);
 		checkStatusPanel.add(activateButton);
 		checkStatusPanel.add(deactivateButton);
+		checkStatusPanel.add(checkMoneyButton);
+		checkStatusPanel.add(moneyLabel);
+		checkStatusPanel.add(capacityButton);
+		checkStatusPanel.add(capacityLabel);
 		
 		return checkStatusPanel;
 	}
@@ -308,6 +351,104 @@ public class RmosMainPanel extends JPanel implements Observer{
 		TitledBorder border = new TitledBorder("Item Panel");
 		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 18));
 		itemPanel.setBorder(border);
+		
+		JLabel itemLabel = new JLabel("Item");
+		JComboBox<String> itemComboxBox = new JComboBox<String>();
+		
+		List<Item> items = itemManager.getAllItems();
+		for(Item item : items)
+			itemComboxBox.addItem(item.getType());
+		
+		JButton addButton = new JButton("Add Item");
+		addButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String itemType = itemComboxBox.getSelectedItem().toString();
+				Item item = itemManager.getItemByType(itemType);
+				
+				Message msg = itemManager.addItem(item.getId());
+				if(msg.isSuccessful()) {
+					JOptionPane.showMessageDialog(null,
+							"added item successfully", "Info",
+							JOptionPane.INFORMATION_MESSAGE);
+					updatePanel();
+					
+					
+				}else {
+					JOptionPane.showMessageDialog(null,
+							msg.getMessage(), "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+				
+			}
+		});
+		
+		JButton removeButton = new JButton("Remove Item");
+		removeButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String itemType = itemComboxBox.getSelectedItem().toString();
+				Item item = itemManager.getItemByType(itemType);
+				
+				Message msg = itemManager.removeItem(item.getId());
+				if(msg.isSuccessful()) {
+					JOptionPane.showMessageDialog(null,
+							"removed item successfully", "Info",
+							JOptionPane.INFORMATION_MESSAGE);
+					updatePanel();
+					
+					
+				}else {
+					JOptionPane.showMessageDialog(null,
+							msg.getMessage(), "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+				
+			}
+		});
+		
+		
+		JLabel priceLabel = new JLabel("Price");
+		JTextField priceField = new JTextField(20);
+		
+		JButton changeButton = new JButton("Change");
+		
+		changeButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String itemType = itemComboxBox.getSelectedItem().toString();
+				double newPrice = Double.parseDouble(priceField.getText());
+				
+				Item item = itemManager.getItemByType(itemType);
+				
+				Message msg = itemManager.changePrice(item.getId(), newPrice);
+				if(msg.isSuccessful()) {
+					JOptionPane.showMessageDialog(null,
+							"changed price successfully", "Info",
+							JOptionPane.INFORMATION_MESSAGE);
+					updatePanel();
+					
+					
+				}else {
+					JOptionPane.showMessageDialog(null,
+							msg.getMessage(), "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+				
+			}
+		});
+		
+		
+		itemPanel.add(itemLabel);
+		itemPanel.add(itemComboxBox);
+		itemPanel.add(addButton);
+		itemPanel.add(removeButton);
+		itemPanel.add(priceLabel);
+		itemPanel.add(priceField);
+		itemPanel.add(changeButton);
 		
 		return itemPanel;
 		

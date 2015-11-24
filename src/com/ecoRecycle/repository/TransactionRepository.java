@@ -2,14 +2,9 @@ package com.ecoRecycle.repository;
 
 public class TransactionRepository {
 
-	// Get transaction by id
+	// Create a new transaction
 	
-	// Get transactions by type
+	// Update a transaction
 	
-	// Add new transaction (with items)
-	
-	// Update transaction
-	
-	// Update transaction (with items)
-
+   
 }
