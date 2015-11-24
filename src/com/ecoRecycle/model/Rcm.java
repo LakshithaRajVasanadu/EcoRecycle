@@ -31,12 +31,15 @@ public class Rcm extends Observable{
 	@Column(name = "totalCashValue")
 	private double totalCashValue;
 	
+	// Capacity of items accepted so far
 	@Column(name = "currentCapacity")
 	private double currentCapacity;
 	
+	// Value of money dispensed so far
 	@Column(name = "currentCashValue")
 	private double currentCashValue;
 	
+	// Value of coupons dispensed so far
 	@Column(name = "currentCouponValue")
 	private double currentCouponValue; // Might not need this
 	
@@ -59,7 +62,7 @@ public class Rcm extends Observable{
     inverseJoinColumns={@JoinColumn(name="rmosId")})
 	private Rmos rmos;
 	
-	@OneToMany(mappedBy = "rcm", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "rcm", cascade = CascadeType.ALL)
 	private Set<Transaction> transactions = new HashSet<Transaction>();
 	
 	public Set<Transaction> getTransactions() {
@@ -73,22 +76,7 @@ public class Rcm extends Observable{
     public void addTransaction(Transaction transaction) {
         this.transactions.add(transaction);
     }
-//	
-//	@OneToMany(mappedBy = "rcm", cascade = CascadeType.ALL)
-//	private Set<RecycleTransaction> recycleTransactions = new HashSet<RecycleTransaction>();
-//	
-//	public Set<RecycleTransaction> getRecycleTransactions() {
-//		return recycleTransactions;
-//    }
-//
-//    public void setTransactions(Set<RecycleTransaction> recycleTransactions) {
-//        this.recycleTransactions = recycleTransactions;
-//   }
-//    
-//    public void addTransaction(RecycleTransaction recycleTransaction) {
-//        this.recycleTransactions.add(recycleTransaction);
-//    }
-//	
+
 	
 	public int getId() {
 		return id;

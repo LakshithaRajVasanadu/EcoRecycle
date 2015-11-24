@@ -1,6 +1,10 @@
 package com.ecoRecycle.service;
 
+import com.ecoRecycle.model.Rcm;
+import com.ecoRecycle.model.Transaction;
+
 public class TransactionService {
+	
 
 	// public Transaction getLastTransaction(Rcm rcm) {
 	//		rcm.getTransactions

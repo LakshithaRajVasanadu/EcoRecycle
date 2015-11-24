@@ -10,14 +10,10 @@ import java.util.Date;
 import java.util.Set;
 import java.util.HashSet;
 
+
 @Entity
 @Table(name = "TRANSACTION")
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(
-    name="type",
-    discriminatorType=DiscriminatorType.STRING
-)
-public class Transaction {
+public  class Transaction {
 	
 	@Id 
 	@GeneratedValue
@@ -60,20 +56,20 @@ public class Transaction {
 	@Column(name = "updateDateTime")
 	private Date updateDateTime;
 
-	@OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL)
-	private Set<TransactionItem> transactionItems = new HashSet<TransactionItem>();
-	
-    public Set<TransactionItem> getTransactionItems() {
-        return transactionItems;
-    }
- 
-    public void setTransactionItems(Set<TransactionItem> transactionItems) {
-        this.transactionItems = transactionItems;
-    }
-     
-    public void addTransactionItem(TransactionItem transactionItem) {
-        this.transactionItems.add(transactionItem);
-    }
+//	@OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL)
+//	private Set<TransactionItem> transactionItems = new HashSet<TransactionItem>();
+//	
+//    public Set<TransactionItem> getTransactionItems() {
+//        return transactionItems;
+//    }
+// 
+//    public void setTransactionItems(Set<TransactionItem> transactionItems) {
+//        this.transactionItems = transactionItems;
+//    }
+//     
+//    public void addTransactionItem(TransactionItem transactionItem) {
+//        this.transactionItems.add(transactionItem);
+//    }
     
 
 	public int getId() {

@@ -4,9 +4,13 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.ecoRecycle.helper.TransactionType;
+
 @Entity
-@Table(name="Transaction")
-@DiscriminatorValue("UNLOAD")
 public class UnloadTransaction extends Transaction{
 
+	public UnloadTransaction() {
+		super();
+		this.type = TransactionType.UNLOAD;
+	}
 }
