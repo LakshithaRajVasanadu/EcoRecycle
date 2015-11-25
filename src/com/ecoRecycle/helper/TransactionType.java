@@ -1,8 +1,8 @@
 package com.ecoRecycle.helper;
 
 public enum TransactionType {
-	QUERY,
-	RECYCLE,
-	RELOAD,
-	UNLOAD
+	Query,
+	Recycle,
+	Reload,
+	Unload
 }

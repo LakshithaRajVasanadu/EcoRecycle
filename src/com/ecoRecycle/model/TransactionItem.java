@@ -15,31 +15,31 @@ import javax.persistence.Table;
 @Table(name = "TransactionItemMapping")
 public class TransactionItem {
 
-	@Id 
+	@Id
 	@GeneratedValue
 	@Column(name = "id")
 	private int id;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "transactionId")
-    private Transaction transaction;
-	
+	private Transaction transaction;
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "itemId")
-    private Item item;
-	
-	@Column(name = "weight")
-    private double weight;
-	
-	@Column(name = "price")
-    private double price;
-    
-    @Column(name = "isAccepted")
-    private boolean isAccepted;
+	private Item item;
 
-    @Column(name = "createDateTime")
+	@Column(name = "weight")
+	private double weight;
+
+	@Column(name = "price")
+	private double price;
+
+	@Column(name = "isAccepted")
+	private boolean isAccepted;
+
+	@Column(name = "createDateTime")
 	private Date createDateTime;
-	
+
 	@Column(name = "updateDateTime")
 	private Date updateDateTime;
 
@@ -106,5 +106,5 @@ public class TransactionItem {
 	public void setUpdateDateTime(Date updateDateTime) {
 		this.updateDateTime = updateDateTime;
 	}
-	 
+
 }

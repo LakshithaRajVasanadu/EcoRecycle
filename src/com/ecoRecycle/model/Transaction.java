@@ -13,10 +13,11 @@ import java.util.HashSet;
 @Entity
 @Table(name = "TRANSACTION")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(
+/*http://stackoverflow.com/questions/29246707/hibernate-parameter-index-out-of-range-8-number-of-parameters-which-is-7*/
+/*@DiscriminatorColumn(
     name="type",
     discriminatorType=DiscriminatorType.STRING
-)
+)*/
 public class Transaction {
 	
 	@Id 
@@ -60,7 +61,7 @@ public class Transaction {
 	@Column(name = "updateDateTime")
 	private Date updateDateTime;
 
-	@OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "transaction", cascade = CascadeType.ALL)
 	private Set<TransactionItem> transactionItems = new HashSet<TransactionItem>();
 	
     public Set<TransactionItem> getTransactionItems() {

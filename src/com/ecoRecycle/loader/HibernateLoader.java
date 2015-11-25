@@ -26,7 +26,8 @@ public class HibernateLoader {
             				.addAnnotatedClass(Transaction.class)
             				.addAnnotatedClass(Rmos.class)
             				.addAnnotatedClass(RmosRcmMapping.class)
-            				.addAnnotatedClass(TransactionItem.class);
+            				.addAnnotatedClass(TransactionItem.class)
+            				.addAnnotatedClass(Location.class);
 
             serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
             sessionFactory = configuration.buildSessionFactory(serviceRegistry);

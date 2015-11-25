@@ -59,7 +59,7 @@ public class Rcm extends Observable{
     inverseJoinColumns={@JoinColumn(name="rmosId")})
 	private Rmos rmos;
 	
-	@OneToMany(mappedBy = "rcm", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "rcm", cascade = CascadeType.ALL)
 	private Set<Transaction> transactions = new HashSet<Transaction>();
 	
 	public Set<Transaction> getTransactions() {
