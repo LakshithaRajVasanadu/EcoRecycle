@@ -31,8 +31,10 @@ import com.ecoRecycle.repository.RmosRepository;
 import com.ecoRecycle.service.ItemManager;
 import com.ecoRecycle.service.LocationService;
 import com.ecoRecycle.service.RcmService;
+import com.ecoRecycle.service.ReloadTransactionService;
 import com.ecoRecycle.service.RmosManager;
 import com.ecoRecycle.service.StatusManager;
+import com.ecoRecycle.service.UnloadTransactionService;
 
 public class RmosMainPanel extends JPanel implements Observer{
 	
@@ -306,7 +308,7 @@ public class RmosMainPanel extends JPanel implements Observer{
 				String rcmName = nameField.getText();
 				Rcm rcm = rcmService.getRcmByName(rcmName);
 				
-				moneyLabel.setText("$" + rcm.getCurrentCashValue());
+				moneyLabel.setText("$" + (rcm.getTotalCashValue() - rcm.getCurrentCashValue()));
 				
 			}
 		});
@@ -330,6 +332,64 @@ public class RmosMainPanel extends JPanel implements Observer{
 			}
 		});
 		
+		JButton unloadButton = new JButton("Unload Rcm");
+		unloadButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String rcmName = nameField.getText();
+				Rcm rcm = rcmService.getRcmByName(rcmName);
+				
+				UnloadTransactionService uservice = new UnloadTransactionService();
+				Message msg = uservice.unloadRcm(rcm);
+				
+				if(msg.isSuccessful()) {
+					JOptionPane.showMessageDialog(null,
+							"unloaded contents successfully", "Info",
+							JOptionPane.INFORMATION_MESSAGE);
+					updatePanel();
+					
+					
+				}else {
+					JOptionPane.showMessageDialog(null,
+							msg.getMessage(), "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+				
+			}
+		});
+		
+		JTextField cashField = new JTextField(20);
+		
+		JButton loadButton = new JButton("load Cash");
+		loadButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String rcmName = nameField.getText();
+				Rcm rcm = rcmService.getRcmByName(rcmName);
+				
+				double money = Double.parseDouble(cashField.getText());
+				
+				ReloadTransactionService rservice = new ReloadTransactionService();
+				Message msg = rservice.reloadRcm(rcm, money);
+				
+				if(msg.isSuccessful()) {
+					JOptionPane.showMessageDialog(null,
+							"loaded cash successfully", "Info",
+							JOptionPane.INFORMATION_MESSAGE);
+					updatePanel();
+					
+					
+				}else {
+					JOptionPane.showMessageDialog(null,
+							msg.getMessage(), "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+				
+			}
+		});
+		
 		
 		checkStatusPanel.add(nameLabel);
 		checkStatusPanel.add(nameField);
@@ -339,6 +399,9 @@ public class RmosMainPanel extends JPanel implements Observer{
 		checkStatusPanel.add(moneyLabel);
 		checkStatusPanel.add(capacityButton);
 		checkStatusPanel.add(capacityLabel);
+		checkStatusPanel.add(unloadButton);
+		checkStatusPanel.add(cashField);
+		checkStatusPanel.add(loadButton);
 		
 		return checkStatusPanel;
 	}

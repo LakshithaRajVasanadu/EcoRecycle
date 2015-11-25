@@ -1,5 +1,6 @@
 package com.ecoRecycle.service;
 
+
 import java.util.Date;
 import java.util.Set;
 
@@ -11,7 +12,12 @@ import com.ecoRecycle.model.Transaction;
 import com.ecoRecycle.repository.TransactionItemRepository;
 import com.ecoRecycle.repository.TransactionRepository;
 
+import com.ecoRecycle.model.Rcm;
+import com.ecoRecycle.model.Transaction;
+
+
 public class TransactionService {
+	
 
 	// public Transaction getLastTransaction(Rcm rcm) {
 	//		rcm.getTransactions
@@ -46,14 +52,14 @@ public class TransactionService {
 			//check type is recycle in if cond
 			//if maxId == -1 (means no transaction exists for this rcm. So create a new transaction)
 			if((maxId == -1) || 
-			   (mostRecentTransaction.getStatus().equals(TransactionStatus.DONE) && mostRecentTransaction.getType().equals(TransactionType.Recycle))){
+			   (mostRecentTransaction.getStatus().equals(TransactionStatus.DONE) && mostRecentTransaction.getType().equals(TransactionType.RECYCLE))){
 				lastTransaction = new Transaction();
 				//newId = mostRecentTransaction.getId() + 1;
 				//lastTransaction.setId(newId);
 				lastTransaction.setRcm(rcm);
 				lastTransaction.setTotalWeight(0);
 				lastTransaction.setTotalPayment(0);
-				lastTransaction.setType(TransactionType.Recycle);
+				lastTransaction.setType(TransactionType.RECYCLE);
 				//lastTransaction.setId(++maxId);
 				//lastTransaction.setCreateDateTime(new Date());
 				//lastTransaction.setUpdateDateTime(new Date());

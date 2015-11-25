@@ -10,15 +10,18 @@ import java.util.Date;
 import java.util.Set;
 import java.util.HashSet;
 
+
 @Entity
 @Table(name = "TRANSACTION")
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+
+//@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 /*http://stackoverflow.com/questions/29246707/hibernate-parameter-index-out-of-range-8-number-of-parameters-which-is-7*/
 /*@DiscriminatorColumn(
     name="type",
     discriminatorType=DiscriminatorType.STRING
 )*/
 public class Transaction {
+
 	
 	@Id 
 	@GeneratedValue

@@ -4,9 +4,12 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-@Entity
-@Table(name="Transaction")
-@DiscriminatorValue("RELOAD")
-public class ReloadTransaction extends Transaction{
+import com.ecoRecycle.helper.TransactionType;
 
+@Entity
+public class ReloadTransaction extends Transaction{
+	public ReloadTransaction() {
+		super();
+		this.type = TransactionType.RELOAD;
+	}
 }
