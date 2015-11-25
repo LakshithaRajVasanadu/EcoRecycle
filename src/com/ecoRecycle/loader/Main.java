@@ -4,28 +4,62 @@ package com.ecoRecycle.loader;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session; 
-import org.hibernate.Transaction;
 
 import com.ecoRecycle.helper.Message;
 import com.ecoRecycle.helper.RcmStatus;
+import com.ecoRecycle.helper.TransactionStatus;
 import com.ecoRecycle.model.Administrator;
 import com.ecoRecycle.model.Location;
 import com.ecoRecycle.model.Rcm;
+import com.ecoRecycle.model.Transaction;
 import com.ecoRecycle.repository.AdministratorRepository;
 import com.ecoRecycle.repository.ItemRepository;
 import com.ecoRecycle.repository.LocationRepository;
 import com.ecoRecycle.repository.RcmRepository;
 import com.ecoRecycle.repository.RmosRepository;
+import com.ecoRecycle.repository.TransactionRepository;
 import com.ecoRecycle.service.AdministratorService;
+import com.ecoRecycle.service.RcmService;
 import com.ecoRecycle.service.RmosManager;
+import com.ecoRecycle.service.TransactionService;
 
 public class Main
 {
     public static void main(String[] args) {
     	
     	Main main = new Main();
+    	RcmRepository rcmRepo = new RcmRepository();
+    	Rcm rcm = rcmRepo.getRcmById(17);
+    	
+    	
+    	/*TransactionService t = new TransactionService();
+    	t.getLastTransaction(rcm);*/
+    	System.out.println("Starting");
+    	RcmService rcmSvc = new RcmService();
+    	
+    	//Uncomment below two lines for testing dispense.
+    	/*double dispensedAmount = rcmSvc.dispense(rcm);
+    	System.out.println("Dispensed amount : " + dispensedAmount);*/
+    	
+    	//String outputMsg = rcmSvc.addItemToTransaction("Glass", rcm);
+    	//String outputMsg = rcmSvc.addItemToTransaction("Aluminium", rcm);
+    	String outputMsg = rcmSvc.addItemToTransaction("gold", rcm);
+    	System.out.println("Stopping" + outputMsg);
+    	/*RcmRepository rcmRepo = new RcmRepository();
+    	Rcm rcm = rcmRepo.getRcmById(9);
+    	Transaction t = new Transaction();
+    	
+    	t.setId(2);
+    	t.setRcm(rcm);
+    	t.setStatus(TransactionStatus.ACTIVE);
+        t.setTotalPayment(40);
+        t.setTotalWeight(0);
+    	
+    	TransactionRepository transrepo = new TransactionRepository();
+    	transrepo.createTransaction(t);
+ 
 
-        /* Add few employee records in database */
+        Add few employee records in database */
     	
     	/*LocationRepository locRepo = new LocationRepository();
     	Integer locId = locRepo.addLocation("Santa Clara");
@@ -39,7 +73,7 @@ public class Main
         Location l1 = locRepo.getLocationByName("Santa Clara");
         System.out.println("Location retrived --- " + l1.getCity() + l1.getId() );*/
         
-        
+        /*
     	RcmRepository rcmRepo = new RcmRepository();
 //    	Integer rcmId = rcmRepo.addRcm("FirstRcm", "Santa Clara", 10, 100);
 //    	System.out.println("RCM created --- " + rcmId);
@@ -65,7 +99,7 @@ public class Main
 
     	// mgr = new RmosManager(rmosRepo.getRmosById(3));
 msg = mgr.removeRcm(33);
-    	System.out.println("Msg..." + msg.isSuccessful() + " " + msg.getMessage());
+    	System.out.println("Msg..." + msg.isSuccessful() + " " + msg.getMessage());*/
     	
     	/*ItemRepository itemRepo = new ItemRepository();
     	Integer typeId = itemRepo.addItem("Aluminium");
