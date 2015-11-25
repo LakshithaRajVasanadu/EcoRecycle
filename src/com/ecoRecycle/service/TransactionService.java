@@ -9,7 +9,6 @@ import com.ecoRecycle.helper.TransactionType;
 import com.ecoRecycle.model.Item;
 import com.ecoRecycle.model.Rcm;
 import com.ecoRecycle.model.Transaction;
-import com.ecoRecycle.repository.TransactionItemRepository;
 import com.ecoRecycle.repository.TransactionRepository;
 
 import com.ecoRecycle.model.Rcm;
@@ -43,16 +42,18 @@ public class TransactionService {
 		try{
 			transactions = rcm.getTransactions();
 			for(Transaction t : transactions) {
-				if(t.getId() > maxId) {
-					mostRecentTransaction = t;
-					maxId = t.getId();
+				if(t.getType().equals(TransactionType.RECYCLE)) {
+					if(t.getId() > maxId) {
+						mostRecentTransaction = t;
+						maxId = t.getId();
+					}
 				}
 			}
 			
 			//check type is recycle in if cond
 			//if maxId == -1 (means no transaction exists for this rcm. So create a new transaction)
 			if((maxId == -1) || 
-			   (mostRecentTransaction.getStatus().equals(TransactionStatus.DONE) && mostRecentTransaction.getType().equals(TransactionType.RECYCLE))){
+			   (mostRecentTransaction.getStatus().equals(TransactionStatus.DONE))){
 				lastTransaction = new Transaction();
 				//newId = mostRecentTransaction.getId() + 1;
 				//lastTransaction.setId(newId);

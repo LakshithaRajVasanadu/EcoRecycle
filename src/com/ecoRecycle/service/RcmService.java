@@ -82,14 +82,14 @@ public class RcmService {
 				transItem.setTransaction(lastTransaction);
 				transItem.setWeight(weightOfItem);
 				transItem.setAccepted(true);
-				transItem.setPrice(item.getPricePerLb());
+				transItem.setPrice(weightOfItem*item.getPricePerLb());
 				
 				lastTransaction.addTransactionItem(transItem);
 				rcm.addTransaction(lastTransaction);
 				//if(addItemSuccess){
 					itemValue = weightOfItem*item.getPricePerLb();
 					lastTransaction.setTotalWeight(weightOfItem + lastTransaction.getTotalWeight());
-					lastTransaction.setTotalPayment(itemValue + lastTransaction.getTotalPayment());
+					lastTransaction.setTotalPayment(transItem.getPrice() + lastTransaction.getTotalPayment());
 					newWeight = rcm.getCurrentCapacity()+weightOfItem;
 					newCashValue = rcm.getCurrentCashValue()+itemValue;
 					if(newWeight < rcm.getTotalCapacity() && newCashValue < rcm.getTotalCashValue()) {
