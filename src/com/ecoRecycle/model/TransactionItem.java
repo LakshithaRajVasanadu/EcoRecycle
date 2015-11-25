@@ -24,7 +24,7 @@ public class TransactionItem {
 	@JoinColumn(name = "transactionId")
 	private Transaction transaction;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "itemId")
 	private Item item;
 
