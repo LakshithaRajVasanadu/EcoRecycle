@@ -1,8 +1,33 @@
 package com.ecoRecycle.helper;
 
 public class UsageStatisticsModel {
-	// Date for the day
-	// total weight recycled
-	// Total value issued
-	// No. of times RCM was emptied
+	private double totalWeight;
+	private double totalValue;
+	private double numberOfTimesEmptied;
+	
+	public double getTotalWeight() {
+		return totalWeight;
+	}
+	public void setTotalWeight(double totalWeight) {
+		this.totalWeight = totalWeight;
+	}
+	public double getTotalValue() {
+		return totalValue;
+	}
+	public void setTotalValue(double totalValue) {
+		this.totalValue = totalValue;
+	}
+	public double getNumberOfTimesEmptied() {
+		return numberOfTimesEmptied;
+	}
+	public void setNumberOfTimesEmptied(double numberOfTimesEmptied) {
+		this.numberOfTimesEmptied = numberOfTimesEmptied;
+	}
+	
+	@Override
+	public String toString() {
+		return "UsageStatisticsModel [totalWeight=" + totalWeight
+				+ ", totalValue=" + totalValue + ", numberOfTimesEmptied="
+				+ numberOfTimesEmptied + "]";
+	}
 }
