@@ -29,7 +29,7 @@ public class Main
     	
     	Main main = new Main();
     	RcmRepository rcmRepo = new RcmRepository();
-    	Rcm rcm = rcmRepo.getRcmById(17);
+    	Rcm rcm = rcmRepo.getRcmById(10);
     	
     	
     	/*TransactionService t = new TransactionService();
@@ -38,12 +38,12 @@ public class Main
     	RcmService rcmSvc = new RcmService();
     	
     	//Uncomment below two lines for testing dispense.
-    	/*double dispensedAmount = rcmSvc.dispense(rcm);
-    	System.out.println("Dispensed amount : " + dispensedAmount);*/
-    	
+//    	double dispensedAmount = rcmSvc.dispense(rcm);
+//    	System.out.println("Dispensed amount : " + dispensedAmount);
+//    	
     	//String outputMsg = rcmSvc.addItemToTransaction("Glass", rcm);
     	//String outputMsg = rcmSvc.addItemToTransaction("Aluminium", rcm);
-    	String outputMsg = rcmSvc.addItemToTransaction("gold", rcm);
+    	String outputMsg = rcmSvc.addItemToTransaction("plastic", rcm);
     	System.out.println("Stopping" + outputMsg);
     	/*RcmRepository rcmRepo = new RcmRepository();
     	Rcm rcm = rcmRepo.getRcmById(9);

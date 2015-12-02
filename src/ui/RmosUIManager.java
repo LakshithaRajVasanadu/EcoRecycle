@@ -51,7 +51,8 @@ public class RmosUIManager extends JFrame
 	{
 			
 			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-			setSize(screenSize.width/2, screenSize.height);
+			//setSize(screenSize.width/2, screenSize.height);
+			setSize(680,730);
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			
 			

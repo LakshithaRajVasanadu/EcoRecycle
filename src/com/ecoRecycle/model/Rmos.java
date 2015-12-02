@@ -27,11 +27,11 @@ public class Rmos {
 	@Column(name = "name", unique = true)
 	private String name;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "locationId")
 	private Location location;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "administratorId")
 	private Administrator admin;
 	
