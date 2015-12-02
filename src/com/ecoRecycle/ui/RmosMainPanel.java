@@ -6,6 +6,7 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.border.TitledBorder;
 
 import com.ecoRecycle.model.Rmos;
@@ -58,6 +59,12 @@ public class RmosMainPanel extends JPanel{
 		rightPanel.setPreferredSize(new Dimension(595, 760));
 		
 		// add tabbed panes
+		JTabbedPane tabbedPane = new JTabbedPane();
+		tabbedPane.addTab("RCM Manager", new RcmManagerPanel(rmos));
+		tabbedPane.addTab("Statistics", new StatisticsPanel(rmos));
+		tabbedPane.setPreferredSize(new Dimension(595, 760));
+		
+		rightPanel.add(tabbedPane);
 		
 		return rightPanel;
 	}
