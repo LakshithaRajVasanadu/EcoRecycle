@@ -3,7 +3,7 @@ package com.ecoRecycle.loader;
 import java.awt.EventQueue;
 
 import ui.RcmUIManager;
-import ui.RmosUIManager;
+import com.ecoRecycle.ui.RmosUIManager;
 
 public class EcoRecycle {
 	

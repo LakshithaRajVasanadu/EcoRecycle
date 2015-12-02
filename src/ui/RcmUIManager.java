@@ -52,7 +52,13 @@ public class RcmUIManager extends JFrame
 			
 			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 			setSize(screenSize.width/2, screenSize.height);
+			//setSize(680, 730);
+			
+			System.out.println("Width:" + screenSize.width/2);
+			System.out.println("Height:" + screenSize.height);
+			
 			setLocation(screenSize.width/2, 0);
+			//setLocation(683,0);
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			
 			

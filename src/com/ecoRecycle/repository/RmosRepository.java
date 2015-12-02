@@ -1,6 +1,7 @@
 package com.ecoRecycle.repository;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.hibernate.Criteria;
@@ -10,11 +11,32 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import com.ecoRecycle.loader.HibernateLoader;
+import com.ecoRecycle.model.Location;
 import com.ecoRecycle.model.Rcm;
 import com.ecoRecycle.model.Rmos;
 import com.ecoRecycle.model.RmosRcmMapping;
 
 public class RmosRepository {
+	public List<Rmos> getAllRmos() {
+		Session session = HibernateLoader.getSessionFactory().openSession();
+		Transaction tx = null;
+		List<Rmos> rmosList = null;
+		try {
+			tx = session.beginTransaction();
+
+			Criteria criteria = session.createCriteria(Rmos.class);
+			rmosList = criteria.list();
+		
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return rmosList;
+	} 
 	
 	public Rmos getRmosById(int id) {
 		Session session = HibernateLoader.getSessionFactory().openSession();
