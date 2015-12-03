@@ -4,7 +4,14 @@ public class UsageStatisticsModel {
 	private double totalWeight;
 	private double totalValue;
 	private double numberOfTimesEmptied;
+	private double numberOfItems;
 	
+	public double getNumberOfItems() {
+		return numberOfItems;
+	}
+	public void setNumberOfItems(double numberOfItems) {
+		this.numberOfItems = numberOfItems;
+	}
 	public double getTotalWeight() {
 		return totalWeight;
 	}
@@ -28,6 +35,7 @@ public class UsageStatisticsModel {
 	public String toString() {
 		return "UsageStatisticsModel [totalWeight=" + totalWeight
 				+ ", totalValue=" + totalValue + ", numberOfTimesEmptied="
-				+ numberOfTimesEmptied + "]";
+				+ numberOfTimesEmptied + ", numberOfItems=" + numberOfItems
+				+ "]";
 	}
 }

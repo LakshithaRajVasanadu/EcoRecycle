@@ -76,6 +76,7 @@ public class StatisticsManager {
 			statisticsModel.setTotalWeight(transactionRepository.getItemWeightByRcm(rcm.getId(), startDate, endDate));
 			statisticsModel.setTotalValue(transactionRepository.getTotalValueDispensed(rcm.getId(), startDate, endDate));
 			statisticsModel.setNumberOfTimesEmptied(transactionRepository.getNumberofTimesEmptied(rcm.getId(), startDate, endDate));
+			statisticsModel.setNumberOfItems(transactionRepository.getItemCountByRcm(rcm.getId(), startDate, endDate));
 			
 			statisticsMap.put(rcm, statisticsModel);
 		}
