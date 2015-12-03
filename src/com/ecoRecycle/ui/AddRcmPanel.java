@@ -19,18 +19,21 @@ import com.ecoRecycle.model.Location;
 import com.ecoRecycle.model.Rmos;
 import com.ecoRecycle.service.RmosManager;
 import com.ecoRecycle.service.LocationService;
+import com.ecoRecycle.service.StatusManager;
 
 public class AddRcmPanel extends JPanel{
 	private Rmos rmos;
 	private RmosManager rmosManager;
+	private StatusManager statusManager;
 	private LocationService locationService = new LocationService();
 	
 	private JComboBox rcmComboBox;
 	private JPanel rcmPanel = new JPanel();
 	
-	public AddRcmPanel(Rmos rmos) {
+	public AddRcmPanel(Rmos rmos, RmosManager rmosManager, StatusManager statusManager) {
 		this.rmos = rmos;
-		this.rmosManager = new RmosManager(rmos);
+		this.rmosManager = rmosManager;
+		this.statusManager = statusManager;
 		
 		// observe all rcms
 		this.addComponents();

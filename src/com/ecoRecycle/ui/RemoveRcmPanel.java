@@ -19,15 +19,18 @@ import com.ecoRecycle.model.Rmos;
 import com.ecoRecycle.service.LocationService;
 import com.ecoRecycle.service.RcmService;
 import com.ecoRecycle.service.RmosManager;
+import com.ecoRecycle.service.StatusManager;
 
 public class RemoveRcmPanel extends JPanel{
 	private Rmos rmos;
 	private RmosManager rmosManager;
+	private StatusManager statusManager;
 	private LocationService locationService = new LocationService();
 	
-	public RemoveRcmPanel(Rmos rmos) {
+	public RemoveRcmPanel(Rmos rmos,  RmosManager rmosManager, StatusManager statusManager) {
 		this.rmos = rmos;
-		this.rmosManager = new RmosManager(rmos);
+		this.rmosManager = rmosManager;
+		this.statusManager = statusManager;
 		
 		// observe all rcms
 		this.addComponents();

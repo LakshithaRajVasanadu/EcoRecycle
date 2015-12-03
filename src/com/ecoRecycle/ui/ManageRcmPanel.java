@@ -32,10 +32,10 @@ public class ManageRcmPanel extends JPanel{
 	private JComboBox rcmComboBox;
 	private JPanel rcmPanel = new JPanel();
 	
-	public ManageRcmPanel(Rmos rmos) {
+	public ManageRcmPanel(Rmos rmos,  RmosManager rmosManager, StatusManager statusManager) {
 		this.rmos = rmos;
-		this.rmosManager = new RmosManager(rmos);
-		this.statusManager = new StatusManager(rmos);
+		this.rmosManager = rmosManager;
+		this.statusManager = statusManager;
 		
 		// observe all rcms
 		this.addComponents();

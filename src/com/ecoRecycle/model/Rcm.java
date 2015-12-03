@@ -56,6 +56,13 @@ public class Rcm extends Observable{
 	@Column(name = "updateDateTime")
 	private Date updateDateTime;
 	
+	@Column(name = "reason")
+	private String reason;
+	
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinTable(name="RmosRcmMapping",
     joinColumns={@JoinColumn(name="rcmId")},
@@ -186,6 +193,10 @@ public class Rcm extends Observable{
 		return (this.currentCapacity == 0);
 	}
 	
+	public String getReason() {
+		return reason;
+	}
+
 	@Override
 	public String toString() {
 		return "Rcm [id=" + id + ", name=" + name + ", location=" + location
