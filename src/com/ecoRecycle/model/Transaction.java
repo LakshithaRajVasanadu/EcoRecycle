@@ -7,6 +7,7 @@ import com.ecoRecycle.helper.TransactionStatus;
 import com.ecoRecycle.helper.TransactionType;
 
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.HashSet;
 
@@ -65,7 +66,7 @@ public class Transaction {
 	private Date updateDateTime;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "transaction", cascade = CascadeType.ALL)
-	private Set<TransactionItem> transactionItems = new HashSet<TransactionItem>();
+	private Set<TransactionItem> transactionItems = new LinkedHashSet<TransactionItem>();
 	
     public Set<TransactionItem> getTransactionItems() {
         return transactionItems;

@@ -21,6 +21,7 @@ import com.ecoRecycle.repository.TransactionRepository;
 import com.ecoRecycle.service.AdministratorService;
 import com.ecoRecycle.service.RcmService;
 import com.ecoRecycle.service.RmosManager;
+import com.ecoRecycle.service.TransactionItemMappingService;
 import com.ecoRecycle.service.TransactionService;
 
 public class Main
@@ -28,14 +29,17 @@ public class Main
     public static void main(String[] args) {
     	
     	Main main = new Main();
-    	RcmRepository rcmRepo = new RcmRepository();
-    	Rcm rcm = rcmRepo.getRcmById(10);
+    	
+    	TransactionItemMappingService mp = new TransactionItemMappingService();
+    	mp.dispense(3);
+    	//RcmRepository rcmRepo = new RcmRepository();
+    	//Rcm rcm = rcmRepo.getRcmById(10);
     	
     	
     	/*TransactionService t = new TransactionService();
     	t.getLastTransaction(rcm);*/
-    	System.out.println("Starting");
-    	RcmService rcmSvc = new RcmService();
+    	//System.out.println("Starting");
+    	//RcmService rcmSvc = new RcmService();
     	
     	//Uncomment below two lines for testing dispense.
 //    	double dispensedAmount = rcmSvc.dispense(rcm);
@@ -43,8 +47,8 @@ public class Main
 //    	
     	//String outputMsg = rcmSvc.addItemToTransaction("Glass", rcm);
     	//String outputMsg = rcmSvc.addItemToTransaction("Aluminium", rcm);
-    	String outputMsg = rcmSvc.addItemToTransaction("plastic", rcm);
-    	System.out.println("Stopping" + outputMsg);
+    //	String outputMsg = rcmSvc.addItemToTransaction("plastic", rcm);
+    	//System.out.println("Stopping" + outputMsg);
     	/*RcmRepository rcmRepo = new RcmRepository();
     	Rcm rcm = rcmRepo.getRcmById(9);
     	Transaction t = new Transaction();

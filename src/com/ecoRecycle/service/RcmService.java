@@ -1,11 +1,15 @@
 package com.ecoRecycle.service;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
 import com.ecoRecycle.helper.TransactionStatus;
 import com.ecoRecycle.model.Item;
+import com.ecoRecycle.model.Location;
 import com.ecoRecycle.model.Rcm;
+import com.ecoRecycle.model.Rmos;
 import com.ecoRecycle.model.Transaction;
 import com.ecoRecycle.model.TransactionItem;
 import com.ecoRecycle.repository.RcmRepository;
@@ -27,6 +31,20 @@ public class RcmService {
 	
 	public boolean updateRcm(Rcm rcm) {
 		return repository.updateRcm(rcm);
+	}
+	
+	/*public Set<Rcm> getAllRcms() {
+		Set<Rcm> rcms = repository.getAllRcms();
+		return rcms;
+	}*/
+	
+	public Set<Rcm> getAllRcms() {
+		List<Rcm> rcmList = repository.getAllRcms();
+		Set<Rcm> rcmUniqueList = new HashSet<Rcm>();
+		for(Rcm rcm: rcmList)
+			rcmUniqueList.add(rcm);
+			
+		return rcmUniqueList;
 	}
 	
 	/*

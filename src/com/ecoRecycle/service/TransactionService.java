@@ -113,4 +113,9 @@ public class TransactionService {
 		TransactionRepository transRepo = new TransactionRepository();
 		return transRepo.createTransaction(t);
 	}
+	
+	public boolean updateTrasaction(Transaction trans){
+		TransactionRepository transRepo = new TransactionRepository();
+		return transRepo.updateTransaction(trans);
+	}
 }

@@ -4,6 +4,8 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -19,11 +21,13 @@ import com.ecoRecycle.model.Item;
 import com.ecoRecycle.model.Rmos;
 import com.ecoRecycle.service.ItemManager;
 import com.ecoRecycle.service.LocationService;
+import com.ecoRecycle.service.ObjFactory;
 import com.ecoRecycle.service.RmosManager;
 
-public class ManageItemPanel extends JPanel{
+public class ManageItemPanel extends JPanel {
 	private Rmos rmos;
 	private RmosManager rmosManager;
+	private ItemManager itemManager;
 	private LocationService locationService = new LocationService();
 	
 	private JComboBox rcmComboBox;
@@ -32,9 +36,9 @@ public class ManageItemPanel extends JPanel{
 	public ManageItemPanel(Rmos rmos) {
 		this.rmos = rmos;
 		this.rmosManager = new RmosManager(rmos);
-		
+		this.itemManager = ObjFactory.getInstance();		
 		// observe all rcms
-		this.addComponents();
+		this.addComponents();	
 	}
 	
 	private void addComponents() {
@@ -52,7 +56,7 @@ public class ManageItemPanel extends JPanel{
 		JLabel itemLabel = new JLabel("Item");
 		JComboBox<String> itemComboxBox = new JComboBox<String>();
 		
-		List<Item> items = new ItemManager().getAllItems();
+		List<Item> items = itemManager.getAllItems();
 		for(Item item : items)
 			itemComboxBox.addItem(item.getType());
 		
@@ -62,9 +66,9 @@ public class ManageItemPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String itemType = itemComboxBox.getSelectedItem().toString();
-				Item item = new ItemManager().getItemByType(itemType);
+				Item item = itemManager.getItemByType(itemType);
 				
-				Message msg = new ItemManager().addItem(item.getId());
+				Message msg = itemManager.addItem(item.getId());
 				if(msg.isSuccessful()) {
 					JOptionPane.showMessageDialog(null,
 							"added item successfully", "Info",
@@ -86,9 +90,9 @@ public class ManageItemPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String itemType = itemComboxBox.getSelectedItem().toString();
-				Item item = new ItemManager().getItemByType(itemType);
+				Item item = itemManager.getItemByType(itemType);
 				
-				Message msg = new ItemManager().removeItem(item.getId());
+				Message msg = itemManager.removeItem(item.getId());
 				if(msg.isSuccessful()) {
 					JOptionPane.showMessageDialog(null,
 							"removed item successfully", "Info",
@@ -117,9 +121,9 @@ public class ManageItemPanel extends JPanel{
 				String itemType = itemComboxBox.getSelectedItem().toString();
 				double newPrice = Double.parseDouble(priceField.getText());
 				
-				Item item = new ItemManager().getItemByType(itemType);
+				Item item = itemManager.getItemByType(itemType);
 				
-				Message msg = new ItemManager().changePrice(item.getId(), newPrice);
+				Message msg = itemManager.changePrice(item.getId(), newPrice);
 				if(msg.isSuccessful()) {
 					JOptionPane.showMessageDialog(null,
 							"changed price successfully", "Info",
@@ -147,5 +151,7 @@ public class ManageItemPanel extends JPanel{
 		return itemPanel;
 		
 	}
+
+	
 
 }

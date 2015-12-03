@@ -15,8 +15,8 @@ public class EcoRecycle {
 			{
 				try 
 				{
-					new RcmUIManager();
 					new RmosUIManager();
+					new RcmUIManager();
 				} 
 				catch (Exception e) 
 				{

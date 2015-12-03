@@ -14,6 +14,7 @@ import com.ecoRecycle.model.Item;
 import com.ecoRecycle.model.Location;
 
 public class LocationRepository {
+	
 	public List<Location> getAllLocations() {
 		Session session = HibernateLoader.getSessionFactory().openSession();
 		Transaction tx = null;

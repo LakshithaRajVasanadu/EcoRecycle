@@ -61,6 +61,7 @@ public class RmosMainPanel extends JPanel implements Observer{
 		statusManager = new StatusManager(rmos);
 		itemManager = new ItemManager();
 		
+		itemManager.addObserver(this);
 		rmosManager.addObserver(this);
 		statusManager.addObserver(this);
 	//	rmos.addObserver(this);

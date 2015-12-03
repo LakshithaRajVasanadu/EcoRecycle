@@ -1,5 +1,7 @@
 package com.ecoRecycle.repository;
 
+import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -8,6 +10,7 @@ import org.hibernate.criterion.Restrictions;
 
 import com.ecoRecycle.loader.HibernateLoader;
 import com.ecoRecycle.model.Item;
+import com.ecoRecycle.model.Location;
 import com.ecoRecycle.model.Rcm;
 
 public class RcmRepository {
@@ -75,4 +78,25 @@ public class RcmRepository {
 		}
 		return isSuccessful;
 	}
+	
+	public List<Rcm> getAllRcms() {
+		Session session = HibernateLoader.getSessionFactory().openSession();
+		Transaction tx = null;
+		List<Rcm> rcms = null;
+		try {
+			tx = session.beginTransaction();
+
+			Criteria criteria = session.createCriteria(Rcm.class);
+			rcms = criteria.list();
+
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return rcms;
+	} 
 }

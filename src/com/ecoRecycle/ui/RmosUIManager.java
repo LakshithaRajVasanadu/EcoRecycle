@@ -9,6 +9,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.Set;
 
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -20,7 +21,9 @@ import javax.swing.border.TitledBorder;
 import com.ecoRecycle.model.Rmos;
 import com.ecoRecycle.service.RmosService;
 
-public class RmosUIManager extends JFrame{
+import java.util.Observable;
+
+public class RmosUIManager extends JFrame {
 	
 	private RmosService rmosService = new RmosService();
 	private JPanel rmosChooserPanel = new JPanel();

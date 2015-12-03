@@ -1,19 +1,28 @@
 package com.ecoRecycle.service;
 
 import java.util.List;
+import java.util.Observable;
 
 import com.ecoRecycle.helper.Message;
 import com.ecoRecycle.model.Item;
 import com.ecoRecycle.repository.ItemRepository;
 
-public class ItemManager  {
+public class ItemManager extends Observable  {
 	
 	/*
 	 * Items are added and kept manually. 
 	 * UI add = make item valid,
 	 * UI remove = make item invalid
 	 */
-	
+	private boolean isAdded;
+	public boolean isAdded() {
+		return isAdded;
+	}
+
+	public void setAdded(boolean isAdded) {
+		this.isAdded = isAdded;
+	}
+
 	private ItemRepository repository = new ItemRepository();
 	
 	public Item getItemById(int id) {
@@ -48,6 +57,12 @@ public class ItemManager  {
 		msg.setSuccessful(isSuccessful);
 		if(!isSuccessful)
 			msg.setMessage("Could not add item");
+		else
+		{
+			setAdded(true);
+			setChanged();
+			notifyObservers(item.getType());
+		}
 		
 		return msg;
 	}
@@ -64,6 +79,12 @@ public class ItemManager  {
 		msg.setSuccessful(isSuccessful);
 		if(!isSuccessful)
 			msg.setMessage("Could not remove item");
+		else
+		{
+			setAdded(false);
+			setChanged();
+			notifyObservers(item.getType());
+		}
 		
 		return msg;
 	}
