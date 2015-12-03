@@ -78,4 +78,33 @@ public class StatusManager extends Observable{
 		
 		return msg;
 	}
+	
+	public Message deactivateRcm(int id, String reason) {
+		RcmService rcmService = new RcmService();
+		Rcm rcm = rcmService.getRcmById(id);
+		
+		Message msg = new Message();
+		msg.setSuccessful(true);
+		
+		if(rcm == null) {
+			msg.setSuccessful(false);
+			msg.setMessage("Could not find Rcm");
+			return msg;
+		}
+		
+		rcm.setStatus(RcmStatus.INACTIVE);
+		rcm.setReason(reason);
+		
+		msg.setSuccessful(rcmService.updateRcm(rcm));
+		if(!msg.isSuccessful()) {
+			msg.setMessage("Could not deactivate Rcm");
+		} else {
+			this.rmos = repository.getRmosById(this.rmos.getId());
+			
+		}
+		setChanged();
+		notifyObservers();
+		
+		return msg;
+	}
 }

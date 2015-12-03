@@ -15,12 +15,16 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import com.ecoRecycle.model.Rmos;
+import com.ecoRecycle.service.RmosManager;
 import com.ecoRecycle.service.RmosService;
+import com.ecoRecycle.service.StatusManager;
 
 public class RmosUI extends JPanel{
 	
 	private RmosService rmosService = new RmosService();
 	private Rmos rmos;
+	private RmosManager rmosManager;
+	private StatusManager statusManager;
 	private JFrame parentFrame;
 	private JPanel cardLayoutPanel;
 	
@@ -29,6 +33,9 @@ public class RmosUI extends JPanel{
 	
 	public RmosUI(String name, JFrame parentFrame) {
 		rmos = rmosService.getRmosByName(name);
+		rmosManager = new RmosManager(rmos);
+		statusManager = new StatusManager(rmos);
+		
 		this.parentFrame = parentFrame;
 		this.addComponents();
 		this.registerLogoutButtonHandler();
@@ -66,7 +73,7 @@ public class RmosUI extends JPanel{
 		
 		cardLayoutPanel.setLayout(new CardLayout());
 		cardLayoutPanel.add(new LoginPanel(parentFrame, cardLayoutPanel, rmos), LOGIN_PANEL);
-		cardLayoutPanel.add(new RmosMainPanel(parentFrame, rmos), MAIN_PANEL);
+		cardLayoutPanel.add(new RmosMainPanel(parentFrame, rmos, rmosManager, statusManager), MAIN_PANEL);
 		
 		return cardLayoutPanel;
 	}
