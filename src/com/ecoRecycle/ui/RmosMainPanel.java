@@ -56,6 +56,7 @@ public class RmosMainPanel extends JPanel{
 	
 	private JPanel getLeftPanel() {
 		JPanel leftPanel = new JPanel();
+		leftPanel.setBackground(Color.black);
 		
 		TitledBorder border = new TitledBorder("Left");
 		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 10));
@@ -71,6 +72,7 @@ public class RmosMainPanel extends JPanel{
 	
 	private JPanel getRightPanel() {
 		JPanel rightPanel = new JPanel();
+		rightPanel.setBackground(Color.black);
 		
 		TitledBorder border = new TitledBorder("Right");
 		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 10));
@@ -80,6 +82,7 @@ public class RmosMainPanel extends JPanel{
 		
 		// add tabbed panes
 		JTabbedPane tabbedPane = new JTabbedPane();
+		tabbedPane.setBackground(new Color(245, 214, 196));
 		tabbedPane.addTab("RCM Manager", new RcmManagerPanel(rmos, rmosManager, statusManager, itemManager, uservice, rservice));
 		tabbedPane.addTab("Statistics", new StatisticsPanel(rmos, rmosManager, statusManager));
 		tabbedPane.setPreferredSize(new Dimension(595, 760));

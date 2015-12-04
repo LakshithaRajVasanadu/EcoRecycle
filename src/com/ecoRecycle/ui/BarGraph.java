@@ -37,7 +37,7 @@ public class BarGraph extends JPanel{
 	private static final int MAX_WEIGHT = 200;
 	private static final int MAX_AMOUNT = 500;
 	private static final int MAX_NO_OF_TIMES_EMPTIED = 100;
-	private static final int MAGNIFICATION_FACTOR = 500;
+	private static final int MAGNIFICATION_FACTOR = 300;
 	
 	public BarGraph(Rmos rmos,  RmosManager rmosManager, StatusManager statusManager,  Date startDate, Date endDate, boolean allRcms, String selectedRcmName, HashMap<Rcm, UsageStatisticsModel> statisticsDataMap) {
 		this.rmos = rmos;
@@ -45,6 +45,7 @@ public class BarGraph extends JPanel{
 		this.statusManager = statusManager;
 		this.statisticsManager = new StatisticsManager(rmos);
 		this.statisticsDataMap = statisticsDataMap;
+		setBackground(new Color(245, 214, 196));
 		
 		//////
 	/*	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -101,9 +102,20 @@ public class BarGraph extends JPanel{
 			}
 			
 			int itemCountPercentage = (int) Math.round(((dataModel.getNumberOfItems() * MAGNIFICATION_FACTOR) / MAX_NO_OF_ITEMS));
+			if(itemCountPercentage > MAGNIFICATION_FACTOR)
+				itemCountPercentage = MAGNIFICATION_FACTOR;
+			
 			int weightPercentage = (int) Math.round(((dataModel.getTotalWeight() * MAGNIFICATION_FACTOR) / MAX_WEIGHT));
+			if(weightPercentage > MAGNIFICATION_FACTOR)
+				weightPercentage = MAGNIFICATION_FACTOR;
+			
 			int amountPercentage = (int) Math.round(((dataModel.getTotalValue() * MAGNIFICATION_FACTOR) / MAX_AMOUNT));
+			if(amountPercentage > MAGNIFICATION_FACTOR)
+				amountPercentage = MAGNIFICATION_FACTOR;
+			
 			int numberOfTimesEmptiedPercentage = (int) Math.round(((dataModel.getNumberOfTimesEmptied() * MAGNIFICATION_FACTOR) / MAX_NO_OF_TIMES_EMPTIED));
+			if(numberOfTimesEmptiedPercentage > MAGNIFICATION_FACTOR)
+				numberOfTimesEmptiedPercentage = MAGNIFICATION_FACTOR;
 			
 			System.out.println("BarGraph: rcm name:" + rcm.getName());
 			System.out.println("BarGraph: rcm name:" + itemCountPercentage);
@@ -116,19 +128,19 @@ public class BarGraph extends JPanel{
 			g2.drawString(rcm.getName(), x, y + 20);
 			x += 100;
 			
-			g2.setColor(Color.pink);
+			g2.setColor(new Color(255, 122, 66));
 			g2.fillRect(x, y, itemCountPercentage, 10);
 			if(itemCountPercentage > 0)
 				g2.drawString((int)dataModel.getNumberOfItems() + "", x + itemCountPercentage + 15, y + 7);
 			y += 10;
 			
-			g2.setColor(Color.yellow);
+			g2.setColor(new Color(71, 95, 84));
 			g2.fillRect(x, y, weightPercentage, 10);
 			if(weightPercentage > 0)
 				g2.drawString(dataModel.getTotalWeight() + " lbs", x + weightPercentage + 15, y + 7);
 			y += 10;
 			
-			g2.setColor(Color.orange);
+			g2.setColor(new Color(224, 73, 87));
 			g2.fillRect(x, y, amountPercentage, 10);
 			if(amountPercentage > 0)
 				g2.drawString(dataModel.getTotalValue() + " $", x + amountPercentage + 15, y + 7);
@@ -149,21 +161,21 @@ public class BarGraph extends JPanel{
 		x = 30;
 		y += 20;
 		
-		g2.setColor(Color.pink);
+		g2.setColor(new Color(255, 122, 66));
 		g2.fillRect(x, y, 20, 10);
 		g2.setColor(Color.black);
 		x += 22;
 		g2.drawString("Item Count", x, y + 10);
 		x += 65;
 		
-		g2.setColor(Color.yellow);
+		g2.setColor(new Color(71, 95, 84));
 		g2.fillRect(x, y, 20, 10);
 		g2.setColor(Color.black);
 		x += 22;
 		g2.drawString("Total Weight", x, y + 10);
 		x += 75;
 		
-		g2.setColor(Color.orange);
+		g2.setColor(new Color(224, 73, 87));
 		g2.fillRect(x, y, 20, 10);
 		g2.setColor(Color.black);
 		x += 22;

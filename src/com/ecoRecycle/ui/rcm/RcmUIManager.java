@@ -1,6 +1,7 @@
 package com.ecoRecycle.ui.rcm;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -19,6 +20,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 import com.ecoRecycle.model.Rcm;
@@ -47,6 +49,7 @@ public class RcmUIManager extends JFrame implements Observer
 	private UnloadTransactionService uservice;
 	private ReloadTransactionService rservice;
 	private RmosManager rmosManager;
+	JPanel finalPanel = new JPanel(new BorderLayout());
 
 
 	/**
@@ -90,26 +93,39 @@ public class RcmUIManager extends JFrame implements Observer
 	private void addComponents() {
 		Container contentPane = this.getContentPane();
 		contentPane.removeAll();
+		finalPanel.removeAll();
 		prepareRcmChooserPanel();
 		if(rcmComboBox.getSelectedItem() != null)
 			prepareRcmPanel(rcmComboBox.getSelectedItem().toString());
 		else
 			rcmPanel.removeAll();
-		contentPane.setLayout(new BorderLayout());
-		contentPane.add(rcmChooserPanel, BorderLayout.NORTH);
-		contentPane.add(rcmPanel, BorderLayout.SOUTH);
+	//	contentPane.setLayout(new BorderLayout());
+	//	contentPane.add(rcmChooserPanel, BorderLayout.NORTH);
+	//	contentPane.add(rcmPanel, BorderLayout.SOUTH);
+		
+		
+		finalPanel.setBackground(Color.black);
+		finalPanel.setBorder(new LineBorder(new Color(74, 175, 37), 3));
+	//	contentPane.setLayout(new BorderLayout());
+		finalPanel.add(rcmChooserPanel, BorderLayout.NORTH);
+		finalPanel.add(rcmPanel, BorderLayout.SOUTH);
+		contentPane.add(finalPanel);
 		
 		
 	}
 	
 	private void prepareRcmChooserPanel() {
+
 		rcmChooserPanel.removeAll();
+		rcmChooserPanel.setBackground(Color.black);
 		
 		rcmChooserPanel.setLayout(new BorderLayout());
 		rcmChooserPanel.setPreferredSize(new Dimension(0, 70));
 		
 		TitledBorder border = new TitledBorder("CHOOSE RCM");
+		border.setBorder(new LineBorder(Color.orange));
 		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 18));
+		border.setTitleColor(new Color(162, 118, 237));
 		rcmChooserPanel.setBorder(border);
 		
 		JLabel rmosLabel = new JLabel("Choose Rcm:");
@@ -141,6 +157,8 @@ public class RcmUIManager extends JFrame implements Observer
         });
 		
 		JPanel rcmChooserInnerPanel = new JPanel();
+		rcmChooserInnerPanel.setBackground(Color.black);
+		rmosLabel.setForeground(Color.white);
 		rcmChooserInnerPanel.add(rmosLabel);
 		rcmChooserInnerPanel.add(rcmComboBox);
 		
@@ -152,6 +170,7 @@ public class RcmUIManager extends JFrame implements Observer
 	
 	private void prepareRcmPanel(String rcmName) {
 		rcmPanel.removeAll();
+		rcmPanel.setBackground(Color.black);
         System.out.println("Switching to Rcm:" + rcmName);
 		rcmPanel.add(new RcmUI(rcmName, this, statusManager, itemManager, uservice, rservice));
 		

@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.TitledBorder;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -33,7 +34,7 @@ public class RcmManagerPanel extends JPanel{
 		this.rmosManager = rmosManager;
 		this.statusManager = statusManager;
 		this.itemManager = itemManager;
-		
+		setBackground(new Color(245, 214, 196));
 		this.uservice = uservice;
 		this.rservice = rservice;
 		// observe all rcms
@@ -49,10 +50,10 @@ public class RcmManagerPanel extends JPanel{
 	private JPanel getControlPanel() {
 		JPanel controlPanel = new JPanel();
 		
-		TitledBorder border = new TitledBorder("CONTROL PANEL");
-		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 8));
+		TitledBorder border = new TitledBorder("  CONTROL PANEL");
+		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 12));
 		controlPanel.setBorder(border);
-		
+		controlPanel.setBackground(new Color(245, 214, 196));
 		controlPanel.setPreferredSize(new Dimension(595, 50));
 		
 		JRadioButton viewRcmButton = new JRadioButton("View RCM");
@@ -131,8 +132,9 @@ public class RcmManagerPanel extends JPanel{
 	
 	private JPanel getDisplayPanel() {
 		displayPanel = new JPanel();
+		displayPanel.setBackground(new Color(245, 214, 196));
 		
-		displayPanel.setPreferredSize(new Dimension(595, 460));
+		displayPanel.setPreferredSize(new Dimension(595, 650));
 		viewRcmButtonHandler();
 		
 		return displayPanel;
@@ -141,8 +143,8 @@ public class RcmManagerPanel extends JPanel{
 	private void viewRcmButtonHandler() {
 		System.out.println("You chose View!!");
 		
-		TitledBorder border = new TitledBorder("VIEW RCM");
-		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 8));
+		TitledBorder border = new TitledBorder("    VIEW RCM");
+		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 12));
 		displayPanel.setBorder(border);
 		
 		displayPanel.removeAll();
@@ -154,8 +156,8 @@ public class RcmManagerPanel extends JPanel{
 	private void addRcmButtonHandler() {
 		System.out.println("You chose add!!");
 		
-		TitledBorder border = new TitledBorder("ADD RCM");
-		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 8));
+		TitledBorder border = new TitledBorder("   ADD RCM");
+		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 12));
 		displayPanel.setBorder(border);
 		
 		displayPanel.removeAll();
@@ -167,8 +169,8 @@ public class RcmManagerPanel extends JPanel{
 	private void removeRcmButtonHandler() {
 		System.out.println("You chose remove!!");
 		
-		TitledBorder border = new TitledBorder("REMOVE RCM");
-		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 8));
+		TitledBorder border = new TitledBorder("   REMOVE RCM");
+		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 12));
 		displayPanel.setBorder(border);
 		
 		displayPanel.removeAll();
@@ -180,8 +182,8 @@ public class RcmManagerPanel extends JPanel{
 	private void manageRcmButtonHandler() {
 		System.out.println("You chose manage rcm!!");
 		
-		TitledBorder border = new TitledBorder("MANAGE RCM");
-		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 8));
+		TitledBorder border = new TitledBorder("   MANAGE RCM");
+		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 12));
 		displayPanel.setBorder(border);
 		
 		displayPanel.removeAll();
@@ -193,8 +195,8 @@ public class RcmManagerPanel extends JPanel{
 	private void manageItemButtonHandler() {
 		System.out.println("You chose manage Item!!");
 		
-		TitledBorder border = new TitledBorder("MANAGE ITEM");
-		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 8));
+		TitledBorder border = new TitledBorder("   MANAGE ITEM");
+		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 12));
 		displayPanel.setBorder(border);
 		
 		displayPanel.removeAll();

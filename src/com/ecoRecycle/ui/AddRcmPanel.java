@@ -1,6 +1,8 @@
 package com.ecoRecycle.ui;
 
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -34,7 +36,7 @@ public class AddRcmPanel extends JPanel{
 		this.rmos = rmos;
 		this.rmosManager = rmosManager;
 		this.statusManager = statusManager;
-		
+		setBackground(new Color(245, 214, 196));
 		// observe all rcms
 		this.addComponents();
 	}
@@ -45,11 +47,13 @@ public class AddRcmPanel extends JPanel{
 	
 	private JPanel getAddRcmPanel() {
 		JPanel addRcmPanel = new JPanel();
-		addRcmPanel.setLayout(new BoxLayout(addRcmPanel, BoxLayout.Y_AXIS));
+		addRcmPanel.setBackground(new Color(245, 214, 196));
+		//addRcmPanel.setLayout(new BoxLayout(addRcmPanel, BoxLayout.Y_AXIS));
+		addRcmPanel.setLayout(new GridLayout(0,2));
 		
-		TitledBorder border = new TitledBorder("ADD RCM");
-		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 18));
-		addRcmPanel.setBorder(border);
+//		TitledBorder border = new TitledBorder("ADD RCM");
+//		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 18));
+//		addRcmPanel.setBorder(border);
 		
 		JLabel nameLabel = new JLabel("Name");
 		JTextField nameField = new JTextField(20);
@@ -95,15 +99,15 @@ public class AddRcmPanel extends JPanel{
 			}
 		});
 		
-		addRcmPanel.add(nameLabel);
-		addRcmPanel.add(nameField);
-		addRcmPanel.add(locationLabel);
-		addRcmPanel.add(locationComboBox);
-		addRcmPanel.add(capacityLabel);
-		addRcmPanel.add(capacityField);
-		addRcmPanel.add(cashValueLabel);
-		addRcmPanel.add(cashField);
-		addRcmPanel.add(addButton);
+		addRcmPanel.add(nameLabel, 0);
+		addRcmPanel.add(nameField, 1);
+		addRcmPanel.add(locationLabel, 2);
+		addRcmPanel.add(locationComboBox, 3);
+		addRcmPanel.add(capacityLabel, 4);
+		addRcmPanel.add(capacityField, 5);
+		addRcmPanel.add(cashValueLabel, 6);
+		addRcmPanel.add(cashField, 7);
+		addRcmPanel.add(addButton, 8);
 		
 		return addRcmPanel;
 	}

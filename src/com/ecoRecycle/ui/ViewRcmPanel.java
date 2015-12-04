@@ -1,5 +1,6 @@
 package com.ecoRecycle.ui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -26,6 +27,7 @@ public class ViewRcmPanel extends JPanel{
 	public ViewRcmPanel(Rmos rmos) {
 		this.rmos = rmos;
 		this.rmosManager = new RmosManager(rmos);
+		setBackground(new Color(245, 214, 196));
 		
 		// observe all rcms
 		this.addComponents();
@@ -34,12 +36,14 @@ public class ViewRcmPanel extends JPanel{
 	private void addComponents() {
 		this.setLayout(new GridLayout(0,1));
 		this.add(getInputPanel());
+		rcmPanel.setBackground(new Color(245, 214, 196));
 		this.add(rcmPanel);
 		
 	}
 	
 	private JPanel getInputPanel() {
 		JPanel inputPanel = new JPanel();
+		inputPanel.setBackground(new Color(245, 214, 196));
 		
 		JLabel rcmLabel = new JLabel("Rcm: ");
 		rcmComboBox = new JComboBox<String>();
@@ -70,6 +74,8 @@ public class ViewRcmPanel extends JPanel{
 	private void prepareRcmPanel(String rcmName) {
 		rcmPanel.removeAll();
 		
+		rcmPanel.setBackground(new Color(245, 214, 196));
+		rcmPanel.setLayout(new GridLayout(0,1));
         System.out.println("Switching to Rcm:" + rcmName);
 		
         Rcm rcm = new RcmService().getRcmByName(rcmName);

@@ -1,5 +1,6 @@
 package com.ecoRecycle.ui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -11,6 +12,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -44,6 +46,7 @@ public class NotificationPanel extends JPanel{
 		this.rmos = rmos;
 		this.rmosManager = rmosManager;
 		this.statusManager = statusManager;
+		this.setBackground(new Color(184, 69, 67));
 		
 		this.addComponents();
 		new NotificationTimer(this, rmos, rmosManager, statusManager);
@@ -53,9 +56,17 @@ public class NotificationPanel extends JPanel{
 	
 	private void addComponents() {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		TitledBorder border = new TitledBorder("Notifications");
-		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 10));
-		this.setBorder(border);
+//		TitledBorder border = new TitledBorder("                    NOTIFICATIONS");
+//		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 12));
+		//this.setPreferredSize(new Dimension(200, 500));
+		
+	//	this.setBorder(border);
+		JLabel label = new JLabel("NOTIFICATIONS");
+		label.setFont(new Font("TimesNewRoman", Font.BOLD, 12));
+		
+		//JPanel newPanel = new JPanel(new BorderLayout());
+		//newPanel.add(label, BorderLayout.WEST);
+		this.add(label);
 		this.add(getMessageIcon());
 		populateMessagePanel();
 		this.add(messagePanel);
@@ -63,13 +74,13 @@ public class NotificationPanel extends JPanel{
 	
 	private JPanel getMessageIcon() {
 		JPanel messageIconPanel = new JPanel();
-		
-		TitledBorder border = new TitledBorder("Icon");
-		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 10));
-		messageIconPanel.setBorder(border);
+//		TitledBorder border = new TitledBorder("NOTIFICATIONS");
+//		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 12));
+//		messageIconPanel.setBorder(border);
+		messageIconPanel.setBackground(new Color(184, 69, 67));
 		
 		//monitorIconPanel.setSize(200, 50);
-		messageIconPanel.setPreferredSize(new Dimension(200, 120));
+		messageIconPanel.setPreferredSize(new Dimension(90, 120));
 		
 		ImageIcon imageIcon = new ImageIcon("resources/messageIcon.png");
 		Image image = imageIcon.getImage(); // transform it
@@ -97,12 +108,15 @@ public class NotificationPanel extends JPanel{
 		rmosManager = new RmosManager(rmos);
 		statusManager = new StatusManager(rmos);
 		
-		TitledBorder border = new TitledBorder("Messages");
-		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 10));
+//		TitledBorder border = new TitledBorder("Messages");
+//		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 10));
 	//	messagePanel.setBorder(border);
-	//	messagePanel.setPreferredSize(new Dimension(10, 300));
+	//	messagePanel.setPreferredSize(new Dimension(70, 300));
+		messagePanel.setOpaque(true);
+		messagePanel.setBackground(new Color(184, 69, 67));
 		
 		messagePanel.setLayout(new BoxLayout(messagePanel, BoxLayout.Y_AXIS));
+		JLabel labelOuter = new JLabel("                                     ");
 		
 		List<Rcm> rcmList = rmosManager.getAllRcms();
 //		rcmList = Collections.sort(rcmList);
@@ -112,6 +126,7 @@ public class NotificationPanel extends JPanel{
 		        }
 		    });
 		
+		messagePanel.add(labelOuter);
 		for(Rcm rcm: rcmList) {
 			if(rcm.getStatus() == RcmStatus.INACTIVE && (!(rcm.getReason().equals("Admin change")))) {
 				JLabel label = new JLabel("<html><ul><li><b><u>" + rcm.getName() + "</u></b> "
@@ -121,6 +136,7 @@ public class NotificationPanel extends JPanel{
 				label.setHorizontalTextPosition(SwingConstants.LEADING);
 				//label.setBorder(border);
 				label.setPreferredSize(new Dimension(600, 300));
+				//label.setForeground(Color.white);
 			
 			messagePanel.add(label);
 			}

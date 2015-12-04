@@ -35,6 +35,7 @@ public class StatusMonitorPanel extends JPanel implements Observer{
 		this.rmos = rmos;
 		this.rmosManager = rmosManager;
 		this.statusManager = statusManager;
+		this.setBackground(Color.black);
 		
 		statusManager.addObserver(this);
 		rmosManager.addObserver(this);
@@ -55,13 +56,14 @@ public class StatusMonitorPanel extends JPanel implements Observer{
 	
 	private JPanel getMonitorIcon() {
 		JPanel monitorIconPanel = new JPanel();
+		monitorIconPanel.setBackground(new Color(184, 69, 67));
 		
-		TitledBorder border = new TitledBorder("Icon");
-		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 10));
+		TitledBorder border = new TitledBorder("STATUS MONITOR");
+		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 12));
 		monitorIconPanel.setBorder(border);
 		
 		//monitorIconPanel.setSize(200, 50);
-		monitorIconPanel.setPreferredSize(new Dimension(200, 100));
+		monitorIconPanel.setPreferredSize(new Dimension(200, 130));
 		
 		ImageIcon imageIcon = new ImageIcon("resources/statusMonitor.jpg");
 		Image image = imageIcon.getImage(); // transform it
@@ -77,10 +79,10 @@ public class StatusMonitorPanel extends JPanel implements Observer{
 	}
 	
 	private void populateRcmPanel() {
-		TitledBorder border = new TitledBorder("Data");
-		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 10));
-		rcmPanel.setBorder(border);
-		
+//		TitledBorder border = new TitledBorder("Data");
+//		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 10));
+//		rcmPanel.setBorder(border);
+		rcmPanel.setBackground(new Color(184, 69, 67));
 		rcmPanel.setLayout(new GridLayout(0,1,0,3));
 		
 		List<Rcm> rcmList = rmosManager.getAllRcms();

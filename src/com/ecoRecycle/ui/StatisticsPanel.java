@@ -72,15 +72,21 @@ public class StatisticsPanel extends JPanel{
 		this.rmosManager = rmosManager;
 		this.statusManager = statusManager;	
 		this.statisticsManager = new StatisticsManager(rmos);
+		setBackground(new Color(245, 214, 196));
 		this.initialize();
 
 		this.addComponents();
 	}
 	
 	private void addComponents() {
+		inputPanel.setBackground(new Color(245, 214, 196));
 		this.add(getInputPanel());
 		prepareStatisticsPanel();
+		
+		statisticsPanel.setBackground(new Color(245, 214, 196));
 		this.add(statisticsPanel);
+		
+		visualizationPanel.setBackground(new Color(245, 214, 196));
 		prepareVisualizationPanel();
 		this.add(visualizationPanel);
 	}
@@ -94,15 +100,17 @@ public class StatisticsPanel extends JPanel{
 	}
 	
 	private JPanel getInputPanel() {
-		TitledBorder border = new TitledBorder("Input panel");
+		TitledBorder border = new TitledBorder("  Input panel");
 		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 10));
 		inputPanel.setBorder(border);
 		inputPanel.setPreferredSize(new Dimension(590, 160));
 		
 		JPanel durationPanel = new JPanel();
+		durationPanel.setBackground(new Color(245, 214, 196));
 		durationPanel.setLayout(new BoxLayout(durationPanel, BoxLayout.Y_AXIS));
 
 		JPanel innerOneDurationPanel = new JPanel();
+		innerOneDurationPanel.setBackground(new Color(245, 214, 196));
 		
 		JLabel durationLabel = new JLabel("Choose duration: ");	
 		
@@ -154,6 +162,7 @@ public class StatisticsPanel extends JPanel{
 		innerOneDurationPanel.add(monthlyButton);
 		
 		JPanel innerTwoDurationPanel = new JPanel();
+		innerTwoDurationPanel.setBackground(new Color(245, 214, 196));
 		
 		JRadioButton rangeButton = new JRadioButton("Range");
 		rangeButton.addActionListener(new ActionListener() {
@@ -201,6 +210,8 @@ public class StatisticsPanel extends JPanel{
 		inputPanel.add(durationPanel);
 	    
 		JPanel machinePanel = new JPanel();
+		machinePanel.setBackground(new Color(245, 214, 196));
+		
 		JLabel machineLabel = new JLabel("Choose Rcm:    ");
 		
 		JRadioButton allButton = new JRadioButton("All");
@@ -293,7 +304,13 @@ public class StatisticsPanel extends JPanel{
 	private void prepareStatisticsPanel() {
 		statisticsPanel.removeAll();
 		
-		TitledBorder border = new TitledBorder("Statistics panel");
+		rmos = new RmosService().getRmosByName(rmos.getName());
+		rmosManager = new RmosManager(rmos);
+		statusManager = new StatusManager(rmos);
+		statisticsManager = new StatisticsManager(rmos);
+		
+		
+		TitledBorder border = new TitledBorder("  Statistics panel");
 		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 10));
 		statisticsPanel.setBorder(border);
 	
@@ -366,6 +383,11 @@ public class StatisticsPanel extends JPanel{
 	
 	private void prepareVisualizationPanel() {
 		visualizationPanel.removeAll();
+		
+		rmos = new RmosService().getRmosByName(rmos.getName());
+		rmosManager = new RmosManager(rmos);
+		statusManager = new StatusManager(rmos);
+		statisticsManager = new StatisticsManager(rmos);
 		
 		TitledBorder border = new TitledBorder("Visualization panel");
 		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 10));

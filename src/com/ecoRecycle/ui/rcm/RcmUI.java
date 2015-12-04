@@ -23,6 +23,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 import com.ecoRecycle.helper.Message;
@@ -53,10 +54,14 @@ public class RcmUI extends JPanel implements Observer{
 	private JPanel rcmDetailsPanel;
 	
 	private JPanel displayPanel;
+	private JLabel latestDisplayLabel = new JLabel();
+	
 	JPanel itemButtonPanel = new JPanel();
 	JPanel dispensePanel = new JPanel();
 	JPanel extrasPanel = new JPanel();
 	JButton dispenseButton = new JButton("Dispense");
+    JLabel newMoneyLabel = new JLabel();
+
 	
 	private UnloadTransactionService uservice;
 	private ReloadTransactionService rservice;
@@ -82,6 +87,7 @@ public class RcmUI extends JPanel implements Observer{
 	}
 	
 	private void addComponents() {
+		this.setBackground(Color.black);
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.add(getRcmDetailsPanel());
 		this.add(getDisplayPanel());
@@ -89,6 +95,7 @@ public class RcmUI extends JPanel implements Observer{
 		this.add(itemButtonPanel);
 		
 		JPanel newPanel = new JPanel();
+		newPanel.setBackground(Color.black);
 		newPanel.add(getDispensePanel());
 		newPanel.add(Box.createRigidArea(new Dimension(50,20)));
 		newPanel.add(getExtrasPanel());
@@ -98,6 +105,7 @@ public class RcmUI extends JPanel implements Observer{
 	
 	private JPanel getRcmDetailsPanel() {
 		rcmDetailsPanel = new JPanel();
+		rcmDetailsPanel.setBackground(Color.black);
 		
 //		TitledBorder border = new TitledBorder("RMOS DETAILS PANEL");
 //		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 10));
@@ -106,13 +114,17 @@ public class RcmUI extends JPanel implements Observer{
 		rcmDetailsPanel.setPreferredSize(new Dimension(780, 55));
 		rcmDetailsPanel.setLayout(new BorderLayout());
 		
-		rcmDetailsPanel.add(new JLabel("Name: " + rcm.getName() + 
+		JLabel nameLabel = new JLabel("NAME: " + rcm.getName() + 
 				"				                                  " +
-				"                            "),  BorderLayout.WEST);
+				"                            ");
+		//nameLabel.setForeground(Color.white);
+		rcmDetailsPanel.add(nameLabel,  BorderLayout.WEST);
 		
 		prepareStatusLabel();
 		
-		rcmDetailsPanel.add(new JLabel("Location: " + rcm.getLocation().getCity()), BorderLayout.EAST);
+		JLabel locationLabel = new JLabel("Location: " + rcm.getLocation().getCity());
+		//locationLabel.setForeground(Color.white);
+		rcmDetailsPanel.add(locationLabel, BorderLayout.EAST);
 		
 		return rcmDetailsPanel;
 	}
@@ -124,9 +136,11 @@ public class RcmUI extends JPanel implements Observer{
 		statusLabel.setOpaque(true);
 		if(rcm.getStatus() == RcmStatus.ACTIVE) {
 			statusLabel.setBackground(Color.green);
+			rcmDetailsPanel.setBackground(Color.green);
 		}
 		else {
 			statusLabel.setBackground(Color.red);
+			rcmDetailsPanel.setBackground(Color.red);
 		}
 		rcmDetailsPanel.add(statusLabel, BorderLayout.CENTER);
 		
@@ -135,10 +149,12 @@ public class RcmUI extends JPanel implements Observer{
 	
 	private JPanel getDisplayPanel() {
 		displayPanel = new JPanel();
-		displayPanel.setBorder(new TitledBorder("DisplayPanel"));
-		displayPanel.setBackground(Color.white);
+		displayPanel.setBorder(new TitledBorder("DISPLAY"));
+		displayPanel.setBackground(new Color(244, 237, 218));
+		latestDisplayLabel.setText("<html>Welcome to Recycling Station!! <br/><br/> Please add items to start recycling! </html>");
 		
 		displayPanel.setPreferredSize(new Dimension(200, 300));
+		displayPanel.add(latestDisplayLabel);
 		return displayPanel;
 	}
 	
@@ -147,7 +163,8 @@ public class RcmUI extends JPanel implements Observer{
 		itemButtonPanel.removeAll();
 		
 		itemButtonPanel.setLayout(new GridLayout(2, 4, 10, 10));
-		itemButtonPanel.setBorder(new TitledBorder("ItemButtonPanel"));
+		itemButtonPanel.setBackground(Color.black);
+		itemButtonPanel.setBorder(new LineBorder(Color.orange));
 		
 		List<Item> items = itemManager.getAllItems();
 		for(Item item: items) {
@@ -157,11 +174,28 @@ public class RcmUI extends JPanel implements Observer{
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					newMoneyLabel.setText("");
 					RcmService rcmserv = new RcmService();
-					String str = "<html>";
+					String str = "<html><ul>";
 					Message message = rcmserv.addItemToTransactionV2(button.getText(), rcm, statusManager);
+					displayPanel.removeAll();
+					
 					if(message.isSuccessful() == false) {
-						str += message.getMessage();
+						TransactionService serv = new TransactionService();
+						Transaction lastTrans = serv.getLastTransaction(rcm);
+						Set<TransactionItem> retrivedItems =  lastTrans.getTransactionItems();
+						
+						double pricePerLb = 0;
+						for(TransactionItem t :  retrivedItems)
+						{
+							pricePerLb =  t.getPrice()/t.getWeight();
+							double poundToKgs = t.getWeight() *  0.45;
+							str = str + "<li>ITEM: " + t.getItem().getType().toUpperCase() + " , WEIGHT: " + t.getWeight() + " lbs " +
+									"( " + poundToKgs + " kgs)" + "* " + pricePerLb  + "$/lb = $" + t.getPrice() + 
+									"</li>";
+							
+						}
+						str += "<li>" + message.getMessage() + "</li> ";
 					} 
 					else {
 					TransactionService serv = new TransactionService();
@@ -169,18 +203,17 @@ public class RcmUI extends JPanel implements Observer{
 					Set<TransactionItem> retrivedItems =  lastTrans.getTransactionItems();
 					
 					double pricePerLb = 0;
-					displayPanel.removeAll();
 					for(TransactionItem t :  retrivedItems)
 					{
 						pricePerLb =  t.getPrice()/t.getWeight();
 						double poundToKgs = t.getWeight() *  0.45;
-						str = str + t.getItem().getType() + " :  " + t.getWeight() + " lbs " +
-								"( " + poundToKgs + " kgs)" + "* " + pricePerLb + " = " + t.getPrice() + 
-								"<br>";
+						str = str + "<li>ITEM: " + t.getItem().getType().toUpperCase() + " , WEIGHT: " + t.getWeight() + " lbs " +
+								"( " + poundToKgs + " kgs)" + "* " + pricePerLb  + "$/lb = $" + t.getPrice() + 
+								"</li>";
 						
 					}
 					}
-					str = str + "</html>";
+					str = str + "</ul></html>";
 					
 					JLabel label = new JLabel(str);
 					displayPanel.add(label);
@@ -212,10 +245,10 @@ public class RcmUI extends JPanel implements Observer{
 	
 	private JPanel getDispensePanel() {
 		
-		dispensePanel.setBorder(new TitledBorder("DispensePanel"));
-		dispensePanel.setPreferredSize(new Dimension(230, 350));
+		dispensePanel.setBorder(new TitledBorder("DISPENSER"));
+		dispensePanel.setPreferredSize(new Dimension(280, 400));
 		dispensePanel.setLayout(new BoxLayout(dispensePanel, BoxLayout.Y_AXIS));
-
+		dispensePanel.setBackground(new Color(244, 237, 218));
 		
 		ImageIcon imageIcon = new ImageIcon("resources/moneyDispenser.png");
 	    Image image = imageIcon.getImage(); // transform it 
@@ -227,8 +260,13 @@ public class RcmUI extends JPanel implements Observer{
 	    
 	    //JLabel moneyLabel = new JLabel();
 	    //moneyLabel.setText("Total Money Dispensed: $1000");
+	    
+	    //moneyLabel.setText("Total Money Dispensed: $1000");
 		
+	    
 	    dispensePanel.add(moneyImageLabel);
+	    dispensePanel.add(Box.createRigidArea(new Dimension(100, 10)));
+	    dispensePanel.add(newMoneyLabel);
 	    dispensePanel.add(Box.createRigidArea(new Dimension(60,40)));
 	   // dispensePanel.add(moneyLabel);
 		
@@ -238,8 +276,11 @@ public class RcmUI extends JPanel implements Observer{
 	}
 	
 	private JPanel getExtrasPanel() {
+		
 		JPanel extrasPanel = new JPanel();
-		extrasPanel.setBorder(new TitledBorder("ExtrasPanel"));
+		extrasPanel.setBackground(Color.black);
+
+//		extrasPanel.setBorder(new TitledBorder("ExtrasPanel"));
 		extrasPanel.setPreferredSize(new Dimension(350, 400));
 		extrasPanel.setLayout(new BoxLayout(extrasPanel, BoxLayout.Y_AXIS));
 		
@@ -261,9 +302,10 @@ public class RcmUI extends JPanel implements Observer{
 				
 				String dispenseStr = "";
 				if(msg.getAmount() > 0) {
-					dispenseStr += msg.getAmount() + "...." + msg.getPaymentType().toString();
+					dispenseStr += "<html>Thanks for Recycling! Please collect your " + msg.getPaymentType().toString() + " for $" + msg.getAmount() + "<br> Please add items to start recycling! </html>";
+					newMoneyLabel.setText(msg.getPaymentType().toString() + ": $" + msg.getAmount());
 				} else {
-					dispenseStr += "You have no pending payments";
+					dispenseStr += "You have no pending payments. Please add items to start Recycling!";
 				}
 				
 				

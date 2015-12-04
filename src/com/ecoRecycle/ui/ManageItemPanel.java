@@ -1,6 +1,8 @@
 package com.ecoRecycle.ui;
 
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -37,6 +39,7 @@ public class ManageItemPanel extends JPanel {
 		this.rmos = rmos;
 		this.rmosManager = new RmosManager(rmos);
 		this.itemManager = itemManager;
+		setBackground(new Color(245, 214, 196));
 		// observe all rcms
 		this.addComponents();	
 	}
@@ -47,11 +50,13 @@ public class ManageItemPanel extends JPanel {
 	
 	private JPanel getItemPanel() {
 		JPanel itemPanel = new JPanel();
-		itemPanel.setLayout(new BoxLayout(itemPanel, BoxLayout.Y_AXIS));
+		itemPanel.setBackground(new Color(245, 214, 196));
+		//itemPanel.setLayout(new BoxLayout(itemPanel, BoxLayout.Y_AXIS));
+		itemPanel.setLayout(new GridLayout(0,1));
 		
-		TitledBorder border = new TitledBorder("Item Panel");
-		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 18));
-		itemPanel.setBorder(border);
+//		TitledBorder border = new TitledBorder("Item Panel");
+//		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 18));
+//		itemPanel.setBorder(border);
 		
 		JLabel itemLabel = new JLabel("Item");
 		JComboBox<String> itemComboxBox = new JComboBox<String>();

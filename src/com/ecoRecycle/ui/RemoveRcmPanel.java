@@ -1,5 +1,6 @@
 package com.ecoRecycle.ui;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,6 +34,7 @@ public class RemoveRcmPanel extends JPanel{
 		this.rmos = rmos;
 		this.rmosManager = rmosManager;
 		this.statusManager = statusManager;
+		setBackground(new Color(245, 214, 196));
 		
 		// observe all rcms
 		this.addComponents();
@@ -47,10 +49,11 @@ public class RemoveRcmPanel extends JPanel{
 		
 		removeRcmPanel.removeAll();
 		removeRcmPanel.setLayout(new BoxLayout(removeRcmPanel, BoxLayout.Y_AXIS));
+		removeRcmPanel.setBackground(new Color(245, 214, 196));
 		
-		TitledBorder border = new TitledBorder("Remove RCM");
-		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 18));
-		removeRcmPanel.setBorder(border);
+//		TitledBorder border = new TitledBorder("Remove RCM");
+//		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 18));
+//		removeRcmPanel.setBorder(border);
 		
 		JLabel rcmLabel = new JLabel("Rcm Name");
 		JComboBox<String> rcmComboxBox = new JComboBox<String>();

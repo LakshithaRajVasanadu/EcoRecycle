@@ -1,5 +1,6 @@
 package com.ecoRecycle.ui;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,6 +39,7 @@ public class ManageRcmPanel extends JPanel{
 		this.rmos = rmos;
 		this.rmosManager = rmosManager;
 		this.statusManager = statusManager;
+		setBackground(new Color(245, 214, 196));
 		
 		this.uservice = uservice;
 		this.rservice = rservice;
@@ -49,12 +51,14 @@ public class ManageRcmPanel extends JPanel{
 	private void addComponents() {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.add(getInputPanel());
+		rcmPanel.setBackground(new Color(245, 214, 196));
 		this.add(rcmPanel);
 		
 	}
 	
 	private JPanel getInputPanel() {
 		JPanel inputPanel = new JPanel();
+		inputPanel.setBackground(new Color(245, 214, 196));
 		
 		JLabel rcmLabel = new JLabel("Rcm: ");
 		rcmComboBox = new JComboBox<String>();
@@ -84,6 +88,7 @@ public class ManageRcmPanel extends JPanel{
 	
 	private void prepareRcmPanel(String rcmName) {
 		rcmPanel.removeAll();
+		rcmPanel.setBackground(new Color(245, 214, 196));
 		
         System.out.println("Switching to Rcm:" + rcmName);
 		
@@ -153,7 +158,7 @@ public class ManageRcmPanel extends JPanel{
 							JOptionPane.ERROR_MESSAGE);
 					return;
 				}
-				Message msg = statusManager.deactivateRcm(rcm.getId());
+				Message msg = statusManager.deactivateRcm(rcm.getId() , "Admin change");
 				
 				if(msg.isSuccessful()) {
 					JOptionPane.showMessageDialog(null,
