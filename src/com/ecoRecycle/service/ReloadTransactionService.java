@@ -33,6 +33,9 @@ public class ReloadTransactionService extends TransactionService{
 		
 		if(!msg.isSuccessful()) {
 			msg.setMessage("Could not unload items from Rcm");
+		} else {
+			setChanged();
+			notifyObservers();
 		}
 		
 		return msg;

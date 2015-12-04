@@ -2,10 +2,13 @@ package com.ecoRecycle.loader;
 
 import java.awt.EventQueue;
 
-import ui.RcmUIManager;
+import com.ecoRecycle.service.StatusManager;
+import com.ecoRecycle.ui.rcm.RcmUIManager;
 import com.ecoRecycle.ui.RmosUIManager;
 
 public class EcoRecycle {
+	
+	
 	
 	public static void main(String[] args) 
 	{
@@ -13,10 +16,11 @@ public class EcoRecycle {
 		{
 			public void run() 
 			{
+				StatusManager statusManager = null;
 				try 
 				{
-					new RmosUIManager();
-					new RcmUIManager();
+					new RmosUIManager(statusManager);
+					
 				} 
 				catch (Exception e) 
 				{

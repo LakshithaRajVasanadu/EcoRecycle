@@ -30,8 +30,8 @@ public class UnloadTransactionService extends TransactionService{
 		rcm.addTransaction(transaction);
 		
 		rcm.setCurrentCapacity(0);
-		rcm.setCurrentCashValue(0);
-		rcm.setCurrentCouponValue(0);
+		//rcm.setCurrentCashValue(0);
+		//rcm.setCurrentCouponValue(0);
 		rcm.setLastEmptied(new Date());
 		
 		RcmService rcmService = new RcmService();
@@ -39,6 +39,9 @@ public class UnloadTransactionService extends TransactionService{
 		
 		if(!msg.isSuccessful()) {
 			msg.setMessage("Could not unload items from Rcm");
+		} else {
+			setChanged();
+			notifyObservers();
 		}
 		
 		return msg;

@@ -10,20 +10,30 @@ import javax.swing.JTabbedPane;
 import javax.swing.border.TitledBorder;
 
 import com.ecoRecycle.model.Rmos;
+import com.ecoRecycle.service.ItemManager;
+import com.ecoRecycle.service.ReloadTransactionService;
 import com.ecoRecycle.service.RmosManager;
 import com.ecoRecycle.service.StatusManager;
+import com.ecoRecycle.service.UnloadTransactionService;
 
 public class RmosMainPanel extends JPanel{
 	private Rmos rmos;
 	private RmosManager rmosManager;
 	private StatusManager statusManager;
+	private ItemManager itemManager;
+	private UnloadTransactionService uservice;
+	private ReloadTransactionService rservice;
 	
 	private JFrame parentFrame;
 	
-	public RmosMainPanel(JFrame parentFrame, Rmos rmos, RmosManager rmosManager, StatusManager statusManager) {
+	public RmosMainPanel(JFrame parentFrame, Rmos rmos, RmosManager rmosManager, StatusManager statusManager, ItemManager itemManager, UnloadTransactionService uservice, ReloadTransactionService rservice) {
 		this.rmos = rmos;
 		this.rmosManager = rmosManager;
 		this.statusManager = statusManager;
+		this.itemManager = itemManager;
+		
+		this.uservice = uservice;
+		this.rservice = rservice;
 		
 		this.parentFrame = parentFrame;
 		
@@ -68,7 +78,7 @@ public class RmosMainPanel extends JPanel{
 		
 		// add tabbed panes
 		JTabbedPane tabbedPane = new JTabbedPane();
-		tabbedPane.addTab("RCM Manager", new RcmManagerPanel(rmos, rmosManager, statusManager));
+		tabbedPane.addTab("RCM Manager", new RcmManagerPanel(rmos, rmosManager, statusManager, itemManager, uservice, rservice));
 		tabbedPane.addTab("Statistics", new StatisticsPanel(rmos, rmosManager, statusManager));
 		tabbedPane.setPreferredSize(new Dimension(595, 760));
 		

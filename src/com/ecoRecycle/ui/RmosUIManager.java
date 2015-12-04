@@ -9,7 +9,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.Set;
 
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -19,7 +18,14 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import com.ecoRecycle.model.Rmos;
+import com.ecoRecycle.service.ItemManager;
+import com.ecoRecycle.service.ObjFactory;
+import com.ecoRecycle.service.ReloadTransactionService;
+import com.ecoRecycle.service.RmosManager;
 import com.ecoRecycle.service.RmosService;
+import com.ecoRecycle.service.StatusManager;
+import com.ecoRecycle.service.UnloadTransactionService;
+import com.ecoRecycle.ui.rcm.RcmUIManager;
 
 import java.util.Observable;
 
@@ -31,8 +37,15 @@ public class RmosUIManager extends JFrame {
 	private JComboBox<String> rmosComboBox;
 	private JButton logoutButton;
 	
-	public RmosUIManager() {
+	private StatusManager statusManager;
+    //private ItemManager itemManager = ObjFactory.getInstance();		
+	private ItemManager itemManager;
+	private RmosManager rmosManager;
+
+	
+	public RmosUIManager(StatusManager statusManager) {
 		super("RMOS");
+		this.statusManager = statusManager;
 		initialize();
 	}
 	
@@ -96,7 +109,18 @@ public class RmosUIManager extends JFrame {
 	private void prepareRmosPanel(String rmosName) {
 		rmosPanel.removeAll();
         System.out.println("Switching to Rmos:" + rmosName);
-		rmosPanel.add(new RmosUI(rmosName, this));
+        Rmos rmos = rmosService.getRmosByName(rmosName);
+        statusManager = new StatusManager(rmos);
+        itemManager = new ItemManager();
+        rmosManager = new RmosManager(rmos);
+        
+        UnloadTransactionService uservice = new UnloadTransactionService();
+        ReloadTransactionService rservice = new ReloadTransactionService();
+        
+		rmosPanel.add(new RmosUI(rmosName, this, statusManager, itemManager, uservice, rservice, rmosManager));
+		
+		//RCM UI STARTS HERE.....
+		new RcmUIManager(statusManager, itemManager, uservice, rservice, rmosManager);
 		
 //		TitledBorder border = new TitledBorder("RMOS SPECIFIC PANEL");
 //		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 18));

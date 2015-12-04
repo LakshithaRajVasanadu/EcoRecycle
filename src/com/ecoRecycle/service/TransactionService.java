@@ -2,20 +2,26 @@ package com.ecoRecycle.service;
 
 
 import java.util.Date;
+import java.util.Observable;
 import java.util.Set;
 
+import javax.swing.JLabel;
+
+import com.ecoRecycle.helper.Message;
+import com.ecoRecycle.helper.PaymentType;
 import com.ecoRecycle.helper.TransactionStatus;
 import com.ecoRecycle.helper.TransactionType;
 import com.ecoRecycle.model.Item;
 import com.ecoRecycle.model.Rcm;
 import com.ecoRecycle.model.Transaction;
+import com.ecoRecycle.model.TransactionItem;
+import com.ecoRecycle.repository.RcmRepository;
 import com.ecoRecycle.repository.TransactionRepository;
-
 import com.ecoRecycle.model.Rcm;
 import com.ecoRecycle.model.Transaction;
 
 
-public class TransactionService {
+public class TransactionService extends Observable{
 	
 
 	// public Transaction getLastTransaction(Rcm rcm) {
@@ -117,5 +123,62 @@ public class TransactionService {
 	public boolean updateTrasaction(Transaction trans){
 		TransactionRepository transRepo = new TransactionRepository();
 		return transRepo.updateTransaction(trans);
+	}
+	
+	public Message dispense(Rcm rcm) {
+		// Get last recycle transaction that is active
+		// If it is present, get its total payment. Check if rcm has so much cash. Decide cash or coupon. Update rcm payment value and transactionstatus and payment type.
+		// If it is not present, return false - 0
+		Message message = new Message();
+		
+		//Get last trans
+		int maxId = -1;
+		Transaction mostRecentTransaction = null;
+		Set<Transaction> transactions = rcm.getTransactions();
+			for(Transaction t : transactions) {
+				if(t.getType().equals(TransactionType.RECYCLE) && t.getStatus() == TransactionStatus.ACTIVE) {
+					if(t.getId() > maxId) {
+						mostRecentTransaction = t;
+						maxId = t.getId();
+					}
+				}
+			}
+			
+			if(mostRecentTransaction == null) {
+				message.setAmount(0);
+				message.setSuccessful(true);
+				return message;
+			}
+			
+			message.setSuccessful(true);
+			
+			
+			
+			double total = 0;
+			for(TransactionItem mapping: mostRecentTransaction.getTransactionItems())
+				total += mapping.getPrice();
+			
+			mostRecentTransaction.setTotalPayment(total);
+			
+			if(mostRecentTransaction.getTotalPayment() <= (rcm.getTotalCashValue()-rcm.getCurrentCashValue())) {
+				message.setPaymentType(PaymentType.CASH);
+				rcm.setCurrentCashValue(rcm.getCurrentCashValue() + mostRecentTransaction.getTotalPayment());
+				
+				// Sum items
+				
+			}
+			else
+				message.setPaymentType(PaymentType.COUPON);
+			
+			message.setAmount(mostRecentTransaction.getTotalPayment());
+
+			
+			mostRecentTransaction.setPaymentType(message.getPaymentType());
+			mostRecentTransaction.setStatus(TransactionStatus.DONE);
+			updateTrasaction(mostRecentTransaction);
+			 new RcmRepository().updateRcm(rcm);
+		
+		
+		return message;
 	}
 }

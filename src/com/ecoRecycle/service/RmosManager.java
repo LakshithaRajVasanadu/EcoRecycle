@@ -45,6 +45,7 @@ public class RmosManager extends Observable{
 		rcm.setTotalCapacity(capacity);
 		rcm.setTotalCashValue(cashValue);
 		rcm.setStatus(RcmStatus.ACTIVE);
+		rcm.setReason("Admin Change");
 		
 		RmosRcmMapping mapping = new RmosRcmMapping();
 		mapping.setRcm(rcm);

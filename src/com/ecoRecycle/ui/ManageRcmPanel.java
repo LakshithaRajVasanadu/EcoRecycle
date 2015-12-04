@@ -28,14 +28,19 @@ public class ManageRcmPanel extends JPanel{
 	private Rmos rmos;
 	private RmosManager rmosManager;
 	private StatusManager statusManager;
+	private UnloadTransactionService uservice;
+	private ReloadTransactionService rservice;
 	
 	private JComboBox rcmComboBox;
 	private JPanel rcmPanel = new JPanel();
 	
-	public ManageRcmPanel(Rmos rmos,  RmosManager rmosManager, StatusManager statusManager) {
+	public ManageRcmPanel(Rmos rmos,  RmosManager rmosManager, StatusManager statusManager, UnloadTransactionService uservice, ReloadTransactionService rservice) {
 		this.rmos = rmos;
 		this.rmosManager = rmosManager;
 		this.statusManager = statusManager;
+		
+		this.uservice = uservice;
+		this.rservice = rservice;
 		
 		// observe all rcms
 		this.addComponents();
@@ -175,7 +180,6 @@ public class ManageRcmPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				Rcm rcm = new RcmService().getRcmByName(rcmName);
 				
-				UnloadTransactionService uservice = new UnloadTransactionService();
 				Message msg = uservice.unloadRcm(rcm);
 				
 				if(msg.isSuccessful()) {
@@ -207,7 +211,6 @@ public class ManageRcmPanel extends JPanel{
 				
 				double money = Double.parseDouble(cashField.getText());
 				
-				ReloadTransactionService rservice = new ReloadTransactionService();
 				Message msg = rservice.reloadRcm(rcm, money);
 				
 				if(msg.isSuccessful()) {

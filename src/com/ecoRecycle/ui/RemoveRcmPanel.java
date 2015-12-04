@@ -27,6 +27,8 @@ public class RemoveRcmPanel extends JPanel{
 	private StatusManager statusManager;
 	private LocationService locationService = new LocationService();
 	
+	private JPanel removeRcmPanel = new JPanel();
+	
 	public RemoveRcmPanel(Rmos rmos,  RmosManager rmosManager, StatusManager statusManager) {
 		this.rmos = rmos;
 		this.rmosManager = rmosManager;
@@ -37,11 +39,13 @@ public class RemoveRcmPanel extends JPanel{
 	}
 	
 	private void addComponents() {
-		this.add(getRemoveRcmPanel());
+		prepareRemoveRcmPanel();
+		this.add(removeRcmPanel);
 	}
 
-	private JPanel getRemoveRcmPanel() {
-		JPanel removeRcmPanel = new JPanel();
+	private void prepareRemoveRcmPanel() {
+		
+		removeRcmPanel.removeAll();
 		removeRcmPanel.setLayout(new BoxLayout(removeRcmPanel, BoxLayout.Y_AXIS));
 		
 		TitledBorder border = new TitledBorder("Remove RCM");
@@ -73,6 +77,7 @@ public class RemoveRcmPanel extends JPanel{
 						JOptionPane.showMessageDialog(null,
 								"Removed successfully", "Info",
 								JOptionPane.INFORMATION_MESSAGE);
+						prepareRemoveRcmPanel() ;
 						
 						
 					}else {
@@ -88,6 +93,8 @@ public class RemoveRcmPanel extends JPanel{
 		removeRcmPanel.add(rcmComboxBox);
 		removeRcmPanel.add(removeButton);
 		
-		return removeRcmPanel;
+		removeRcmPanel.revalidate();
+		removeRcmPanel.repaint();
+		
 	}
 }

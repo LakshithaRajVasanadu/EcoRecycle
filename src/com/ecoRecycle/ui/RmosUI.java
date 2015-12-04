@@ -15,9 +15,12 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import com.ecoRecycle.model.Rmos;
+import com.ecoRecycle.service.ItemManager;
+import com.ecoRecycle.service.ReloadTransactionService;
 import com.ecoRecycle.service.RmosManager;
 import com.ecoRecycle.service.RmosService;
 import com.ecoRecycle.service.StatusManager;
+import com.ecoRecycle.service.UnloadTransactionService;
 
 public class RmosUI extends JPanel{
 	
@@ -25,16 +28,25 @@ public class RmosUI extends JPanel{
 	private Rmos rmos;
 	private RmosManager rmosManager;
 	private StatusManager statusManager;
+	private ItemManager itemManager;
+	private UnloadTransactionService uservice;
+	private ReloadTransactionService rservice;
+	
 	private JFrame parentFrame;
 	private JPanel cardLayoutPanel;
 	
     public static final String LOGIN_PANEL = "LoginPanel";
     public static final String MAIN_PANEL = "RmosMainPanel";
 	
-	public RmosUI(String name, JFrame parentFrame) {
+	public RmosUI(String name, JFrame parentFrame, StatusManager statusManager, ItemManager itemManager, UnloadTransactionService uservice, ReloadTransactionService rservice, RmosManager rmosManager) {
 		rmos = rmosService.getRmosByName(name);
-		rmosManager = new RmosManager(rmos);
-		statusManager = new StatusManager(rmos);
+		this.rmosManager = rmosManager;
+		this.statusManager = statusManager;
+		this.itemManager = itemManager;
+		this.uservice = uservice;
+		this.rservice = rservice;
+		
+		//this.statusManager = new StatusManager(rmos);
 		
 		this.parentFrame = parentFrame;
 		this.addComponents();
@@ -73,7 +85,7 @@ public class RmosUI extends JPanel{
 		
 		cardLayoutPanel.setLayout(new CardLayout());
 		cardLayoutPanel.add(new LoginPanel(parentFrame, cardLayoutPanel, rmos), LOGIN_PANEL);
-		cardLayoutPanel.add(new RmosMainPanel(parentFrame, rmos, rmosManager, statusManager), MAIN_PANEL);
+		cardLayoutPanel.add(new RmosMainPanel(parentFrame, rmos, rmosManager, statusManager, itemManager, uservice, rservice), MAIN_PANEL);
 		
 		return cardLayoutPanel;
 	}

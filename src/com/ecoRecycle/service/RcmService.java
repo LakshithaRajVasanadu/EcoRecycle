@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+import com.ecoRecycle.helper.Message;
 import com.ecoRecycle.helper.TransactionStatus;
 import com.ecoRecycle.model.Item;
 import com.ecoRecycle.model.Location;
@@ -135,14 +136,14 @@ public class RcmService {
 		int randomNum = 0;
 		try {
 			Random r = new Random();
-			randomNum = r.nextInt(20);
+			randomNum = r.nextInt(15) + 1;
 			System.out.println("Random num : " + randomNum);
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 			//ToDo : fill this
 		}
-		randomNum = 4;
+		//randomNum = 4;
 		return randomNum;
 	}
 	
@@ -180,4 +181,83 @@ public class RcmService {
 		}
 		return value;
 	}
+	
+	public Message addItemToTransactionV2(String itemType, Rcm rcm, StatusManager statusManager) {
+		String msg = "";
+		int weightOfItem; 
+		RcmRepository rcmRepo = new RcmRepository();
+		TransactionService tranService = new TransactionService();
+		Transaction lastTransaction = null;
+		ItemManager itemManager = new ItemManager();
+		Item item = null;
+		double newWeight = 0;
+		double newCashValue = 0;
+		double itemValue = 0;
+		boolean addItemSuccess = false;
+		boolean isRcmUpdated = false;
+		TransactionItem transItem = null;
+		
+		boolean isItemValid = true;
+		Message message = new Message();
+		
+		try {
+			weightOfItem = randomWeightGenerator();
+			if(weightOfItem > 10) {
+				msg = "Item Not accepted!";
+				message.setMessage("Item not accepted");
+				message.setSuccessful(false);
+				isItemValid = false;
+				return message;
+			}
+			
+			if((rcm.getTotalCapacity() - rcm.getCurrentCapacity()) < weightOfItem){
+				msg = "Item Not accepted due to RCM capacity reached";
+				message.setMessage("Item not accepted - capacity full");
+				message.setSuccessful(false);
+				statusManager.deactivateRcm(rcm.getId(), "Capacity full");
+				
+				isItemValid = false;
+				return message;
+			}
+				item = itemManager.getItemByType(itemType);
+				lastTransaction = tranService.getLastTransaction(rcm);
+				
+				//addItemSuccess = tranService.addItemtoTransaction(lastTransaction,item);
+				transItem = new TransactionItem();
+				transItem.setItem(item);
+				transItem.setTransaction(lastTransaction);
+				transItem.setWeight(weightOfItem);
+				transItem.setAccepted(true);
+				transItem.setPrice(weightOfItem*item.getPricePerLb());
+				
+				lastTransaction.addTransactionItem(transItem);
+				rcm.addTransaction(lastTransaction); ///---**
+				//if(addItemSuccess){
+					itemValue = weightOfItem*item.getPricePerLb();
+					lastTransaction.setTotalWeight(weightOfItem + lastTransaction.getTotalWeight());
+					//lastTransaction.setTotalPayment(transItem.getPrice() + lastTransaction.getTotalPayment());
+					
+					newWeight = rcm.getCurrentCapacity()+weightOfItem;
+						rcm.setCurrentCapacity(newWeight);
+						isRcmUpdated = rcmRepo.updateRcm(rcm);
+						if(isRcmUpdated) {
+							msg = "Item successfully accepted by RCM";
+							message.setSuccessful(true);
+						}
+										
+					else {
+						//msg = "Item reject due to insufficient Capacity or Cash value";
+						message.setSuccessful(false);
+						message.setMessage("Internal error");
+					}
+				//}				
+			
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			//ToDo:Fill this
+		}
+		return message;		
+	}
+	
 }

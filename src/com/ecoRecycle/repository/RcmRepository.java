@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
+import com.ecoRecycle.helper.RcmStatus;
 import com.ecoRecycle.loader.HibernateLoader;
 import com.ecoRecycle.model.Item;
 import com.ecoRecycle.model.Location;
@@ -87,6 +88,7 @@ public class RcmRepository {
 			tx = session.beginTransaction();
 
 			Criteria criteria = session.createCriteria(Rcm.class);
+			criteria.add(Restrictions.ne("status", RcmStatus.REMOVED));
 			rcms = criteria.list();
 
 			tx.commit();

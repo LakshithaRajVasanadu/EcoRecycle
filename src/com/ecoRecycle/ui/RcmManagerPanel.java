@@ -11,20 +11,31 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import com.ecoRecycle.model.Rmos;
+import com.ecoRecycle.service.ItemManager;
+import com.ecoRecycle.service.ReloadTransactionService;
 import com.ecoRecycle.service.RmosManager;
 import com.ecoRecycle.service.StatusManager;
+import com.ecoRecycle.service.UnloadTransactionService;
 
 public class RcmManagerPanel extends JPanel{
 	private Rmos rmos;
 	private RmosManager rmosManager;
 	private StatusManager statusManager;
+	private ItemManager itemManager;
+	
+	private UnloadTransactionService uservice;
+	private ReloadTransactionService rservice;
 	
 	private JPanel displayPanel;
 	
-	public RcmManagerPanel(Rmos rmos, RmosManager rmosManager, StatusManager statusManager) {
+	public RcmManagerPanel(Rmos rmos, RmosManager rmosManager, StatusManager statusManager, ItemManager itemManager, UnloadTransactionService uservice, ReloadTransactionService rservice) {
 		this.rmos = rmos;
 		this.rmosManager = rmosManager;
 		this.statusManager = statusManager;
+		this.itemManager = itemManager;
+		
+		this.uservice = uservice;
+		this.rservice = rservice;
 		// observe all rcms
 		
 		this.addComponents();
@@ -174,7 +185,7 @@ public class RcmManagerPanel extends JPanel{
 		displayPanel.setBorder(border);
 		
 		displayPanel.removeAll();
-		displayPanel.add(new ManageRcmPanel(rmos, rmosManager, statusManager));
+		displayPanel.add(new ManageRcmPanel(rmos, rmosManager, statusManager, uservice, rservice));
 		displayPanel.revalidate();
 		displayPanel.repaint();
 	}
@@ -187,7 +198,7 @@ public class RcmManagerPanel extends JPanel{
 		displayPanel.setBorder(border);
 		
 		displayPanel.removeAll();
-		displayPanel.add(new ManageItemPanel(rmos));
+		displayPanel.add(new ManageItemPanel(rmos, itemManager));
 		displayPanel.revalidate();
 		displayPanel.repaint();
 	}
