@@ -1,6 +1,8 @@
 package com.ecoRecycle.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -15,6 +17,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 import com.ecoRecycle.model.Rmos;
@@ -56,6 +59,8 @@ public class RmosUIManager extends JFrame {
 		
 		this.addComponents();
 		
+	//	setPanelColor(rmosChooserPanel, Color.black);
+	//	setPanelColor(rmosPanel, Color.black);
 		this.setVisible(true);
 	}
 	
@@ -63,22 +68,34 @@ public class RmosUIManager extends JFrame {
 		Container contentPane = this.getContentPane();
 		prepareRmosChooserPanel();
 		prepareRmosPanel(rmosComboBox.getSelectedItem().toString());
-		contentPane.setLayout(new BorderLayout());
-		contentPane.add(rmosChooserPanel, BorderLayout.NORTH);
-		contentPane.add(rmosPanel, BorderLayout.SOUTH);
+		contentPane.setBackground(Color.black);
+		
+		JPanel finalPanel = new JPanel(new BorderLayout());
+		finalPanel.setBackground(Color.black);
+		finalPanel.setBorder(new LineBorder(new Color(74, 175, 37), 3));
+	//	contentPane.setLayout(new BorderLayout());
+		finalPanel.add(rmosChooserPanel, BorderLayout.NORTH);
+		finalPanel.add(rmosPanel, BorderLayout.SOUTH);
+		contentPane.add(finalPanel);
+		
 		
 	}
 	
 	private void prepareRmosChooserPanel() {
 		rmosChooserPanel.setLayout(new BorderLayout());
 		rmosChooserPanel.setPreferredSize(new Dimension(0, 70));
+		rmosChooserPanel.setBackground(Color.black);
 		
 		TitledBorder border = new TitledBorder("CHOOSE RMOS");
+		border.setBorder(new LineBorder(Color.orange));
 		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 18));
+		border.setTitleColor(new Color(162, 118, 237));
 		rmosChooserPanel.setBorder(border);
 		
 		JLabel rmosLabel = new JLabel("Choose Rmos:");
+		rmosLabel.setForeground(Color.white);
 		rmosComboBox = new JComboBox<String>();
+		//rmosComboBox.setForeground(Color.white);
 		
 		Set<Rmos> rmosList = rmosService.getAllRmos();
 		for(Rmos rmos : rmosList) {
@@ -99,6 +116,7 @@ public class RmosUIManager extends JFrame {
         });
 		
 		JPanel rmosChooserInnerPanel = new JPanel();
+		rmosChooserInnerPanel.setBackground(Color.black);
 		rmosChooserInnerPanel.add(rmosLabel);
 		rmosChooserInnerPanel.add(rmosComboBox);
 		
@@ -108,6 +126,7 @@ public class RmosUIManager extends JFrame {
 	
 	private void prepareRmosPanel(String rmosName) {
 		rmosPanel.removeAll();
+		rmosPanel.setBackground(Color.black);
         System.out.println("Switching to Rmos:" + rmosName);
         Rmos rmos = rmosService.getRmosByName(rmosName);
         statusManager = new StatusManager(rmos);
@@ -133,12 +152,26 @@ public class RmosUIManager extends JFrame {
 	}
 	
 	private void addLogoutButton() {
-		logoutButton = new JButton("Logout");		
+		logoutButton = new JButton("LOGOUT");
 		rmosChooserPanel.add(logoutButton, BorderLayout.EAST);
 	}
 
 	public JButton getLogoutButton() {
 		return logoutButton;
+	}
+	
+	private void setPanelColor(JPanel panel, Color color) {
+		panel.setBackground(color);
+
+		Component[] components = panel.getComponents();
+
+		for (int i = 0; i < components.length; i++) {
+			if (components[i].getClass().getName() == "javax.swing.JPanel") {
+				 setPanelColor((JPanel) components[i], color);
+			}
+
+			components[i].setBackground(color);
+		}
 	}
 
 }

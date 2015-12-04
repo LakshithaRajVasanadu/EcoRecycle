@@ -13,6 +13,8 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
 
+import javafx.scene.text.Font;
+
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -134,6 +136,7 @@ public class RcmUI extends JPanel implements Observer{
 	private JPanel getDisplayPanel() {
 		displayPanel = new JPanel();
 		displayPanel.setBorder(new TitledBorder("DisplayPanel"));
+		displayPanel.setBackground(Color.white);
 		
 		displayPanel.setPreferredSize(new Dimension(200, 300));
 		return displayPanel;

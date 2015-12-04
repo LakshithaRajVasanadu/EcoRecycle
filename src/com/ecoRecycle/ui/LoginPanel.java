@@ -2,10 +2,12 @@ package com.ecoRecycle.ui;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -23,6 +25,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 import ui.RmosUI;
@@ -47,9 +50,11 @@ public class LoginPanel extends JPanel{
 		this.parentPanel = parent;
 		this.rmos = rmos;
 		
-		TitledBorder border = new TitledBorder("LOGIN PANEL");
-		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 10));
-		this.setBorder(border);
+		this.setBackground(Color.black);
+		
+//		TitledBorder border = new TitledBorder("LOGIN PANEL");
+//		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 10));
+//		this.setBorder(border);
 		this.setPreferredSize(new Dimension(300, 700));
 		
 		this.addComponents();
@@ -58,15 +63,26 @@ public class LoginPanel extends JPanel{
 	private void addComponents() {
 		
 		this.disableLogoutButton();
-		this.add(Box.createRigidArea(new Dimension(0,650)));
+		JLabel welcomeLabel = new JLabel("                   Welcome to EcoRecycle Monitoring System!!!");
+		welcomeLabel.setFont(new Font("TimesNewRoman", Font.ITALIC, 20));		
+		welcomeLabel.setForeground(new Color(74, 175, 37));
+		this.add(welcomeLabel);
+		//this.add(getRRRPanel());
+		this.add(Box.createRigidArea(new Dimension(100,100)));
 		this.add(getAdminPanel());
+		this.add(Box.createRigidArea(new Dimension(500,200)));
+		this.add(getBorderPanel());
+		
 	}
 	
 	private JPanel getAdminPanel() {
 		JPanel adminPanel = new JPanel();
+		adminPanel.setBackground(Color.black);
 		
-		TitledBorder border = new TitledBorder("Admin Login");
-		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 8));
+		TitledBorder border = new TitledBorder("ADMIN LOGIN");
+		border.setBorder(new LineBorder(Color.orange));
+		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 18));
+		border.setTitleColor(new Color(162, 118, 237));
 		adminPanel.setBorder(border);
 		
 		adminPanel.setLayout(new BoxLayout(adminPanel, BoxLayout.Y_AXIS));
@@ -82,6 +98,7 @@ public class LoginPanel extends JPanel{
 	private JPanel getPicturePanel() {
 		JPanel picPanel = new JPanel();
 		picPanel.setSize(new Dimension(15, 0));
+		picPanel.setBackground(Color.black);
 		
 		BufferedImage myPicture = null;
 		try {
@@ -99,9 +116,11 @@ public class LoginPanel extends JPanel{
 	private JPanel getUsernamePanel() {
 		JPanel userNamePanel = new JPanel();
 		userNamePanel.setSize(new Dimension(15, 0));
+		userNamePanel.setBackground(Color.black);
 				
 		JLabel usernameLabel = new JLabel("USERNAME ");
-		usernameLabel.setFont(new Font("Courier New", Font.BOLD, 17));
+		usernameLabel.setForeground(Color.white);
+		usernameLabel.setFont(new Font("TimesNewRoman", Font.BOLD, 16));
 		usernameLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		usernameTextField = new JTextField(15);
@@ -115,9 +134,11 @@ public class LoginPanel extends JPanel{
 	private JPanel getPasswordPanel() {
 		JPanel passwordPanel = new JPanel();
 		passwordPanel.setSize(new Dimension(15, 0));
+		passwordPanel.setBackground(Color.black);
 				
 		JLabel passwordLabel = new JLabel("PASSWORD ");
-		passwordLabel.setFont(new Font("Courier New", Font.BOLD, 17));
+		passwordLabel.setForeground(Color.white);
+		passwordLabel.setFont(new Font("TimesNewRoman", Font.BOLD, 16));
 		passwordLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		passwordField = new JPasswordField(15);
@@ -131,10 +152,13 @@ public class LoginPanel extends JPanel{
 	private JPanel getLoginButtonPanel() {
 		JPanel loginButtonPanel = new JPanel();
 		loginButtonPanel.setSize(new Dimension(15, 0));
+		loginButtonPanel.setBackground(Color.black);
 		
 		loginButtonPanel.setLayout(new BorderLayout());
 		
 		JButton loginButton = new JButton("LOGIN");
+		loginButton.setBackground(Color.white);
+		
 		loginButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -185,5 +209,41 @@ public class LoginPanel extends JPanel{
 	
 	private void disableLogoutButton() {
 		((RmosUIManager)( this.parentFrame)).getLogoutButton().setVisible(false);
+	}
+	
+	private JPanel getRRRPanel() {
+		JPanel picPanel = new JPanel();
+		picPanel.setSize(new Dimension(15, 0));
+		picPanel.setBackground(Color.black);
+		
+		ImageIcon imageIcon = new ImageIcon("resources/rrr.png");
+		Image image = imageIcon.getImage(); // transform it
+		Image newimg = image.getScaledInstance(250, 150,
+				java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+		imageIcon = new ImageIcon(newimg); // transform it back
+		
+		JLabel picLabel = new JLabel(imageIcon);
+		picLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		picPanel.add(picLabel);
+		return picPanel;
+	}
+	
+	private JPanel getBorderPanel() {
+		JPanel picPanel = new JPanel();
+		picPanel.setSize(new Dimension(15, 0));
+		picPanel.setBackground(Color.black);
+		
+		ImageIcon imageIcon = new ImageIcon("resources/border.jpg");
+		Image image = imageIcon.getImage(); // transform it
+		Image newimg = image.getScaledInstance(650, 150,
+				java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+		imageIcon = new ImageIcon(newimg); // transform it back
+		
+		JLabel picLabel = new JLabel(imageIcon);
+		picLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		picPanel.add(picLabel);
+		return picPanel;
 	}
 }

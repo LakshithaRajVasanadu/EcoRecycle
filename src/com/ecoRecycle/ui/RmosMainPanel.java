@@ -1,5 +1,6 @@
 package com.ecoRecycle.ui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 
@@ -36,6 +37,7 @@ public class RmosMainPanel extends JPanel{
 		this.rservice = rservice;
 		
 		this.parentFrame = parentFrame;
+		this.setBackground(Color.black);
 		
 		TitledBorder border = new TitledBorder("RMOS");
 		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 10));

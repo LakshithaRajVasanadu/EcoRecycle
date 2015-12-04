@@ -2,6 +2,7 @@ package com.ecoRecycle.ui;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -49,6 +50,8 @@ public class RmosUI extends JPanel{
 		//this.statusManager = new StatusManager(rmos);
 		
 		this.parentFrame = parentFrame;
+		this.setBackground(Color.black);
+		
 		this.addComponents();
 		this.registerLogoutButtonHandler();
 	}
@@ -61,6 +64,7 @@ public class RmosUI extends JPanel{
 	
 	private JPanel getRmosDetailsPanel() {
 		JPanel rmosDetailsPanel = new JPanel();
+		rmosDetailsPanel.setBackground(Color.black);
 		
 //		TitledBorder border = new TitledBorder("RMOS DETAILS PANEL");
 //		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 10));
@@ -69,8 +73,12 @@ public class RmosUI extends JPanel{
 		rmosDetailsPanel.setPreferredSize(new Dimension(820, 55));
 		rmosDetailsPanel.setLayout(new BorderLayout());
 		
-		rmosDetailsPanel.add(new JLabel("Name: " + rmos.getName()), BorderLayout.WEST);
-		rmosDetailsPanel.add(new JLabel("Location: " + rmos.getLocation().getCity()), BorderLayout.EAST);
+		JLabel nameLabel = new JLabel("<html><b>NAME: </b>" + rmos.getName() +"</html>");
+		nameLabel.setForeground(Color.white);
+		rmosDetailsPanel.add(nameLabel, BorderLayout.WEST);
+		JLabel locationLabel = new JLabel("<html><b>LOCATION: </b>" + rmos.getLocation().getCity() +" </html>");
+		locationLabel.setForeground(Color.white);
+		rmosDetailsPanel.add(locationLabel, BorderLayout.EAST);
 		
 		return rmosDetailsPanel;
 	}
