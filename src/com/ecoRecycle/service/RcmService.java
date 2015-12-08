@@ -75,7 +75,8 @@ public class RcmService {
 		RcmRepository rcmRepo = new RcmRepository();
 		TransactionService tranService = new TransactionService();
 		Transaction lastTransaction = null;
-		ItemManager itemManager = new ItemManager();
+		//ItemManager itemManager = new ItemManager();
+		ItemManager itemManager = ItemManager.getInstance();
 		Item item = null;
 		double newWeight = 0;
 		double newCashValue = 0;
@@ -188,7 +189,7 @@ public class RcmService {
 		RcmRepository rcmRepo = new RcmRepository();
 		TransactionService tranService = new TransactionService();
 		Transaction lastTransaction = null;
-		ItemManager itemManager = new ItemManager();
+		ItemManager itemManager = ItemManager.getInstance();
 		Item item = null;
 		double newWeight = 0;
 		double newCashValue = 0;

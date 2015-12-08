@@ -1,4 +1,4 @@
-package com.ecoRecycle.ui;
+package com.ecoRecycle.ui.rmos;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -28,7 +28,6 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import ui.RmosUI;
 
 import com.ecoRecycle.model.Administrator;
 import com.ecoRecycle.model.Rmos;

@@ -9,6 +9,20 @@ import com.ecoRecycle.repository.ItemRepository;
 
 public class ItemManager extends Observable  {
 	
+	private static ItemManager instance = null; 
+	
+	public static ItemManager getInstance() 
+	{ 
+		if(instance == null) 
+		{ 
+			instance = new ItemManager(); 
+		} 
+		return instance; 
+	}
+	
+	private ItemManager() {
+		
+	}
 	/*
 	 * Items are added and kept manually. 
 	 * UI add = make item valid,

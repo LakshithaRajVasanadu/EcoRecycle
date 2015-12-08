@@ -10,7 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
-import com.ecoRecycle.loader.HibernateLoader;
+import com.ecoRecycle.helper.HibernateLoader;
 import com.ecoRecycle.model.Location;
 import com.ecoRecycle.model.Rcm;
 import com.ecoRecycle.model.Rmos;

@@ -8,7 +8,7 @@ public class ObjFactory
 	{ 
 		if(instance == null) 
 		{ 
-			instance = new ItemManager(); 
+			//instance = new ItemManager(); 
 		} 
 		return instance; 
 	} 

@@ -1,4 +1,4 @@
-package com.ecoRecycle.ui;
+package com.ecoRecycle.ui.rmos;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;

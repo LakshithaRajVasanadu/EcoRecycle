@@ -12,8 +12,8 @@ import org.hibernate.Session;
 
 import com.ecoRecycle.model.Rcm;
 import com.ecoRecycle.model.Transaction;
+import com.ecoRecycle.helper.HibernateLoader;
 import com.ecoRecycle.helper.TransactionType;
-import com.ecoRecycle.loader.HibernateLoader;
 import com.ecoRecycle.model.Item;
 
 public class TransactionRepository {

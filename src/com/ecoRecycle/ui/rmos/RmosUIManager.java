@@ -1,4 +1,4 @@
-package com.ecoRecycle.ui;
+package com.ecoRecycle.ui.rmos;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -130,7 +130,7 @@ public class RmosUIManager extends JFrame {
         System.out.println("Switching to Rmos:" + rmosName);
         Rmos rmos = rmosService.getRmosByName(rmosName);
         statusManager = new StatusManager(rmos);
-        itemManager = new ItemManager();
+        itemManager = ItemManager.getInstance();
         rmosManager = new RmosManager(rmos);
         
         UnloadTransactionService uservice = new UnloadTransactionService();

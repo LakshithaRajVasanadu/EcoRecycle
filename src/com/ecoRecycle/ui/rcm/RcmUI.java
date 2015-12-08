@@ -27,6 +27,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 import com.ecoRecycle.helper.Message;
+import com.ecoRecycle.helper.Notifiable;
 import com.ecoRecycle.helper.RcmStatus;
 import com.ecoRecycle.helper.TransactionStatus;
 import com.ecoRecycle.model.Item;
@@ -41,7 +42,7 @@ import com.ecoRecycle.service.StatusManager;
 import com.ecoRecycle.service.TransactionService;
 import com.ecoRecycle.service.UnloadTransactionService;
 
-public class RcmUI extends JPanel implements Observer{
+public class RcmUI extends JPanel implements Observer, Notifiable{
 	private JFrame parentFrame;
 	private Rcm rcm;
 	private RcmService rcmService = new RcmService();

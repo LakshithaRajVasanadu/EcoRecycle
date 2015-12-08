@@ -32,7 +32,7 @@ import com.ecoRecycle.service.RmosManager;
 import com.ecoRecycle.service.RmosService;
 import com.ecoRecycle.service.StatusManager;
 import com.ecoRecycle.service.UnloadTransactionService;
-import com.ecoRecycle.ui.RmosUI;
+import com.ecoRecycle.ui.rmos.RmosUI;
 
 
 public class RcmUIManager extends JFrame implements Observer

@@ -10,8 +10,7 @@ import com.ecoRecycle.model.Rmos;
 import com.ecoRecycle.service.RmosManager;
 import com.ecoRecycle.service.RmosService;
 import com.ecoRecycle.service.StatusManager;
-
-import com.ecoRecycle.ui.*;
+import com.ecoRecycle.ui.rmos.*;
 
 
 public class NotificationTimer implements ActionListener {
