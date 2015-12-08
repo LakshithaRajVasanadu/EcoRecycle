@@ -25,26 +25,31 @@ public class ItemManager extends Observable  {
 
 	private ItemRepository repository = new ItemRepository();
 	
+	/*To get an item by its id*/
 	public Item getItemById(int id) {
 		Item item = repository.getItemById(id);
 		return item;
 	}
 	
+	/*To get an item by its type*/
 	public Item getItemByType(String type) {
 		Item item = repository.getItemByType(type);
 		return item;
 	}
 	
+	/*To get all the valid items*/
 	public List<Item> getAllValidItems() {
 		List<Item> items = repository.getItemByValidity(true);
 		return items;
 	}
 	
+	/*To get all the items*/
 	public List<Item> getAllItems() {
 		List<Item> items = repository.getAllItems();
 		return items;
 	} 
 	
+	/*To display a message when the item is added succesfully and to save the item*/
 	public Message addItem(int id){
 		Item item = getItemById(id);
 		if(item != null) {
@@ -67,6 +72,7 @@ public class ItemManager extends Observable  {
 		return msg;
 	}
 	
+	/*To remove an item and retun a message*/
 	public Message removeItem(int id){
 		Item item = getItemById(id);
 		if(item != null) {
@@ -89,6 +95,7 @@ public class ItemManager extends Observable  {
 		return msg;
 	}
 	
+	/*To change price of an existing item*/
 	public Message changePrice(int id, double newPrice){
 		Item item = getItemById(id);
 		if(item != null) {

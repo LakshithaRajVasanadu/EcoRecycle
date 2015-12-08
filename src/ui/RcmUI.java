@@ -18,6 +18,7 @@ import java.util.Observer;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -320,5 +321,7 @@ public class RcmUI extends JPanel implements Observer{
 		}
 		
 		
-	}
-}
+	
+	
+	
+}}

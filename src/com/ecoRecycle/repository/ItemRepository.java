@@ -13,6 +13,7 @@ import com.ecoRecycle.model.Item;
 
 public class ItemRepository {
 	
+	/*To get item by id and returns an item object */
 	public Item getItemById(int id) {
 		Session session = HibernateLoader.getSessionFactory().openSession();
 		Transaction tx = null;
@@ -35,6 +36,7 @@ public class ItemRepository {
 		return item;
 	}
 	
+	/*To get item object by type of the item*/
 	public Item getItemByType(String type) {
 		Session session = HibernateLoader.getSessionFactory().openSession();
 		Transaction tx = null;
@@ -57,6 +59,7 @@ public class ItemRepository {
 		return item;
 	}
 	
+	/*To return the items that are valid*/
 	public List<Item> getItemByValidity(boolean isValid) {
 		Session session = HibernateLoader.getSessionFactory().openSession();
 		Transaction tx = null;
@@ -79,6 +82,7 @@ public class ItemRepository {
 		return items;
 	}
 	
+	/*To get all the items*/
 	public List<Item> getAllItems() {
 		Session session = HibernateLoader.getSessionFactory().openSession();
 		Transaction tx = null;
@@ -100,6 +104,7 @@ public class ItemRepository {
 		return items;
 	} 
 	
+	/*to update the values in the item*/
 	public boolean updateItem(Item item){
 		Session session = HibernateLoader.getSessionFactory().openSession();
 		Transaction tx = null;

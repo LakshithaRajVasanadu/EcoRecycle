@@ -8,6 +8,7 @@ import com.ecoRecycle.model.Transaction;
 
 public class ReloadTransactionService extends TransactionService{
 	
+	/*To craete a transaction with reload status*/
 	private Transaction createReloadTransaction(Rcm rcm, double money) {
 		Transaction transaction = new ReloadTransaction();
 		transaction.setRcm(rcm);
@@ -17,6 +18,7 @@ public class ReloadTransactionService extends TransactionService{
 		return transaction;
 	}
 	
+	/*To reload the rcm with money */
 	public Message reloadRcm(Rcm rcm, double money) {
 		Message msg = new Message();
 		if(rcm == null) {

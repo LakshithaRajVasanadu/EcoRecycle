@@ -22,22 +22,8 @@ import com.ecoRecycle.model.Transaction;
 
 
 public class TransactionService extends Observable{
-	
 
-	// public Transaction getLastTransaction(Rcm rcm) {
-	//		rcm.getTransactions
-//			Loop over this to get the transaction with max id
-//			check that transaction status
-//			obj trans
-//			if(status == DONE)
-//				trans = create a new transaction
-//			else
-//				trans = last obtained trans
-//				
-//		    return trans;
-//					
-	//}
-	
+	/*To get the last transaction of a particular rcm*/
 	public Transaction getLastTransaction(Rcm rcm)
 	{
 		Transaction lastTransaction = null;
@@ -56,8 +42,8 @@ public class TransactionService extends Observable{
 				}
 			}
 			
-			//check type is recycle in if cond
-			//if maxId == -1 (means no transaction exists for this rcm. So create a new transaction)
+			//check  the status of the transaction is "recycle"
+			//if maxId == -1, no transaction exists for this rcm,create a new transaction
 			if((maxId == -1) || 
 			   (mostRecentTransaction.getStatus().equals(TransactionStatus.DONE))){
 				lastTransaction = new Transaction();
@@ -78,9 +64,9 @@ public class TransactionService extends Observable{
 		}
 		catch(Exception e) {
 			e.printStackTrace();
-			//ToDo:Fill this
+
 		}
-		System.out.println(lastTransaction.toString());
+		
 		return lastTransaction;
 	}
 	

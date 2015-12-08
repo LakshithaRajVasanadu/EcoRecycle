@@ -24,7 +24,7 @@ public class RmosManager extends Observable{
 		this.repository = new RmosRepository();
 	}
 	
-	
+	/*To add a rcm to a particular rmos*/
 	public Message addRcm(String name, String location, double capacity, double cashValue ) {
 		LocationService locationService = new LocationService();
 		RcmService rcmService = new RcmService();
@@ -67,6 +67,7 @@ public class RmosManager extends Observable{
 		return msg;
 	}
 	
+	/*To remove an rcm under a particular rmos*/
 	public Message removeRcm(int id) {
 		RcmService rcmService = new RcmService();
 		Rcm rcm ;
@@ -105,12 +106,14 @@ public class RmosManager extends Observable{
 		return msg;
 	}
 	
+	/*To get a rcm by id*/
 	public Rcm getRcmById(int id) {
 		RcmService rcmService = new RcmService();
 		Rcm rcm = rcmService.getRcmById(id);
 		return rcm;
 	}
 	
+	/*To get all rcm's*/
 	public List<Rcm> getAllRcms() {
 		Set<RmosRcmMapping> mappings = this.rmos.getRmosRcmMappings();
 		List<Rcm> rcms = new ArrayList<Rcm>();

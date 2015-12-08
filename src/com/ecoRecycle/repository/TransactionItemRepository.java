@@ -15,6 +15,7 @@ import com.ecoRecycle.model.TransactionItem;
 
 public class TransactionItemRepository {
 	
+	/*To add an item to the stated transaction*/
 	public void addItemTransaction(int id, int transId, double weight, double payment){
 		ItemRepository item = new ItemRepository();
 		Transaction t = new Transaction();
@@ -26,44 +27,7 @@ public class TransactionItemRepository {
 		
 	}
 	
-	/*public TransactionItem getLastTransactionItemById(int transid){
-		ArrayList<TransactionItem> transItems = getAllTranscationItemById(transid);
-		c.addOrder(Order.desc("id"));
-		c.setMaxResults(1);
-		return (Thingy)c.uniqueResult();
-		
-		
-		
-	}*/
-	
-	/*public TransactionItem getLastTransactionItemById(int transid){
-		
-		Session session = HibernateLoader.getSessionFactory().openSession();
-		org.hibernate.Transaction tx = null;
-		TransactionItem item = null;
-		try {
-			tx = session.beginTransaction();
-
-			Criteria criteria = session.createCriteria(TransactionItem.class);
-			criteria.createAlias("TransactionItem.transactionId","transactionId");
-			criteria.add(Restrictions.eq("TransactionItem.transactionId", transid));
-			criteria.addOrder(Order.desc("id"));
-			criteria.setMaxResults(1);
-			
-			item = (TransactionItem)criteria.uniqueResult();
-
-			tx.commit();
-		} catch (HibernateException e) {
-			if (tx != null)
-				tx.rollback();
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-		return item;
-	}*/
-	
-	
+	/*To get all the items recycled in that transaction*/
 	public ArrayList<TransactionItem> getAllTranscationItemById(int transid){
 		
 		Session session = HibernateLoader.getSessionFactory().openSession();

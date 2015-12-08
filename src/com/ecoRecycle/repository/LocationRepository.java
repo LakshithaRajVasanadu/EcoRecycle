@@ -15,6 +15,7 @@ import com.ecoRecycle.model.Location;
 
 public class LocationRepository {
 	
+	/*To geta list of all the locations*/
 	public List<Location> getAllLocations() {
 		Session session = HibernateLoader.getSessionFactory().openSession();
 		Transaction tx = null;
@@ -36,6 +37,7 @@ public class LocationRepository {
 		return locations;
 	} 
 	
+	/*To get location by id and returns a location object*/
 	public Location getLocationById(int id) {
 		Session session = HibernateLoader.getSessionFactory().openSession();
 		Transaction tx = null;
@@ -58,6 +60,7 @@ public class LocationRepository {
 		return location;
 	}
 	
+	/*To get location by city and return a location object*/
 	public Location getLocationByCity(String city) {
 		Session session = HibernateLoader.getSessionFactory().openSession();
 		Transaction tx = null;

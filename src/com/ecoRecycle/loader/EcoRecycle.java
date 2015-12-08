@@ -6,6 +6,7 @@ import com.ecoRecycle.service.StatusManager;
 import com.ecoRecycle.ui.rcm.RcmUIManager;
 import com.ecoRecycle.ui.RmosUIManager;
 
+/*Class to load the main UI*/
 public class EcoRecycle {
 	
 	

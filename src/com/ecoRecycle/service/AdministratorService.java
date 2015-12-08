@@ -7,6 +7,7 @@ public class AdministratorService {
 	
 	private AdministratorRepository repository = new AdministratorRepository();
 	
+	/*Checks if the administrator is a valid admin*/
 	public boolean isUserValid(String username, String password) {
 		boolean isValid = false;
 		
@@ -19,6 +20,7 @@ public class AdministratorService {
 		return isValid;
 	}
 	
+	/*To get the username of the administrator*/
 	public Administrator getAdmin(String username){
 		Administrator admin = repository.getAdmin(username);
 		return admin;

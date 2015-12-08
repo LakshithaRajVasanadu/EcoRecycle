@@ -25,10 +25,12 @@ public class StatisticsManager {
 		this.rmos = rmos;
 	}
 	
+	/*Gets the number of items recyled by a particular rcm based on particular period of time*/
 	public Integer getItemCountByRcm(Rcm rcm, Date startDate, Date endDate) {
 		 return transactionRepository.getItemCountByRcm(rcm.getId(), startDate, endDate);
 	}
 	
+	/*Gets the count of items recycled by all the rcm's based on a particular period of time*/
 	public HashMap<Rcm, Integer> getItemCountForAllRcms(Date startDate, Date endDate) {
 		//select t.rcmId as rcmId, count(*) as count  from transaction t join transactionItemMapping m on t.id = m.transactionId where t.type = 'RECYCLE' and date(m.createDateTime) between '2015-11-22' and '2015-11-23' and m.isAccepted = true group by t.rcmId;
 
@@ -43,6 +45,7 @@ public class StatisticsManager {
 		return itemCountsMap;
 	}
 	
+	/*TO get the most frequently used rcm in a partiicular date range*/
 	public List<Entry<Rcm, Integer>> getMostFrequentlyUsedRcm(Date startDate, Date endDate) {
 		HashMap<Rcm, Integer> itemCountsMap = getItemCountForAllRcms(startDate, endDate);
 		Integer largestVal = null;
@@ -60,10 +63,12 @@ public class StatisticsManager {
 		return largestList;
 	}
 	
+	/*To get the timestamp of the rcm being last emptied*/
 	public Date getLastEmptied(Rcm rcm) {
 		return rcm.getLastEmptied();
 	}
 	
+	/*To get the usage statistics of all the rcm's*/
 	public HashMap<Rcm, UsageStatisticsModel> getUsageStatistics(Date startDate, Date endDate) {
 		HashMap<Rcm, UsageStatisticsModel> statisticsMap = new HashMap<Rcm, UsageStatisticsModel>();
 		
@@ -84,49 +89,4 @@ public class StatisticsManager {
 		return statisticsMap;
 	}
 	
-	/*public static void main(String[] args) {
-		StatisticsManager mgr  = new StatisticsManager(new RmosRepository().getRmosById(3));
-		
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		String startDate = "2015-11-22";
-		String endDate = "2015-11-25";
-		Date sdate = null, edate = null;
-		try {
-
-			sdate = formatter.parse(startDate);
-			edate = formatter.parse(endDate);
-			
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		
-		int count = mgr.getItemCountByRcm(new RcmRepository().getRcmById(10), sdate, edate);
-		System.out.println("Rcm 10 - item count:" + count);
-		
-		HashMap<Rcm, Integer> countMap = mgr.getItemCountForAllRcms(sdate, edate);
-		for (Entry<Rcm, Integer> i : countMap.entrySet()){
-			System.out.println("---Rcm id:" + i.getKey().getId() + " Count:" + i.getValue());
-		}
-		
-		List<Entry<Rcm, Integer>> list = mgr.getMostFrequentlyUsedRcm(sdate, edate);
-		for (Entry<Rcm, Integer> temp : list) {
-			System.out.println("--MFU--Rcm id:" + temp.getKey().getId() + " Count:" + temp.getValue());
-			 
-		}
-		
-		HashMap<Rcm, UsageStatisticsModel> sModel = mgr.getUsageStatistics(sdate, edate);
-		for (Entry<Rcm, UsageStatisticsModel> i : sModel.entrySet()){
-			System.out.println("-Usage--Rcm id:" + i.getKey().getId());
-			System.out.println("Stats:" + i.getValue());
-		}
-		
-//		repo.getItemWeightByRcm(10, sdate, edate);
-//		
-//		repo.getTotalValueDispensed(10, sdate, edate);
-//		
-//		repo.getNumberofTimesEmptied(10, sdate, edate);
-	}
-	
-	
-	*/
 }
