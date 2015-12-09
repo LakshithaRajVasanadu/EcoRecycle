@@ -20,24 +20,24 @@ public class RcmService {
 	
 	private RcmRepository repository = new RcmRepository();
 	
+	/*To get a rcm by id*/
 	public Rcm getRcmById(int id) {
 		Rcm rcm = repository.getRcmById(id);
 		return rcm;
 	}
 	
+	/*To get rcm by name*/
 	public Rcm getRcmByName(String name) {
 		Rcm rcm = repository.getRcmByName(name);
 		return rcm;
 	}
 	
+	/*To update and rcm*/
 	public boolean updateRcm(Rcm rcm) {
 		return repository.updateRcm(rcm);
 	}
 	
-	/*public Set<Rcm> getAllRcms() {
-		Set<Rcm> rcms = repository.getAllRcms();
-		return rcms;
-	}*/
+	/*To get a list of all the rcm's*/
 	
 	public Set<Rcm> getAllRcms() {
 		List<Rcm> rcmList = repository.getAllRcms();
@@ -48,27 +48,9 @@ public class RcmService {
 		return rcmUniqueList;
 	}
 	
-	/*
-	 * public Message addItemToTransaction(String itemType, double weight, Rcm rcm) {
-	 * 
-	 *  // Check item weight based on type
-	 *  if not valid, return error Message object
-	 *  and also check with rcm's capacity
-	 *  
-	 * 	// Get last transaction for that rcm -
-	 *  //  Add item (transaction Service)
-	 *  
-	 *  // If add item is successful,
-	 *  // Update trans - total weight, total payment
-	 *  
-	 *  // Update rcm values
-	 *  // Update current capacity of rcm
-	 *  
-	 *  // Try doing evrything in one session - save rcm
-	 * }
-	 * 
-	 */
-	
+		
+	/*To get the last transaction and add  item to that transaction
+	 *and to update the values of rcm*/
 	public String addItemToTransaction(String itemType, Rcm rcm) {
 		String msg = "";
 		int weightOfItem; 
@@ -96,7 +78,6 @@ public class RcmService {
 				item = itemManager.getItemByType(itemType);
 				lastTransaction = tranService.getLastTransaction(rcm);
 				
-				//addItemSuccess = tranService.addItemtoTransaction(lastTransaction,item);
 				transItem = new TransactionItem();
 				transItem.setItem(item);
 				transItem.setTransaction(lastTransaction);
@@ -106,7 +87,7 @@ public class RcmService {
 				
 				lastTransaction.addTransactionItem(transItem);
 				rcm.addTransaction(lastTransaction);
-				//if(addItemSuccess){
+				
 					itemValue = weightOfItem*item.getPricePerLb();
 					lastTransaction.setTotalWeight(weightOfItem + lastTransaction.getTotalWeight());
 					lastTransaction.setTotalPayment(transItem.getPrice() + lastTransaction.getTotalPayment());
@@ -123,16 +104,16 @@ public class RcmService {
 					else {
 						msg = "Item reject due to insufficient Capacity or Cash value";
 					}
-				//}				
+							
 			}
 		}
 		catch(Exception e){
 			e.printStackTrace();
-			//ToDo:Fill this
 		}
 		return msg;		
 	}
 	
+	/*To generate random weight of an item inserted*/
 	public int randomWeightGenerator(){
 		int randomNum = 0;
 		try {
@@ -142,20 +123,14 @@ public class RcmService {
 		}
 		catch(Exception e) {
 			e.printStackTrace();
-			//ToDo : fill this
 		}
-		//randomNum = 4;
 		return randomNum;
 	}
 	
-	/*
-	 * HelperModel Dispense (Rcm rcm) {
-	 *  //get last transaction for rcm status = ACTIVE
-	 *  // get total amount
-	 *  // check if cash or coupon
-	 *  // send a obj back
-	 */
 	
+	/*To get the last tranaction of a particular rcm that is active
+	 * To dispense the total amount of that transaction to the user
+	 * To make the status of the transaction as done*/
 	public double dispense(Rcm rcm)
 	{
 		boolean isUpdated = false;
@@ -178,10 +153,10 @@ public class RcmService {
 		}
 		catch(Exception e){
 			e.printStackTrace();
-			//ToDo : Fill this
 		}
 		return value;
 	}
+	
 	
 	public Message addItemToTransactionV2(String itemType, Rcm rcm, StatusManager statusManager) {
 		String msg = "";
@@ -223,7 +198,6 @@ public class RcmService {
 				item = itemManager.getItemByType(itemType);
 				lastTransaction = tranService.getLastTransaction(rcm);
 				
-				//addItemSuccess = tranService.addItemtoTransaction(lastTransaction,item);
 				transItem = new TransactionItem();
 				transItem.setItem(item);
 				transItem.setTransaction(lastTransaction);
@@ -232,11 +206,9 @@ public class RcmService {
 				transItem.setPrice(weightOfItem*item.getPricePerLb());
 				
 				lastTransaction.addTransactionItem(transItem);
-				rcm.addTransaction(lastTransaction); ///---**
-				//if(addItemSuccess){
+				rcm.addTransaction(lastTransaction); 
 					itemValue = weightOfItem*item.getPricePerLb();
 					lastTransaction.setTotalWeight(weightOfItem + lastTransaction.getTotalWeight());
-					//lastTransaction.setTotalPayment(transItem.getPrice() + lastTransaction.getTotalPayment());
 					
 					newWeight = rcm.getCurrentCapacity()+weightOfItem;
 						rcm.setCurrentCapacity(newWeight);
@@ -247,16 +219,12 @@ public class RcmService {
 						}
 										
 					else {
-						//msg = "Item reject due to insufficient Capacity or Cash value";
 						message.setSuccessful(false);
 						message.setMessage("Internal error");
-					}
-				//}				
-			
+					}			
 		}
 		catch(Exception e){
 			e.printStackTrace();
-			//ToDo:Fill this
 		}
 		return message;		
 	}

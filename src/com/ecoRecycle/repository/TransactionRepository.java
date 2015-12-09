@@ -18,7 +18,7 @@ import com.ecoRecycle.model.Item;
 
 public class TransactionRepository {
 
-	// Create a new transaction
+	/*reate a new transaction when the first item is inserted*/
 	public boolean createTransaction(Transaction transaction ){
 		Session session = HibernateLoader.getSessionFactory().openSession();
 		org.hibernate.Transaction tx = null;

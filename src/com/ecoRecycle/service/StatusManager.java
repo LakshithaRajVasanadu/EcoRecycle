@@ -23,6 +23,7 @@ public class StatusManager extends Observable{
 		this.repository = new RmosRepository();
 	}
 	
+	/*To activate an inactive rcm*/
 	public Message activateRcm(int id) {
 		RcmService rcmService = new RcmService();
 		Rcm rcm = rcmService.getRcmById(id);
@@ -51,6 +52,7 @@ public class StatusManager extends Observable{
 		return msg;
 	}
 	
+	/*To deactivate an active rcm*/
 	public Message deactivateRcm(int id) {
 		RcmService rcmService = new RcmService();
 		Rcm rcm = rcmService.getRcmById(id);
@@ -79,6 +81,7 @@ public class StatusManager extends Observable{
 		return msg;
 	}
 	
+	/*To return a message when the rcm is deactivated and to set the sattsu of the rcm as inactive*/
 	public Message deactivateRcm(int id, String reason) {
 		RcmService rcmService = new RcmService();
 		Rcm rcm = rcmService.getRcmById(id);

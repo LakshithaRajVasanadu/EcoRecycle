@@ -16,6 +16,7 @@ import com.ecoRecycle.model.Rcm;
 
 public class RcmRepository {
 	
+	/*To get a rcm by Id*/
 	public Rcm getRcmById(int id) {
 		Session session = HibernateLoader.getSessionFactory().openSession();
 		Transaction tx = null;
@@ -38,6 +39,7 @@ public class RcmRepository {
 		return rcm;
 	}
 	
+	/*To get rcm by name*/
 	public Rcm getRcmByName(String name) {
 		Session session = HibernateLoader.getSessionFactory().openSession();
 		Transaction tx = null;
@@ -60,6 +62,7 @@ public class RcmRepository {
 		return rcm;
 	}
 	
+	/*To update the rcm when the values in the rcm has been changed*/
 	public boolean updateRcm(Rcm rcm){
 		Session session = HibernateLoader.getSessionFactory().openSession();
 		Transaction tx = null;
@@ -80,6 +83,7 @@ public class RcmRepository {
 		return isSuccessful;
 	}
 	
+	/*To get all the rcms that are active and inactive*/
 	public List<Rcm> getAllRcms() {
 		Session session = HibernateLoader.getSessionFactory().openSession();
 		Transaction tx = null;

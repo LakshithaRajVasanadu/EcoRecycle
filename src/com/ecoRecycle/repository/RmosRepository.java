@@ -17,6 +17,7 @@ import com.ecoRecycle.model.Rmos;
 import com.ecoRecycle.model.RmosRcmMapping;
 
 public class RmosRepository {
+	/*To get all rmos */
 	public List<Rmos> getAllRmos() {
 		Session session = HibernateLoader.getSessionFactory().openSession();
 		Transaction tx = null;
@@ -38,6 +39,7 @@ public class RmosRepository {
 		return rmosList;
 	} 
 	
+	/*To get the rmos by id, returns an rmos object*/
 	public Rmos getRmosById(int id) {
 		Session session = HibernateLoader.getSessionFactory().openSession();
 		Transaction tx = null;
@@ -60,6 +62,7 @@ public class RmosRepository {
 		return rmos;
 	}
 	
+	/*To get rmos by name, returns an rmos object*/
 	public Rmos getRmosByName(String name) {
 		Session session = HibernateLoader.getSessionFactory().openSession();
 		Transaction tx = null;
@@ -81,7 +84,7 @@ public class RmosRepository {
 		}
 		return rmos;
 	}
-	
+	/*To update a rmos*/
 	public boolean updateRmos(Rmos rmos){
 		Session session = HibernateLoader.getSessionFactory().openSession();
 		Transaction tx = null;
@@ -103,6 +106,7 @@ public class RmosRepository {
 		return isSuccessful;
 	}
 	
+	/*to get a lsit of rcm' that are mapped to a particular rmos*/
 	public RmosRcmMapping getMappingForRcm(Rmos rmos, Rcm rcm) {
 		Set<RmosRcmMapping> mappings = rmos.getRmosRcmMappings();
 		RmosRcmMapping result = null;

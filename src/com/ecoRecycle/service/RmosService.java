@@ -13,6 +13,7 @@ public class RmosService {
 	
 	RmosRepository repository = new RmosRepository();
 	
+	/*To get all rmos*/
 	public Set<Rmos> getAllRmos() {
 		List<Rmos> rmosList = repository.getAllRmos();
 		Set<Rmos> rmosUniqueList = new HashSet<Rmos>();
@@ -22,6 +23,7 @@ public class RmosService {
 		return rmosUniqueList;
 	}
 	
+	/*To get rmos by name*/
 	public Rmos getRmosByName(String name) {
 		Rmos rmos = repository.getRmosByName(name);
 		return rmos;

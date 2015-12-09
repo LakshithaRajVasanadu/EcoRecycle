@@ -11,6 +11,7 @@ import com.ecoRecycle.model.Administrator;
 
 public class AdministratorRepository {
 
+	/*Function to get the username of the administrator*/
 	public Administrator getAdmin(String username) {
 		Session session = HibernateLoader.getSessionFactory().openSession();
 		Transaction tx = null;
