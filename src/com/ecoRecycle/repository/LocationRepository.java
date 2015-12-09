@@ -9,7 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
-import com.ecoRecycle.loader.HibernateLoader;
+import com.ecoRecycle.helper.HibernateLoader;
 import com.ecoRecycle.model.Item;
 import com.ecoRecycle.model.Location;
 
@@ -69,6 +69,7 @@ public class LocationRepository {
 			tx = session.beginTransaction();
 
 			Criteria criteria = session.createCriteria(Location.class);
+			/*Restriction added to column city*/
 			criteria.add(Restrictions.eq("city", city));
 			location = (Location) criteria.uniqueResult();
 

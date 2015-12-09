@@ -10,10 +10,9 @@ import com.ecoRecycle.model.Rmos;
 import com.ecoRecycle.service.RmosManager;
 import com.ecoRecycle.service.RmosService;
 import com.ecoRecycle.service.StatusManager;
+import com.ecoRecycle.ui.rmos.*;
 
-import com.ecoRecycle.ui.*;
-
-
+//Timer to pull the messages reagrding status of the rcm
 public class NotificationTimer implements ActionListener {
 	private Rmos rmos;
 	private RmosManager rmosManager;

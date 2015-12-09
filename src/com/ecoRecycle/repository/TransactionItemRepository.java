@@ -9,7 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
-import com.ecoRecycle.loader.HibernateLoader;
+import com.ecoRecycle.helper.HibernateLoader;
 import com.ecoRecycle.model.Transaction;
 import com.ecoRecycle.model.TransactionItem;
 

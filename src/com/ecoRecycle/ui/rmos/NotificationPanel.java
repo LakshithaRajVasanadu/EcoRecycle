@@ -1,4 +1,4 @@
-package com.ecoRecycle.ui;
+package com.ecoRecycle.ui.rmos;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -38,8 +38,6 @@ public class NotificationPanel extends JPanel{
 	
 	private JLabel messageIconLabel;
 	
-	private static final int BLINKING_RATE = 5000; 
-	
 	private JPanel messagePanel = new JPanel();
 	
 	public NotificationPanel(Rmos rmos, RmosManager rmosManager, StatusManager statusManager) {
@@ -51,67 +49,46 @@ public class NotificationPanel extends JPanel{
 		this.addComponents();
 		new NotificationTimer(this, rmos, rmosManager, statusManager);
 		
-		//observe all rcms
 	}
 	
 	private void addComponents() {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-//		TitledBorder border = new TitledBorder("                    NOTIFICATIONS");
-//		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 12));
-		//this.setPreferredSize(new Dimension(200, 500));
-		
-	//	this.setBorder(border);
+
 		JLabel label = new JLabel("NOTIFICATIONS");
 		label.setFont(new Font("TimesNewRoman", Font.BOLD, 12));
-		
-		//JPanel newPanel = new JPanel(new BorderLayout());
-		//newPanel.add(label, BorderLayout.WEST);
 		this.add(label);
 		this.add(getMessageIcon());
 		populateMessagePanel();
 		this.add(messagePanel);
 	}
 	
+	//Panel to add the message icon
 	private JPanel getMessageIcon() {
 		JPanel messageIconPanel = new JPanel();
-//		TitledBorder border = new TitledBorder("NOTIFICATIONS");
-//		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 12));
-//		messageIconPanel.setBorder(border);
 		messageIconPanel.setBackground(new Color(184, 69, 67));
 		
-		//monitorIconPanel.setSize(200, 50);
 		messageIconPanel.setPreferredSize(new Dimension(90, 120));
 		
 		ImageIcon imageIcon = new ImageIcon("resources/messageIcon.png");
-		Image image = imageIcon.getImage(); // transform it
+		Image image = imageIcon.getImage(); 
 		image = image.getScaledInstance(150, 100,
-				java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-		imageIcon = new ImageIcon(image); // transform it back
+				java.awt.Image.SCALE_SMOOTH); 
+		imageIcon = new ImageIcon(image); 
 		
 		messageIconLabel = new JLabel(imageIcon);
 		
 		messageIconPanel.add(messageIconLabel);
-		/*
-		 * Timer for blinking
-		 */
-//		Timer timer = new Timer( BLINKING_RATE , new TimerListener(this));
-//	    timer.setInitialDelay(0);
-//	    timer.start();
 		
 		return messageIconPanel;
 	}
 	
+	//Panel to display the incoming notification messages
 	public void populateMessagePanel() {
 		messagePanel.removeAll();
 		
 		rmos = new RmosService().getRmosByName(rmos.getName());
 		rmosManager = new RmosManager(rmos);
 		statusManager = new StatusManager(rmos);
-		
-//		TitledBorder border = new TitledBorder("Messages");
-//		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 10));
-	//	messagePanel.setBorder(border);
-	//	messagePanel.setPreferredSize(new Dimension(70, 300));
 		messagePanel.setOpaque(true);
 		messagePanel.setBackground(new Color(184, 69, 67));
 		
@@ -119,7 +96,6 @@ public class NotificationPanel extends JPanel{
 		JLabel labelOuter = new JLabel("                                     ");
 		
 		List<Rcm> rcmList = rmosManager.getAllRcms();
-//		rcmList = Collections.sort(rcmList);
 		Collections.sort(rcmList, new Comparator<Rcm>(){
 		       public int compare(Rcm o1, Rcm o2) {
 		           return o1.getName().compareTo(o2.getName());
@@ -134,9 +110,7 @@ public class NotificationPanel extends JPanel{
 											+ " <br/> " + rcm.getReason() 
 											+ "</li><ul></html>");
 				label.setHorizontalTextPosition(SwingConstants.LEADING);
-				//label.setBorder(border);
 				label.setPreferredSize(new Dimension(600, 300));
-				//label.setForeground(Color.white);
 			
 			messagePanel.add(label);
 			}
@@ -156,11 +130,6 @@ public class NotificationPanel extends JPanel{
 	public JLabel getMessageIconLabel() {
 		return messageIconLabel;
 	}
-
-	
-	  
-	  
-
 }
 
  class TimerListener implements ActionListener {

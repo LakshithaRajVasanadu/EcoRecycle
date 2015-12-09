@@ -1,4 +1,4 @@
-package com.ecoRecycle.ui;
+package com.ecoRecycle.ui.rmos;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -39,6 +39,7 @@ public class BarGraph extends JPanel{
 	private static final int MAX_NO_OF_TIMES_EMPTIED = 100;
 	private static final int MAGNIFICATION_FACTOR = 300;
 	
+	//To draw a bar graph to show various usage statistics
 	public BarGraph(Rmos rmos,  RmosManager rmosManager, StatusManager statusManager,  Date startDate, Date endDate, boolean allRcms, String selectedRcmName, HashMap<Rcm, UsageStatisticsModel> statisticsDataMap) {
 		this.rmos = rmos;
 		this.rmosManager = rmosManager;
@@ -47,39 +48,21 @@ public class BarGraph extends JPanel{
 		this.statisticsDataMap = statisticsDataMap;
 		setBackground(new Color(245, 214, 196));
 		
-		//////
-	/*	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		String startDateStr = "2015-11-22";
-		String endDateStr = "2015-11-25";
-		Date sdate = null, edate = null;
-		try {
-
-			sdate = formatter.parse(startDateStr);
-			edate = formatter.parse(endDateStr);
-			
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		
-		startDate = sdate;
-		startDate = edate;*/
-		//////
 		this.startDate = startDate;
 		this.endDate = startDate;
-		System.out.println("Bar graph: date:" + startDate + endDate);
 		this.allRcms = allRcms;
 		this.selectedRcmName = selectedRcmName;
 		
 	}
 	
+	//Called by repaint()
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
 		
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setFont(new Font("TimesNewRoman", Font.BOLD, 10));
-		System.out.println("In paint comp..");
-		
+				
 		int x = 30;
 		int y = 10;
 		
@@ -90,7 +73,7 @@ public class BarGraph extends JPanel{
 		
 		
 		//Draw bargraph
-		//HashMap<Rcm, UsageStatisticsModel> statisticsDataMap = statisticsManager.getUsageStatistics(startDate, endDate);
+		
 		for (Entry<Rcm, UsageStatisticsModel> i : statisticsDataMap.entrySet()){
 			Rcm rcm = i.getKey();
 			UsageStatisticsModel dataModel = i.getValue();
@@ -116,12 +99,6 @@ public class BarGraph extends JPanel{
 			int numberOfTimesEmptiedPercentage = (int) Math.round(((dataModel.getNumberOfTimesEmptied() * MAGNIFICATION_FACTOR) / MAX_NO_OF_TIMES_EMPTIED));
 			if(numberOfTimesEmptiedPercentage > MAGNIFICATION_FACTOR)
 				numberOfTimesEmptiedPercentage = MAGNIFICATION_FACTOR;
-			
-			System.out.println("BarGraph: rcm name:" + rcm.getName());
-			System.out.println("BarGraph: rcm name:" + itemCountPercentage);
-			System.out.println("BarGraph: rcm name:" + weightPercentage);
-			System.out.println("BarGraph: rcm name:" + numberOfTimesEmptiedPercentage);
-			System.out.println("BarGraph: rcm name:" + amountPercentage);
 			
 			x = 30;
 			g2.setColor(Color.black);
@@ -187,12 +164,8 @@ public class BarGraph extends JPanel{
 		g2.setColor(Color.black);
 		x += 22;
 		g2.drawString("Number of Times Emptied", x, y + 10);
-		
-		
-		
-/////////////////////////////////////////////////////////////////
-		
-	} // end method paintComponent
+			
+	}
 
 	// repaint graph when display is updated
 	public void updateDisplay(Date startDate, Date endDate, boolean allRcms, String selectedRcmName) {
@@ -200,8 +173,6 @@ public class BarGraph extends JPanel{
 		this.endDate = startDate;
 		this.allRcms = allRcms;
 		this.selectedRcmName = selectedRcmName;
-		
-		System.out.println("Bar graph Update Method: date:" + startDate + endDate);
 		
 		revalidate();
 		repaint();

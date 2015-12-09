@@ -81,7 +81,6 @@ public class RmosManager extends Observable{
 			msg.setMessage("Rcm Does not exist");
 			return msg;
 		}
-		System.out.println("Mapping.." + rcm.getId());
 		
 		RmosRcmMapping mapping = repository.getMappingForRcm(this.rmos, rcm); 
 		if(mapping == null) {

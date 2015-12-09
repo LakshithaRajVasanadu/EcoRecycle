@@ -47,15 +47,10 @@ public class TransactionService extends Observable{
 			if((maxId == -1) || 
 			   (mostRecentTransaction.getStatus().equals(TransactionStatus.DONE))){
 				lastTransaction = new Transaction();
-				//newId = mostRecentTransaction.getId() + 1;
-				//lastTransaction.setId(newId);
 				lastTransaction.setRcm(rcm);
 				lastTransaction.setTotalWeight(0);
 				lastTransaction.setTotalPayment(0);
 				lastTransaction.setType(TransactionType.RECYCLE);
-				//lastTransaction.setId(++maxId);
-				//lastTransaction.setCreateDateTime(new Date());
-				//lastTransaction.setUpdateDateTime(new Date());
 				lastTransaction.setStatus(TransactionStatus.ACTIVE);
 			}
 			else {
@@ -70,54 +65,23 @@ public class TransactionService extends Observable{
 		return lastTransaction;
 	}
 	
-	
-	
-	/*
-	 * public Message addItemtoTransaction(Transaction trans, item) {
-	 * 	Create new TransactionItemMapping object
-	 * Set values
-	 * 
-	 * trans.add(mapping)
-	 * 
-	 * Update trans object in repo
-	 * Set message based on return value
-	 * 
-	 * return message;
-	 */
-	/**public boolean addItemtoTransaction(Transaction trans, Item item){
-		boolean added = false;
-		try {
-			TransactionItemRepository mapping = new TransactionItemRepository();
-			System.out.println("ADDED");
-			 added = true;
-			
-			//ToDo : Fill this
-		}
-		catch(Exception e){
-			e.printStackTrace();
-			//ToDo : Fill this
-		}
-		return added;
-	}*/
-	
-	
 	public boolean addTransaction(Transaction t) {
 		TransactionRepository transRepo = new TransactionRepository();
 		return transRepo.createTransaction(t);
 	}
 	
+	/*To update the transaction if the transaction already exists*/
 	public boolean updateTrasaction(Transaction trans){
 		TransactionRepository transRepo = new TransactionRepository();
 		return transRepo.updateTransaction(trans);
 	}
 	
+	/*To get the last transaction that is active
+	 * If the transaction is present, get the total payment to dispense to the user and upadte the rcm
+	 * If not present,return message*/
 	public Message dispense(Rcm rcm) {
-		// Get last recycle transaction that is active
-		// If it is present, get its total payment. Check if rcm has so much cash. Decide cash or coupon. Update rcm payment value and transactionstatus and payment type.
-		// If it is not present, return false - 0
 		Message message = new Message();
 		
-		//Get last trans
 		int maxId = -1;
 		Transaction mostRecentTransaction = null;
 		Set<Transaction> transactions = rcm.getTransactions();
@@ -149,9 +113,7 @@ public class TransactionService extends Observable{
 			if(mostRecentTransaction.getTotalPayment() <= (rcm.getTotalCashValue()-rcm.getCurrentCashValue())) {
 				message.setPaymentType(PaymentType.CASH);
 				rcm.setCurrentCashValue(rcm.getCurrentCashValue() + mostRecentTransaction.getTotalPayment());
-				
-				// Sum items
-				
+							
 			}
 			else
 				message.setPaymentType(PaymentType.COUPON);

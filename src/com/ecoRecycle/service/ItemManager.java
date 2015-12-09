@@ -9,11 +9,21 @@ import com.ecoRecycle.repository.ItemRepository;
 
 public class ItemManager extends Observable  {
 	
-	/*
-	 * Items are added and kept manually. 
-	 * UI add = make item valid,
-	 * UI remove = make item invalid
-	 */
+	private static ItemManager instance = null; 
+	
+	public static ItemManager getInstance() 
+	{ 
+		if(instance == null) 
+		{ 
+			instance = new ItemManager(); 
+		} 
+		return instance; 
+	}
+	
+	private ItemManager() {
+		
+	}
+	
 	private boolean isAdded;
 	public boolean isAdded() {
 		return isAdded;

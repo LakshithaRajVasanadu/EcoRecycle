@@ -1,4 +1,4 @@
-package com.ecoRecycle.ui;
+package com.ecoRecycle.ui.rmos;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
@@ -37,8 +37,6 @@ public class RcmManagerPanel extends JPanel{
 		setBackground(new Color(245, 214, 196));
 		this.uservice = uservice;
 		this.rservice = rservice;
-		// observe all rcms
-		
 		this.addComponents();
 	}
 	
@@ -47,6 +45,7 @@ public class RcmManagerPanel extends JPanel{
 		this.add(getDisplayPanel());
 	}
 	
+	//Panel for the functionalities perfored by the admin on the rcm -add rcm, remove rcm, manage rcm,
 	private JPanel getControlPanel() {
 		JPanel controlPanel = new JPanel();
 		
@@ -140,8 +139,8 @@ public class RcmManagerPanel extends JPanel{
 		return displayPanel;
 	}
 	
+	//When view rcm button ic clicked, the screen should refresh to get viewRcmPanel
 	private void viewRcmButtonHandler() {
-		System.out.println("You chose View!!");
 		
 		TitledBorder border = new TitledBorder("    VIEW RCM");
 		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 12));
@@ -153,9 +152,8 @@ public class RcmManagerPanel extends JPanel{
 		displayPanel.repaint();
 	}
 	
+	//When add rcm button ic clicked, the screen should refresh to get addRcmPanel
 	private void addRcmButtonHandler() {
-		System.out.println("You chose add!!");
-		
 		TitledBorder border = new TitledBorder("   ADD RCM");
 		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 12));
 		displayPanel.setBorder(border);
@@ -166,9 +164,8 @@ public class RcmManagerPanel extends JPanel{
 		displayPanel.repaint();
 	}
 	
+	//When remove rcm button ic clicked, the screen should refresh to get removeRcmPanel
 	private void removeRcmButtonHandler() {
-		System.out.println("You chose remove!!");
-		
 		TitledBorder border = new TitledBorder("   REMOVE RCM");
 		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 12));
 		displayPanel.setBorder(border);
@@ -179,9 +176,8 @@ public class RcmManagerPanel extends JPanel{
 		displayPanel.repaint();
 	}
 	
+	//When manage rcm button ic clicked, the screen should refresh to get manageRcmPanel
 	private void manageRcmButtonHandler() {
-		System.out.println("You chose manage rcm!!");
-		
 		TitledBorder border = new TitledBorder("   MANAGE RCM");
 		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 12));
 		displayPanel.setBorder(border);
@@ -192,9 +188,8 @@ public class RcmManagerPanel extends JPanel{
 		displayPanel.repaint();
 	}
 	
+	//When manage item button ic clicked, the screen should refresh to get manageItemPanel
 	private void manageItemButtonHandler() {
-		System.out.println("You chose manage Item!!");
-		
 		TitledBorder border = new TitledBorder("   MANAGE ITEM");
 		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 12));
 		displayPanel.setBorder(border);

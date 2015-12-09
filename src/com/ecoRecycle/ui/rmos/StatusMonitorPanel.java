@@ -1,4 +1,4 @@
-package com.ecoRecycle.ui;
+package com.ecoRecycle.ui.rmos;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -41,7 +41,6 @@ public class StatusMonitorPanel extends JPanel implements Observer{
 		rmosManager.addObserver(this);
 		
 		this.addComponents();
-		// observe all rcms
 	}
 	
 	private void addComponents() {
@@ -54,6 +53,7 @@ public class StatusMonitorPanel extends JPanel implements Observer{
 		this.add(rcmPanel);
 	}
 	
+	//Panel to get the image for monitoring status
 	private JPanel getMonitorIcon() {
 		JPanel monitorIconPanel = new JPanel();
 		monitorIconPanel.setBackground(new Color(184, 69, 67));
@@ -61,8 +61,6 @@ public class StatusMonitorPanel extends JPanel implements Observer{
 		TitledBorder border = new TitledBorder("STATUS MONITOR");
 		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 12));
 		monitorIconPanel.setBorder(border);
-		
-		//monitorIconPanel.setSize(200, 50);
 		monitorIconPanel.setPreferredSize(new Dimension(200, 130));
 		
 		ImageIcon imageIcon = new ImageIcon("resources/statusMonitor.jpg");
@@ -78,10 +76,8 @@ public class StatusMonitorPanel extends JPanel implements Observer{
 		return monitorIconPanel;
 	}
 	
+	//Panel to show if the rcms are active or inactive
 	private void populateRcmPanel() {
-//		TitledBorder border = new TitledBorder("Data");
-//		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 10));
-//		rcmPanel.setBorder(border);
 		rcmPanel.setBackground(new Color(184, 69, 67));
 		rcmPanel.setLayout(new GridLayout(0,1,0,3));
 		
@@ -98,6 +94,7 @@ public class StatusMonitorPanel extends JPanel implements Observer{
 		
 	}
 
+	//When there are changes, update method will be executed to show the changes to the user on the UI
 	@Override
 	public void update(Observable o, Object arg) {
 		rmos = new RmosService().getRmosByName(rmos.getName());
@@ -109,8 +106,6 @@ public class StatusMonitorPanel extends JPanel implements Observer{
 		populateRcmPanel();
 		this.revalidate();
 		this.repaint();
-		// TODO Auto-generated method stub
-		
 	}
 	
 }

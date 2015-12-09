@@ -27,6 +27,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 import com.ecoRecycle.helper.Message;
+import com.ecoRecycle.helper.Notifiable;
 import com.ecoRecycle.helper.RcmStatus;
 import com.ecoRecycle.helper.TransactionStatus;
 import com.ecoRecycle.model.Item;
@@ -41,7 +42,7 @@ import com.ecoRecycle.service.StatusManager;
 import com.ecoRecycle.service.TransactionService;
 import com.ecoRecycle.service.UnloadTransactionService;
 
-public class RcmUI extends JPanel implements Observer{
+public class RcmUI extends JPanel implements Observer, Notifiable{
 	private JFrame parentFrame;
 	private Rcm rcm;
 	private RcmService rcmService = new RcmService();
@@ -70,7 +71,6 @@ public class RcmUI extends JPanel implements Observer{
 		rcm = rcmService.getRcmByName(name);
 		rmosManager = new RmosManager(rcm.getRmos());
 		this.statusManager = statusManager;
-		//this.statusManager = new StatusManager(rcm.getRmos());
 		this.itemManager = itemManager;
 
 		this.itemManager.addObserver(this);
@@ -103,32 +103,27 @@ public class RcmUI extends JPanel implements Observer{
 		this.add(newPanel);
 	}
 	
+	//Panel to provide information of a particular rcm
 	private JPanel getRcmDetailsPanel() {
 		rcmDetailsPanel = new JPanel();
 		rcmDetailsPanel.setBackground(Color.black);
-		
-//		TitledBorder border = new TitledBorder("RMOS DETAILS PANEL");
-//		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 10));
-//		rmosDetailsPanel.setBorder(border);
-		
 		rcmDetailsPanel.setPreferredSize(new Dimension(780, 55));
 		rcmDetailsPanel.setLayout(new BorderLayout());
 		
 		JLabel nameLabel = new JLabel("NAME: " + rcm.getName() + 
 				"				                                  " +
 				"                            ");
-		//nameLabel.setForeground(Color.white);
 		rcmDetailsPanel.add(nameLabel,  BorderLayout.WEST);
 		
 		prepareStatusLabel();
 		
 		JLabel locationLabel = new JLabel("Location: " + rcm.getLocation().getCity());
-		//locationLabel.setForeground(Color.white);
 		rcmDetailsPanel.add(locationLabel, BorderLayout.EAST);
 		
 		return rcmDetailsPanel;
 	}
 
+	//Label to represent if the rcm is active or inactive
 	private void prepareStatusLabel() {
 		rcmDetailsPanel.remove(statusLabel);
 		statusLabel = new JLabel();
@@ -143,10 +138,9 @@ public class RcmUI extends JPanel implements Observer{
 			rcmDetailsPanel.setBackground(Color.red);
 		}
 		rcmDetailsPanel.add(statusLabel, BorderLayout.CENTER);
-		
-		
 	}
 	
+	//panel for the display screen
 	private JPanel getDisplayPanel() {
 		displayPanel = new JPanel();
 		displayPanel.setBorder(new TitledBorder("DISPLAY"));
@@ -158,7 +152,7 @@ public class RcmUI extends JPanel implements Observer{
 		return displayPanel;
 	}
 	
-	
+	//Panel that contains the item buttons that can be recycled
 	private void prepareItemButtonPanel() {
 		itemButtonPanel.removeAll();
 		
@@ -181,6 +175,7 @@ public class RcmUI extends JPanel implements Observer{
 					displayPanel.removeAll();
 					
 					if(message.isSuccessful() == false) {
+						
 						TransactionService serv = new TransactionService();
 						Transaction lastTrans = serv.getLastTransaction(rcm);
 						Set<TransactionItem> retrivedItems =  lastTrans.getTransactionItems();
@@ -230,19 +225,12 @@ public class RcmUI extends JPanel implements Observer{
 			}
 			itemButtonPanel.add(button);
 		}
-		
-//		int i = 0;
-//		for(i=0; i<9; i++) {
-//			JButton button = new JButton("Aluminium" + i+"");
-//			button.setPreferredSize(new Dimension(150,20));
-//			itemButtonPanel.add(button);
-//		}
-		
 		itemButtonPanel.setPreferredSize(new Dimension(600,100));
 		itemButtonPanel.revalidate();
 		itemButtonPanel.repaint();
 	}
 	
+	//DispenserPanel to show that the user can collect the amount form the dispenser
 	private JPanel getDispensePanel() {
 		
 		dispensePanel.setBorder(new TitledBorder("DISPENSER"));
@@ -257,30 +245,20 @@ public class RcmUI extends JPanel implements Observer{
 	    
 	    JLabel moneyImageLabel = new JLabel();
 	    moneyImageLabel.setIcon(moneyIcon);
-	    
-	    //JLabel moneyLabel = new JLabel();
-	    //moneyLabel.setText("Total Money Dispensed: $1000");
-	    
-	    //moneyLabel.setText("Total Money Dispensed: $1000");
-		
-	    
 	    dispensePanel.add(moneyImageLabel);
 	    dispensePanel.add(Box.createRigidArea(new Dimension(100, 10)));
 	    dispensePanel.add(newMoneyLabel);
 	    dispensePanel.add(Box.createRigidArea(new Dimension(60,40)));
-	   // dispensePanel.add(moneyLabel);
-		
+	  
 		return dispensePanel;
-		
-		
 	}
 	
+	//Panel that has the dispense button and few other button that provide information regarding the rcm
 	private JPanel getExtrasPanel() {
 		
 		JPanel extrasPanel = new JPanel();
 		extrasPanel.setBackground(Color.black);
 
-//		extrasPanel.setBorder(new TitledBorder("ExtrasPanel"));
 		extrasPanel.setPreferredSize(new Dimension(350, 400));
 		extrasPanel.setLayout(new BoxLayout(extrasPanel, BoxLayout.Y_AXIS));
 		
@@ -308,23 +286,15 @@ public class RcmUI extends JPanel implements Observer{
 					dispenseStr += "You have no pending payments. Please add items to start Recycling!";
 				}
 				
-				
 					 JLabel moneyLabel = new JLabel(dispenseStr);
 					 displayPanel.removeAll();
 					 displayPanel.add(moneyLabel);
 					 displayPanel.revalidate();
 					 displayPanel.repaint();
 					 setVisible(true);
-					
-					 
-				
-				
-			}
+				}
 			});
-	    
-	    
-	    
-	    
+
 	    JButton help = new JButton("Help");
 	    help.addActionListener(new ActionListener() {
 			
@@ -362,34 +332,14 @@ public class RcmUI extends JPanel implements Observer{
 	    extrasPanel.add(infoButton);
 	    
 		return extrasPanel;
-		
-		
 	}
 
-	
-	
+	//The rcm has to change the properties of the ui when it becomes inactive or when it is removed
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		System.out.println("In rcm update");
 		rcm = rcmService.getRcmByName(rcm.getName());
 		prepareStatusLabel();
-		
-//		String str = (String) arg;
-//		ItemManager item = (ItemManager) o;
-//		System.out.println("ITS WORKING!!!!!!!!" + arg);
-//		Component[] components = itemButtonPanel.getComponents();
-//		for(int i = 0; i< components.length; i++){
-//			if(components[i].getName().equalsIgnoreCase(str)){
-//				components[i].setEnabled(item.isAdded());
-//				this.revalidate();
-//				this.repaint();
-//			}
-//		}
-		
 		prepareItemButtonPanel();
-		
-		// NEW CODE
 		
 		if(rcm.getStatus() == RcmStatus.INACTIVE || rcm.getStatus() == RcmStatus.REMOVED) {
 			setPanelEnabled(itemButtonPanel, false);

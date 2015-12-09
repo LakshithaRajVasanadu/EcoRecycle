@@ -10,6 +10,7 @@ import com.ecoRecycle.model.UnloadTransaction;
 
 public class UnloadTransactionService extends TransactionService{
 	
+	/*To create an unload transaction to empty the items from the rcm*/
 	private Transaction createUnloadTransaction(Rcm rcm) {
 		Transaction transaction = new UnloadTransaction();
 		transaction.setRcm(rcm);
@@ -20,6 +21,7 @@ public class UnloadTransactionService extends TransactionService{
 		return transaction;
 	}
 	
+	/*To display a message when unloaded and to update the rcm*/
 	public Message unloadRcm(Rcm rcm) {
 		Message msg = new Message();
 		if(rcm == null) {
@@ -30,8 +32,6 @@ public class UnloadTransactionService extends TransactionService{
 		rcm.addTransaction(transaction);
 		
 		rcm.setCurrentCapacity(0);
-		//rcm.setCurrentCashValue(0);
-		//rcm.setCurrentCouponValue(0);
 		rcm.setLastEmptied(new Date());
 		
 		RcmService rcmService = new RcmService();

@@ -1,4 +1,4 @@
-package com.ecoRecycle.ui;
+package com.ecoRecycle.ui.rmos;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -28,7 +28,6 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import ui.RmosUI;
 
 import com.ecoRecycle.model.Administrator;
 import com.ecoRecycle.model.Rmos;
@@ -49,30 +48,22 @@ public class LoginPanel extends JPanel{
 		this.parentFrame = parentFrame;
 		this.parentPanel = parent;
 		this.rmos = rmos;
-		
 		this.setBackground(Color.black);
-		
-//		TitledBorder border = new TitledBorder("LOGIN PANEL");
-//		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 10));
-//		this.setBorder(border);
 		this.setPreferredSize(new Dimension(300, 700));
-		
 		this.addComponents();
 	}
 	
+	//add components to the login panel
 	private void addComponents() {
-		
 		this.disableLogoutButton();
 		JLabel welcomeLabel = new JLabel("                   Welcome to EcoRecycle Monitoring System!!!");
 		welcomeLabel.setFont(new Font("TimesNewRoman", Font.ITALIC, 20));		
 		welcomeLabel.setForeground(new Color(74, 175, 37));
 		this.add(welcomeLabel);
-		//this.add(getRRRPanel());
 		this.add(Box.createRigidArea(new Dimension(100,100)));
 		this.add(getAdminPanel());
 		this.add(Box.createRigidArea(new Dimension(500,200)));
 		this.add(getBorderPanel());
-		
 	}
 	
 	private JPanel getAdminPanel() {
@@ -113,6 +104,7 @@ public class LoginPanel extends JPanel{
 		return picPanel;
 	}
 	
+	//Panel for username
 	private JPanel getUsernamePanel() {
 		JPanel userNamePanel = new JPanel();
 		userNamePanel.setSize(new Dimension(15, 0));
@@ -131,6 +123,7 @@ public class LoginPanel extends JPanel{
 		return userNamePanel;
 	}
 	
+	//Panel for password
 	private JPanel getPasswordPanel() {
 		JPanel passwordPanel = new JPanel();
 		passwordPanel.setSize(new Dimension(15, 0));
@@ -149,6 +142,7 @@ public class LoginPanel extends JPanel{
 		return passwordPanel;
 	}
 	
+	//Panel for login button
 	private JPanel getLoginButtonPanel() {
 		JPanel loginButtonPanel = new JPanel();
 		loginButtonPanel.setSize(new Dimension(15, 0));
@@ -161,9 +155,9 @@ public class LoginPanel extends JPanel{
 		
 		loginButton.addActionListener(new ActionListener() {
 			
+			//Authentication of username and password
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				
 				String username = usernameTextField.getText();
 				String password = String.valueOf(passwordField.getPassword());
@@ -172,15 +166,12 @@ public class LoginPanel extends JPanel{
 					Administrator admin = adminService.getAdmin(username);
 					
 					if(admin.getId() == rmos.getAdmin().getId()) {
-						System.out.println("Login success");
-						
 						enableLogoutButton();
 						
 						CardLayout cl = (CardLayout) (parentPanel.getLayout());
 						cl.show(parentPanel, RmosUI.MAIN_PANEL);
 					}
 					else {
-						System.out.println("Login failed - admin doesn not belong to this Rmos");
 						JOptionPane.showMessageDialog(null,
 								"User Login Failed", "Error",
 								JOptionPane.ERROR_MESSAGE);
@@ -188,7 +179,6 @@ public class LoginPanel extends JPanel{
 					
 				}
 				else {
-					System.out.println("Login failed - username password do not match");
 					JOptionPane.showMessageDialog(null,
 							"User Login Failed", "Error",
 							JOptionPane.ERROR_MESSAGE);
@@ -202,33 +192,18 @@ public class LoginPanel extends JPanel{
 		return loginButtonPanel;
 	}
 
+	//Logout button to be enabled when then RmosUiManager is opened
 	private void enableLogoutButton() {
 		JButton logoutButton = ((RmosUIManager)( this.parentFrame)).getLogoutButton();
 		logoutButton.setVisible(true);
 	}
 	
+	//To disable the logout button
 	private void disableLogoutButton() {
 		((RmosUIManager)( this.parentFrame)).getLogoutButton().setVisible(false);
 	}
 	
-	private JPanel getRRRPanel() {
-		JPanel picPanel = new JPanel();
-		picPanel.setSize(new Dimension(15, 0));
-		picPanel.setBackground(Color.black);
-		
-		ImageIcon imageIcon = new ImageIcon("resources/rrr.png");
-		Image image = imageIcon.getImage(); // transform it
-		Image newimg = image.getScaledInstance(250, 150,
-				java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-		imageIcon = new ImageIcon(newimg); // transform it back
-		
-		JLabel picLabel = new JLabel(imageIcon);
-		picLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-		
-		picPanel.add(picLabel);
-		return picPanel;
-	}
-	
+	//Panel for image on the login screen
 	private JPanel getBorderPanel() {
 		JPanel picPanel = new JPanel();
 		picPanel.setSize(new Dimension(15, 0));

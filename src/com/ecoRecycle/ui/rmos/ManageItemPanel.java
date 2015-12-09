@@ -1,4 +1,4 @@
-package com.ecoRecycle.ui;
+package com.ecoRecycle.ui.rmos;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -40,7 +40,6 @@ public class ManageItemPanel extends JPanel {
 		this.rmosManager = new RmosManager(rmos);
 		this.itemManager = itemManager;
 		setBackground(new Color(245, 214, 196));
-		// observe all rcms
 		this.addComponents();	
 	}
 	
@@ -48,16 +47,12 @@ public class ManageItemPanel extends JPanel {
 		this.add(getItemPanel());
 	}
 	
+	//Panel to add or remove an item
 	private JPanel getItemPanel() {
 		JPanel itemPanel = new JPanel();
 		itemPanel.setBackground(new Color(245, 214, 196));
-		//itemPanel.setLayout(new BoxLayout(itemPanel, BoxLayout.Y_AXIS));
 		itemPanel.setLayout(new GridLayout(0,1));
-		
-//		TitledBorder border = new TitledBorder("Item Panel");
-//		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 18));
-//		itemPanel.setBorder(border);
-		
+	
 		JLabel itemLabel = new JLabel("Item");
 		JComboBox<String> itemComboxBox = new JComboBox<String>();
 		
@@ -144,7 +139,6 @@ public class ManageItemPanel extends JPanel {
 			}
 		});
 		
-		
 		itemPanel.add(itemLabel);
 		itemPanel.add(itemComboxBox);
 		itemPanel.add(addButton);
@@ -154,9 +148,5 @@ public class ManageItemPanel extends JPanel {
 		itemPanel.add(changeButton);
 		
 		return itemPanel;
-		
 	}
-
-	
-
 }

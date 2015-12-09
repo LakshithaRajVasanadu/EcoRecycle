@@ -10,13 +10,14 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
-import com.ecoRecycle.loader.HibernateLoader;
+import com.ecoRecycle.helper.HibernateLoader;
 import com.ecoRecycle.model.Location;
 import com.ecoRecycle.model.Rcm;
 import com.ecoRecycle.model.Rmos;
 import com.ecoRecycle.model.RmosRcmMapping;
 
 public class RmosRepository {
+	
 	/*To get all rmos */
 	public List<Rmos> getAllRmos() {
 		Session session = HibernateLoader.getSessionFactory().openSession();
@@ -106,7 +107,7 @@ public class RmosRepository {
 		return isSuccessful;
 	}
 	
-	/*to get a lsit of rcm' that are mapped to a particular rmos*/
+	/*to get a list of rcm's that are mapped to a particular rmos*/
 	public RmosRcmMapping getMappingForRcm(Rmos rmos, Rcm rcm) {
 		Set<RmosRcmMapping> mappings = rmos.getRmosRcmMappings();
 		RmosRcmMapping result = null;

@@ -1,4 +1,4 @@
-package com.ecoRecycle.loader;
+package com.ecoRecycle.helper;
 
 import java.util.logging.Level;
 
@@ -10,6 +10,7 @@ import org.hibernate.service.ServiceRegistryBuilder;
 
 import com.ecoRecycle.model.*;
 
+//To get the hibernate session object
 public class HibernateLoader {
 	private static SessionFactory sessionFactory;
     private static ServiceRegistry serviceRegistry;

@@ -1,4 +1,4 @@
-package com.ecoRecycle.ui;
+package com.ecoRecycle.ui.rmos;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -28,8 +28,6 @@ public class ViewRcmPanel extends JPanel{
 		this.rmos = rmos;
 		this.rmosManager = new RmosManager(rmos);
 		setBackground(new Color(245, 214, 196));
-		
-		// observe all rcms
 		this.addComponents();
 	}
 	
@@ -41,6 +39,7 @@ public class ViewRcmPanel extends JPanel{
 		
 	}
 	
+	//To choose an rcm from the list to view the details
 	private JPanel getInputPanel() {
 		JPanel inputPanel = new JPanel();
 		inputPanel.setBackground(new Color(245, 214, 196));
@@ -71,12 +70,12 @@ public class ViewRcmPanel extends JPanel{
 		return inputPanel;
 	}
 	
+	//Panel to display the details of a particular rcm selected
 	private void prepareRcmPanel(String rcmName) {
 		rcmPanel.removeAll();
 		
 		rcmPanel.setBackground(new Color(245, 214, 196));
 		rcmPanel.setLayout(new GridLayout(0,1));
-        System.out.println("Switching to Rcm:" + rcmName);
 		
         Rcm rcm = new RcmService().getRcmByName(rcmName);
         rcmPanel.setLayout(new GridLayout(0,1));

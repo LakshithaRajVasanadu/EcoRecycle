@@ -1,4 +1,4 @@
-package com.ecoRecycle.ui;
+package com.ecoRecycle.ui.rmos;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -47,8 +47,6 @@ public class RmosUI extends JPanel{
 		this.uservice = uservice;
 		this.rservice = rservice;
 		
-		//this.statusManager = new StatusManager(rmos);
-		
 		this.parentFrame = parentFrame;
 		this.setBackground(Color.black);
 		
@@ -62,14 +60,10 @@ public class RmosUI extends JPanel{
 		this.add(getCardLayoutPanel());
 	}
 	
+	//Panel to show the details of the rmos -rmos name and rmos loaction
 	private JPanel getRmosDetailsPanel() {
 		JPanel rmosDetailsPanel = new JPanel();
 		rmosDetailsPanel.setBackground(Color.black);
-		
-//		TitledBorder border = new TitledBorder("RMOS DETAILS PANEL");
-//		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 10));
-//		rmosDetailsPanel.setBorder(border);
-		
 		rmosDetailsPanel.setPreferredSize(new Dimension(820, 55));
 		rmosDetailsPanel.setLayout(new BorderLayout());
 		
@@ -85,12 +79,7 @@ public class RmosUI extends JPanel{
 	
 	private JPanel getCardLayoutPanel() {
 		cardLayoutPanel = new JPanel();
-//		TitledBorder border = new TitledBorder("CARD LAYOUT PANEL");
-//		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 10));
-//		cardLayoutPanel.setBorder(border);
-		
 		cardLayoutPanel.setPreferredSize(new Dimension(820, 785));
-		
 		cardLayoutPanel.setLayout(new CardLayout());
 		cardLayoutPanel.add(new LoginPanel(parentFrame, cardLayoutPanel, rmos), LOGIN_PANEL);
 		cardLayoutPanel.add(new RmosMainPanel(parentFrame, rmos, rmosManager, statusManager, itemManager, uservice, rservice), MAIN_PANEL);
@@ -98,6 +87,7 @@ public class RmosUI extends JPanel{
 		return cardLayoutPanel;
 	}
 	
+	//logout button handler
 	private void registerLogoutButtonHandler() {
 		System.out.println("Here...");
 		JButton logoutButton = ((RmosUIManager)( this.parentFrame)).getLogoutButton();

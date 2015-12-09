@@ -1,4 +1,4 @@
-package com.ecoRecycle.ui;
+package com.ecoRecycle.ui.rmos;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -40,8 +40,7 @@ public class RmosUIManager extends JFrame {
 	private JComboBox<String> rmosComboBox;
 	private JButton logoutButton;
 	
-	private StatusManager statusManager;
-    //private ItemManager itemManager = ObjFactory.getInstance();		
+	private StatusManager statusManager;	
 	private ItemManager itemManager;
 	private RmosManager rmosManager;
 
@@ -58,9 +57,6 @@ public class RmosUIManager extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		this.addComponents();
-		
-	//	setPanelColor(rmosChooserPanel, Color.black);
-	//	setPanelColor(rmosPanel, Color.black);
 		this.setVisible(true);
 	}
 	
@@ -73,14 +69,12 @@ public class RmosUIManager extends JFrame {
 		JPanel finalPanel = new JPanel(new BorderLayout());
 		finalPanel.setBackground(Color.black);
 		finalPanel.setBorder(new LineBorder(new Color(74, 175, 37), 3));
-	//	contentPane.setLayout(new BorderLayout());
 		finalPanel.add(rmosChooserPanel, BorderLayout.NORTH);
 		finalPanel.add(rmosPanel, BorderLayout.SOUTH);
-		contentPane.add(finalPanel);
-		
-		
+		contentPane.add(finalPanel);	
 	}
 	
+	//Panel to choose the rmos form the list of rmos
 	private void prepareRmosChooserPanel() {
 		rmosChooserPanel.setLayout(new BorderLayout());
 		rmosChooserPanel.setPreferredSize(new Dimension(0, 70));
@@ -95,7 +89,6 @@ public class RmosUIManager extends JFrame {
 		JLabel rmosLabel = new JLabel("Choose Rmos:");
 		rmosLabel.setForeground(Color.white);
 		rmosComboBox = new JComboBox<String>();
-		//rmosComboBox.setForeground(Color.white);
 		
 		Set<Rmos> rmosList = rmosService.getAllRmos();
 		for(Rmos rmos : rmosList) {
@@ -127,10 +120,9 @@ public class RmosUIManager extends JFrame {
 	private void prepareRmosPanel(String rmosName) {
 		rmosPanel.removeAll();
 		rmosPanel.setBackground(Color.black);
-        System.out.println("Switching to Rmos:" + rmosName);
         Rmos rmos = rmosService.getRmosByName(rmosName);
         statusManager = new StatusManager(rmos);
-        itemManager = new ItemManager();
+        itemManager = ItemManager.getInstance();
         rmosManager = new RmosManager(rmos);
         
         UnloadTransactionService uservice = new UnloadTransactionService();
@@ -138,13 +130,8 @@ public class RmosUIManager extends JFrame {
         
 		rmosPanel.add(new RmosUI(rmosName, this, statusManager, itemManager, uservice, rservice, rmosManager));
 		
-		//RCM UI STARTS HERE.....
+		//Starting of Rcm UI
 		new RcmUIManager(statusManager, itemManager, uservice, rservice, rmosManager);
-		
-//		TitledBorder border = new TitledBorder("RMOS SPECIFIC PANEL");
-//		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 18));
-//		rmosPanel.setBorder(border);
-		
 		rmosPanel.setPreferredSize(new Dimension(0, 875));
 		
 		this.revalidate();

@@ -1,4 +1,4 @@
-package com.ecoRecycle.ui;
+package com.ecoRecycle.ui.rmos;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -99,6 +99,7 @@ public class StatisticsPanel extends JPanel{
 		selectedRcmName = null;
 	}
 	
+	//Panel to perform various functions of statistics
 	private JPanel getInputPanel() {
 		TitledBorder border = new TitledBorder("  Input panel");
 		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 10));
@@ -112,6 +113,7 @@ public class StatisticsPanel extends JPanel{
 		JPanel innerOneDurationPanel = new JPanel();
 		innerOneDurationPanel.setBackground(new Color(245, 214, 196));
 		
+		//To choose the duration to view the sstatistics for - daily, weekly, monthly, range
 		JLabel durationLabel = new JLabel("Choose duration: ");	
 		
 		JRadioButton dailyButton = new JRadioButton("Daily");
@@ -133,8 +135,7 @@ public class StatisticsPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				isRange = false;
-				endDate = new Date();
-				//startDate = new Date(endDate.getTime() - (7 * 24 * 60 * 60 * 1000L)); 
+				endDate = new Date(); 
 				Calendar cal = Calendar.getInstance();
 				cal.set(Calendar.DAY_OF_WEEK, 1);
 				startDate = cal.getTime();
@@ -278,8 +279,6 @@ public class StatisticsPanel extends JPanel{
 					
 					
 				}
-				System.out.println("Start Date:" + startDate);
-				System.out.println("End Date:" + endDate);
 				prepareStatisticsPanel();
 				prepareVisualizationPanel();
 			}
@@ -301,6 +300,7 @@ public class StatisticsPanel extends JPanel{
 		return inputPanel;
 	}
 	
+	//Statistics panel
 	private void prepareStatisticsPanel() {
 		statisticsPanel.removeAll();
 		
@@ -313,6 +313,7 @@ public class StatisticsPanel extends JPanel{
 		TitledBorder border = new TitledBorder("  Statistics panel");
 		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 10));
 		statisticsPanel.setBorder(border);
+		
 	
 		statisticsPanel.setPreferredSize(new Dimension(590, 200));
 		
@@ -381,6 +382,7 @@ public class StatisticsPanel extends JPanel{
 		statisticsPanel.repaint();
 	}
 	
+	//Visualization panel to display the bar graph
 	private void prepareVisualizationPanel() {
 		visualizationPanel.removeAll();
 		
@@ -394,10 +396,6 @@ public class StatisticsPanel extends JPanel{
 		visualizationPanel.setBorder(border);
 		
 		visualizationPanel.setPreferredSize(new Dimension(570, 325));
-		
-		//visualizationPanel.add(new JLabel("In Visual  "+ startDate));
-		
-		System.out.println("Visualization panel:  date:" + startDate + endDate);
 		rmos = new RmosService().getRmosByName(rmos.getName());
 		rmosManager = new RmosManager(rmos);
 		statusManager = new StatusManager(rmos);
