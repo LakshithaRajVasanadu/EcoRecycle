@@ -89,13 +89,11 @@ public class RmosUI extends JPanel{
 	
 	//logout button handler
 	private void registerLogoutButtonHandler() {
-		System.out.println("Here...");
 		JButton logoutButton = ((RmosUIManager)( this.parentFrame)).getLogoutButton();
 		logoutButton.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Here 2...");
 				CardLayout cl = (CardLayout) (cardLayoutPanel.getLayout());
 				cl.show(cardLayoutPanel, RmosUI.LOGIN_PANEL);
 			}

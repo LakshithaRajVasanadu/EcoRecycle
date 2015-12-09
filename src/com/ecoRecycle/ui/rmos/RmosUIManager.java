@@ -22,7 +22,6 @@ import javax.swing.border.TitledBorder;
 
 import com.ecoRecycle.model.Rmos;
 import com.ecoRecycle.service.ItemManager;
-import com.ecoRecycle.service.ObjFactory;
 import com.ecoRecycle.service.ReloadTransactionService;
 import com.ecoRecycle.service.RmosManager;
 import com.ecoRecycle.service.RmosService;

@@ -23,7 +23,6 @@ import com.ecoRecycle.model.Item;
 import com.ecoRecycle.model.Rmos;
 import com.ecoRecycle.service.ItemManager;
 import com.ecoRecycle.service.LocationService;
-import com.ecoRecycle.service.ObjFactory;
 import com.ecoRecycle.service.RmosManager;
 
 public class ManageItemPanel extends JPanel {
