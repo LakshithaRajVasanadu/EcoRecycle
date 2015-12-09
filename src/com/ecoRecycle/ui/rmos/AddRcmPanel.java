@@ -37,7 +37,6 @@ public class AddRcmPanel extends JPanel{
 		this.rmosManager = rmosManager;
 		this.statusManager = statusManager;
 		setBackground(new Color(245, 214, 196));
-		// observe all rcms
 		this.addComponents();
 	}
 	
@@ -45,16 +44,12 @@ public class AddRcmPanel extends JPanel{
 		this.add(getAddRcmPanel());
 	}
 	
+	// Panel for adding a new rcm
 	private JPanel getAddRcmPanel() {
 		JPanel addRcmPanel = new JPanel();
 		addRcmPanel.setBackground(new Color(245, 214, 196));
-		//addRcmPanel.setLayout(new BoxLayout(addRcmPanel, BoxLayout.Y_AXIS));
 		addRcmPanel.setLayout(new GridLayout(0,2));
-		
-//		TitledBorder border = new TitledBorder("ADD RCM");
-//		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 18));
-//		addRcmPanel.setBorder(border);
-		
+			
 		JLabel nameLabel = new JLabel("Name");
 		JTextField nameField = new JTextField(20);
 		

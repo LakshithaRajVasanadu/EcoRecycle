@@ -1,5 +1,6 @@
 package com.ecoRecycle.helper;
 
+//helper model for usage statistics
 public class UsageStatisticsModel {
 	private double totalWeight;
 	private double totalValue;

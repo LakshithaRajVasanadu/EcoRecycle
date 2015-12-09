@@ -1,5 +1,6 @@
 package com.ecoRecycle.helper;
 
+//Helper models to display the messages
 public class Message {
 	
 	private boolean isSuccessful;

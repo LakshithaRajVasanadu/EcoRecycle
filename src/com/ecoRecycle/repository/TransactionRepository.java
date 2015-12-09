@@ -18,7 +18,7 @@ import com.ecoRecycle.model.Item;
 
 public class TransactionRepository {
 
-	/*reate a new transaction when the first item is inserted*/
+	/*create a new transaction when the first item is inserted*/
 	public boolean createTransaction(Transaction transaction ){
 		Session session = HibernateLoader.getSessionFactory().openSession();
 		org.hibernate.Transaction tx = null;
@@ -41,7 +41,7 @@ public class TransactionRepository {
 
 	
 	
-	// Update a transaction
+	/*To update a transaction if transaction alredy exists*/
 	public boolean updateTransaction(Transaction transaction ){
 		Session session = HibernateLoader.getSessionFactory().openSession();
 		org.hibernate.Transaction tx = null;
@@ -63,16 +63,8 @@ public class TransactionRepository {
 	}
 
 	
-	// Get item count by RCM
+	/*To get the number of items recycled by a particular rcm*/
 	public Integer getItemCountByRcm(int rcmId, Date startDate, Date endDate) {
-
-		/*
-		 * select count(*) as count from transaction t join
-		 * transactionItemMapping m on t.id = m.transactionId where t.rcmId = 10
-		 * and t.type = 'RECYCLE' and date(m.createDateTime) between
-		 * '2015-11-22' and '2015-11-23' and m.isAccepted = true;
-		 */
-
 		Session session = HibernateLoader.getSessionFactory().openSession();
 		org.hibernate.Transaction tx = null;
 		Integer count = 0;
@@ -103,17 +95,12 @@ public class TransactionRepository {
 		} finally {
 			session.close();
 		}
-
-		System.out.println("Count is:" + count);
-
 		return count;
 	}
 	
-	
+	/*To get the total weight of items recycled by a particular rcm*/
 	public double getItemWeightByRcm(int rcmId, Date startDate, Date endDate) {
-		/*
-		 * select sum(totalWeight) as weight from transaction t where t.rcmId = 10 and t.type = 'RECYCLE' and date(t.createDateTime) between "2015-11-22" and "2015-11-25" ;
-		 */
+		
 		Session session = HibernateLoader.getSessionFactory().openSession();
 		org.hibernate.Transaction tx = null;
 		double weight = 0;
@@ -143,16 +130,11 @@ public class TransactionRepository {
 		} finally {
 			session.close();
 		}
-
-		System.out.println("Weight is:" + weight);
-
 		return weight;
 	}
 	
+	/*To get the total value to be dispensed to the user at the end of a transaction*/
 	public double getTotalValueDispensed(int rcmId, Date startDate, Date endDate) {
-		/*
-		 * select sum(totalPayment) as value from transaction t where t.rcmId = 10 and t.type = 'RECYCLE' and date(t.createDateTime) between "2015-11-22" and "2015-11-25" ;
-		 */
 		Session session = HibernateLoader.getSessionFactory().openSession();
 		org.hibernate.Transaction tx = null;
 		double totalValueDispensed = 0;
@@ -184,15 +166,11 @@ public class TransactionRepository {
 			session.close();
 		}
 
-		System.out.println("Value is:" + totalValueDispensed);
-
 		return totalValueDispensed;
 	}
 	
+	/*To get the number of times a particular rcm was emptied*/
 	public Integer getNumberofTimesEmptied(int rcmId, Date startDate, Date endDate) {
-		/*
-		 * select count(*) as count from transaction t where t.rcmId = 10 and t.type = 'UNLOAD' and date(t.createDateTime) between "2015-11-22" and "2015-11-25" ;
-		 */
 		Session session = HibernateLoader.getSessionFactory().openSession();
 		org.hibernate.Transaction tx = null;
 		Integer count = 0;
@@ -221,37 +199,7 @@ public class TransactionRepository {
 		} finally {
 			session.close();
 		}
-
-		System.out.println("Empty times is:" + count);
-
 		return count;
 	}
-	/*
-	public static void main(String[] args) {
-		TransactionRepository repo  = new TransactionRepository();
-		
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		String startDate = "2015-11-22";
-		String endDate = "2015-11-25";
-		Date sdate = null, edate = null;
-		try {
-
-			sdate = formatter.parse(startDate);
-			edate = formatter.parse(endDate);
-			
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		
-		repo.getItemCountByRcm(10, sdate, edate);
-		
-		repo.getItemWeightByRcm(10, sdate, edate);
-		
-		repo.getTotalValueDispensed(10, sdate, edate);
-		
-		repo.getNumberofTimesEmptied(10, sdate, edate);
-	}
-	*/
 	
-   
 }

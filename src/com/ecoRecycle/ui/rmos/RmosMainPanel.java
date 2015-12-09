@@ -54,6 +54,7 @@ public class RmosMainPanel extends JPanel{
 		
 	}
 	
+	//Panel for notifications and to show status of the rcm
 	private JPanel getLeftPanel() {
 		JPanel leftPanel = new JPanel();
 		leftPanel.setBackground(Color.black);
@@ -70,6 +71,7 @@ public class RmosMainPanel extends JPanel{
 		return leftPanel;
 	}
 	
+	//Panel for rcm related functionalities and to view statistics
 	private JPanel getRightPanel() {
 		JPanel rightPanel = new JPanel();
 		rightPanel.setBackground(Color.black);

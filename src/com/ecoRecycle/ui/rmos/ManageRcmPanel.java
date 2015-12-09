@@ -56,6 +56,7 @@ public class ManageRcmPanel extends JPanel{
 		
 	}
 	
+	//Panel to manage an rcm - to unload, to reload, to add money to rcm
 	private JPanel getInputPanel() {
 		JPanel inputPanel = new JPanel();
 		inputPanel.setBackground(new Color(245, 214, 196));
@@ -109,9 +110,6 @@ public class ManageRcmPanel extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-//				rmos = new RmosRepository().getRmosByName(rmos.getName());
-//				rmosManager = new RmosManager(rmos);
-//				statusManager = new StatusManager(rmos);
 				
 				Rcm rcm = new RcmService().getRcmByName(rcmName);
 				if(rcm == null){
@@ -146,11 +144,7 @@ public class ManageRcmPanel extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-//				rmos = new RmosRepository().getRmosByName(rmos.getName());
-//				rmosManager = new RmosManager(rmos);
-//				statusManager = new StatusManager(rmos);
-				
-				
+			
 				Rcm rcm = new RcmService().getRcmByName(rcmName);
 				if(rcm == null){
 					JOptionPane.showMessageDialog(null,

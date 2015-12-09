@@ -99,21 +99,15 @@ public class RcmUIManager extends JFrame implements Observer
 			prepareRcmPanel(rcmComboBox.getSelectedItem().toString());
 		else
 			rcmPanel.removeAll();
-	//	contentPane.setLayout(new BorderLayout());
-	//	contentPane.add(rcmChooserPanel, BorderLayout.NORTH);
-	//	contentPane.add(rcmPanel, BorderLayout.SOUTH);
-		
-		
+			
 		finalPanel.setBackground(Color.black);
 		finalPanel.setBorder(new LineBorder(new Color(74, 175, 37), 3));
-	//	contentPane.setLayout(new BorderLayout());
 		finalPanel.add(rcmChooserPanel, BorderLayout.NORTH);
 		finalPanel.add(rcmPanel, BorderLayout.SOUTH);
 		contentPane.add(finalPanel);
-		
-		
 	}
 	
+	// Panel to choose a rcm form the dropdown list of rcm's
 	private void prepareRcmChooserPanel() {
 
 		rcmChooserPanel.removeAll();
@@ -131,7 +125,6 @@ public class RcmUIManager extends JFrame implements Observer
 		JLabel rmosLabel = new JLabel("Choose Rcm:");
 		rcmComboBox = new JComboBox<String>();
 		
-		//Set<Rcm> rcmList = new RcmService().getAllRcms();
 		List<Rcm> rcmList = rmosManager.getAllRcms();
 		Collections.sort(rcmList, new Comparator<Rcm>(){
 		       public int compare(Rcm o1, Rcm o2) {
@@ -142,8 +135,6 @@ public class RcmUIManager extends JFrame implements Observer
 		for(Rcm rcm : rcmList) {
 			rcmComboBox.addItem(rcm.getName());
 		}
-		
-		//rcmComboBox.setSelectedItem("rcm256");
 		
 		rcmComboBox.addItemListener(new ItemListener() {
 			@Override
@@ -171,13 +162,7 @@ public class RcmUIManager extends JFrame implements Observer
 	private void prepareRcmPanel(String rcmName) {
 		rcmPanel.removeAll();
 		rcmPanel.setBackground(Color.black);
-        System.out.println("Switching to Rcm:" + rcmName);
 		rcmPanel.add(new RcmUI(rcmName, this, statusManager, itemManager, uservice, rservice));
-		
-//		TitledBorder border = new TitledBorder("RMOS SPECIFIC PANEL");
-//		border.setTitleFont(new Font("TimesNewRoman", Font.BOLD, 18));
-//		rmosPanel.setBorder(border);
-		
 		rcmPanel.setPreferredSize(new Dimension(0, 875));
 		
 		this.revalidate();
@@ -186,8 +171,6 @@ public class RcmUIManager extends JFrame implements Observer
 
 	@Override
 	public void update(Observable o, Object arg) {
-		System.out.println("In RCM UI update....");
-		//prepareRcmChooserPanel();
 		addComponents();
 		this.revalidate();
 		this.repaint();

@@ -23,11 +23,7 @@ public class ItemManager extends Observable  {
 	private ItemManager() {
 		
 	}
-	/*
-	 * Items are added and kept manually. 
-	 * UI add = make item valid,
-	 * UI remove = make item invalid
-	 */
+	
 	private boolean isAdded;
 	public boolean isAdded() {
 		return isAdded;

@@ -32,8 +32,7 @@ public class StatisticsManager {
 	
 	/*Gets the count of items recycled by all the rcm's based on a particular period of time*/
 	public HashMap<Rcm, Integer> getItemCountForAllRcms(Date startDate, Date endDate) {
-		//select t.rcmId as rcmId, count(*) as count  from transaction t join transactionItemMapping m on t.id = m.transactionId where t.type = 'RECYCLE' and date(m.createDateTime) between '2015-11-22' and '2015-11-23' and m.isAccepted = true group by t.rcmId;
-
+		
 		HashMap<Rcm, Integer> itemCountsMap = new HashMap<Rcm, Integer>();
 		
 		RmosManager rmosManager = new RmosManager(rmos);

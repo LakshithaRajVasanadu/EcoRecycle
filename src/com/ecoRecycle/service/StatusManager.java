@@ -52,35 +52,7 @@ public class StatusManager extends Observable{
 		return msg;
 	}
 	
-	/*To deactivate an active rcm*/
-	public Message deactivateRcm(int id) {
-		RcmService rcmService = new RcmService();
-		Rcm rcm = rcmService.getRcmById(id);
 		
-		Message msg = new Message();
-		msg.setSuccessful(true);
-		
-		if(rcm == null) {
-			msg.setSuccessful(false);
-			msg.setMessage("Could not find Rcm");
-			return msg;
-		}
-		
-		rcm.setStatus(RcmStatus.INACTIVE);
-		
-		msg.setSuccessful(rcmService.updateRcm(rcm));
-		if(!msg.isSuccessful()) {
-			msg.setMessage("Could not deactivate Rcm");
-		} else {
-			this.rmos = repository.getRmosById(this.rmos.getId());
-			
-		}
-		setChanged();
-		notifyObservers();
-		
-		return msg;
-	}
-	
 	/*To return a message when the rcm is deactivated and to set the sattsu of the rcm as inactive*/
 	public Message deactivateRcm(int id, String reason) {
 		RcmService rcmService = new RcmService();

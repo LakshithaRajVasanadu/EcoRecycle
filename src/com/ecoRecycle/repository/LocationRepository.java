@@ -69,6 +69,7 @@ public class LocationRepository {
 			tx = session.beginTransaction();
 
 			Criteria criteria = session.createCriteria(Location.class);
+			/*Restriction added to column city*/
 			criteria.add(Restrictions.eq("city", city));
 			location = (Location) criteria.uniqueResult();
 
